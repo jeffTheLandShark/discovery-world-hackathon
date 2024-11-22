@@ -14,12 +14,13 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  arcore_flutter_plugin: ^0.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
@@ -30,3 +31,6 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/earth.obj
+    - assets/earth.jpg
+    - assets/earth.mtl
