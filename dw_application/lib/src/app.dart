@@ -1,13 +1,14 @@
+import 'package:dw_application/src/exhibits/exhibit_details_view.dart';
+import 'package:dw_application/src/exhibits/exhibit_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
 import 'nfc_reader/exhibit_scan_view.dart';
+import 'exhibits/exhibit.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatefulWidget {
@@ -19,15 +20,54 @@ class MyApp extends StatefulWidget {
   final SettingsController settingsController;
 
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
 
+  static const List<Exhibit> _exhibits = [
+    Exhibit(
+        'exhibit1',
+        'assets/images/exhibit1.jpg',
+        Article(1, {
+          'en1': 'Exhibit 1 Title',
+          'es1': 'Título de la exposición 1',
+        }, {
+          'en1': 'Exhibit 1 Description',
+          'es1': 'Descripción de la exposición 1',
+        }),
+        'en',
+        '1'),
+    Exhibit(
+        'yippe_trains',
+        '',
+        Article(2, {
+          'en1': 'Exhibit 2 Title',
+          'es1': 'Título de la exposición 2',
+        }, {
+          'en1': 'Exhibit 2 Description',
+          'es1': 'Descripción de la exposición 2',
+        }),
+        'en',
+        '2'),
+    Exhibit(
+        'exhibit3',
+        'assets/images/exhibit3.jpg',
+        Article(3, {
+          'en1': 'Exhibit 3 Title',
+          'es1': 'Título de la exposición 3',
+        }, {
+          'en1': 'Exhibit 3 Description',
+          'es1': 'Descripción de la exposición 3',
+        }),
+        'en',
+        '3'),
+  ];
+
   static final List<Widget> _widgetOptions = <Widget>[
-    SampleItemListView(),
-    ExhibitScanView()
+    const ExhibitItemListView(exhibits: _exhibits),
+    const ExhibitScanView()
   ];
 
   void _onItemTapped(int index) {
@@ -88,17 +128,13 @@ class _MyAppState extends State<MyApp> {
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
-                    print('routeSettings.name: ${routeSettings.name}');
-
                     return SettingsView(controller: widget.settingsController);
-                  case SampleItemDetailsView.routeName:
-                    print('routeSettings.name: ${routeSettings.name}');
-
-                    return const SampleItemDetailsView();
-                  case SampleItemListView.routeName:
-                    print('routeSettings.name: ${routeSettings.name}');
-
-                    return const SampleItemListView();
+                  case ExhibitDetailsView.routeName:
+                    final id = routeSettings.arguments as String;
+                    final exhibit = _exhibits.firstWhere((e) => e.id == id);
+                    return ExhibitDetailsView(exhibit: exhibit);
+                  case ExhibitItemListView.routeName:
+                    return const ExhibitItemListView(exhibits: _exhibits);
                   case ExhibitScanView.routeName:
                     return const ExhibitScanView();
                   default:
@@ -135,8 +171,4 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-}
-
-extension on Widget {
-  String? get routeName => null;
 }

@@ -9,7 +9,7 @@ class ExhibitScanView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scan NFC Tag'),
+        title: const Text('Scan NFC Tag'),
       ),
       body: Center(
         child: FutureBuilder<bool>(
@@ -18,7 +18,7 @@ class ExhibitScanView extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
             } else if (snapshot.hasError || !snapshot.data!) {
-              return Text('NFC is not available');
+              return const Text('NFC is not available');
             } else {
               NfcManager.instance.startSession(
                 onDiscovered: (NfcTag tag) async {
@@ -38,12 +38,15 @@ class ExhibitScanView extends StatelessWidget {
                             NdefTypeNameFormat.nfcWellknown &&
                         record.payload.isNotEmpty) {
                       final payload = record.payload;
-                      // drop first character
-                      final routingInfo =
+                      // drop first character and extract URL from params
+                      final payloadString =
                           String.fromCharCodes(payload.sublist(1));
+                      final uri = Uri.parse(payloadString);
+                      final routingInfo = uri.queryParameters['id'] ?? '';
                       Navigator.restorablePushNamed(
                         context,
-                        routingInfo,
+                        uri.path,
+                        arguments: routingInfo,
                       );
 
                       break;
@@ -51,7 +54,7 @@ class ExhibitScanView extends StatelessWidget {
                   }
                 },
               );
-              return Text('Listening for NFC tags...');
+              return const Text('Listening for NFC tags...');
             }
           },
         ),
