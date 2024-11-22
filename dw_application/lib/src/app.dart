@@ -8,9 +8,10 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
 import 'package:nfc_manager/nfc_manager.dart';
+import 'nfc_reader/exhibit_scan_view.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({
     super.key,
     required this.settingsController,
@@ -19,13 +20,31 @@ class MyApp extends StatelessWidget {
   final SettingsController settingsController;
 
   @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _selectedIndex = 0;
+
+  static final List<Widget> _widgetOptions = <Widget>[
+    SampleItemListView(),
+    ExhibitScanView()
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Glue the SettingsController to the MaterialApp.
     //
     // The ListenableBuilder Widget listens to the SettingsController for changes.
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return ListenableBuilder(
-      listenable: settingsController,
+      listenable: widget.settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           // Providing a restorationScopeId allows the Navigator built by the
@@ -60,7 +79,7 @@ class MyApp extends StatelessWidget {
           // SettingsController to display the correct theme.
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
-          themeMode: settingsController.themeMode,
+          themeMode: widget.settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
@@ -70,63 +89,46 @@ class MyApp extends StatelessWidget {
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
+                    return SettingsView(controller: widget.settingsController);
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
                   case SampleItemListView.routeName:
-                  default:
                     return const SampleItemListView();
+                  case ExhibitScanView.routeName:
+                    return const ExhibitScanView();
+                  default:
+                    print('routeSettings.name: ${routeSettings.name}');
+                    return const ExhibitScanView();
                 }
               },
             );
           },
+          home: Scaffold(
+            body: Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list),
+                  label: 'List',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.nfc),
+                  label: 'Scan NFC',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              selectedItemColor: Colors.amber[800],
+              onTap: _onItemTapped,
+            ),
+          ),
         );
       },
     );
   }
 }
 
-class NfcScreen extends StatefulWidget {
-  @override
-  _NfcScreenState createState() => _NfcScreenState();
+extension on Widget {
+  String? get routeName => null;
 }
-
-class _NfcScreenState extends State<NfcScreen> {
-  String _nfcData = 'Scan a tag';
-
-  @override
-  void initState() {
-    super.initState();
-    _startNfcScan();
-  }
-
-  void _startNfcScan() async {
-    NfcManager.instance.startSession(
-      onDiscovered: (NfcTag tag) async {
-        final ndef = Ndef.from(tag);
-        if (ndef != null) {
-          final message = await ndef.read();
-          setState(() {
-            _nfcData = message.records.map((record) => String.fromCharCodes(record.payload)).join();
-          });
-        } else {
-          setState(() {
-            _nfcData = 'NDEF not supported';
-          });
-        }
-        return;
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('NFC Reader')),
-      body: Center(
-        child: Text(_nfcData),
-      ),
-    );
-  }
-}
-
