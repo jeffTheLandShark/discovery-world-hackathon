@@ -7,7 +7,6 @@ import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
-import 'package:nfc_manager/nfc_manager.dart';
 import 'nfc_reader/exhibit_scan_view.dart';
 
 /// The Widget that configures your application.
@@ -89,16 +88,25 @@ class _MyAppState extends State<MyApp> {
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
+                    print('routeSettings.name: ${routeSettings.name}');
+
                     return SettingsView(controller: widget.settingsController);
                   case SampleItemDetailsView.routeName:
+                    print('routeSettings.name: ${routeSettings.name}');
+
                     return const SampleItemDetailsView();
                   case SampleItemListView.routeName:
+                    print('routeSettings.name: ${routeSettings.name}');
+
                     return const SampleItemListView();
                   case ExhibitScanView.routeName:
                     return const ExhibitScanView();
                   default:
-                    print('routeSettings.name: ${routeSettings.name}');
-                    return const ExhibitScanView();
+                    return const Scaffold(
+                      body: Center(
+                        child: Text('Not Found'),
+                      ),
+                    );
                 }
               },
             );
