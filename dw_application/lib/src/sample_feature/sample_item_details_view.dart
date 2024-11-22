@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 /// Displays detailed information about a SampleItem.
 class SampleItemDetailsView extends StatelessWidget {
-  const SampleItemDetailsView({super.key});
+  const SampleItemDetailsView({super.key, this.itemId});
 
-  static const routeName = '/sample_item';
+  final int? itemId;
+  static const routeName = '/exhibit';
+
+  String getRouteName() {
+    return '$routeName?id=${itemId?.toString() ?? ''}';
+  }
 
   @override
   Widget build(BuildContext context) {
