@@ -7,6 +7,8 @@ import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
+import 'package:nfc_manager/nfc_manager.dart';
+
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -83,3 +85,48 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class NfcScreen extends StatefulWidget {
+  @override
+  _NfcScreenState createState() => _NfcScreenState();
+}
+
+class _NfcScreenState extends State<NfcScreen> {
+  String _nfcData = 'Scan a tag';
+
+  @override
+  void initState() {
+    super.initState();
+    _startNfcScan();
+  }
+
+  void _startNfcScan() async {
+    NfcManager.instance.startSession(
+      onDiscovered: (NfcTag tag) async {
+        final ndef = Ndef.from(tag);
+        if (ndef != null) {
+          final message = await ndef.read();
+          setState(() {
+            _nfcData = message.records.map((record) => String.fromCharCodes(record.payload)).join();
+          });
+        } else {
+          setState(() {
+            _nfcData = 'NDEF not supported';
+          });
+        }
+        return;
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('NFC Reader')),
+      body: Center(
+        child: Text(_nfcData),
+      ),
+    );
+  }
+}
+
