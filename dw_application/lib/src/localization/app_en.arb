@@ -1,0 +1,6 @@
+{
+  "appTitle": "dw_application",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
