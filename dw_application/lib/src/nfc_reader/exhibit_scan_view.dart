@@ -38,9 +38,9 @@ class ExhibitScanView extends StatelessWidget {
                             NdefTypeNameFormat.nfcWellknown &&
                         record.payload.isNotEmpty) {
                       final payload = record.payload;
-                      print('payload: ${payload}');
-                      final routingInfo = String.fromCharCodes(payload);
-                      print('routingInfo: ${routingInfo}');
+                      // drop first character
+                      final routingInfo =
+                          String.fromCharCodes(payload.sublist(1));
                       Navigator.restorablePushNamed(
                         context,
                         routingInfo,
