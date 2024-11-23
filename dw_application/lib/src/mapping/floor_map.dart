@@ -119,7 +119,42 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   }
 
   void pan(MapNode start, MapNode end){
-    
+    double scale = _controller.value.getMaxScaleOnAxis();
+    // Adjust for the current scale (so the translation is scaled correctly)
+    double targetX =  -end.xPos*scale;
+    double targetY =  -end.yPos*scale;
+
+    // Get the current transformation matrix
+    Matrix4 currentMatrix = _controller.value;
+    Matrix4 targetMatrix = Matrix4.identity();
+
+    // Calculate the difference in position between the current view center and the target position
+    double offsetX = targetX - targetMatrix.getTranslation().x*scale;
+    double offsetY = targetY - targetMatrix.getTranslation().y*scale;
+
+    // Apply the translation to the current matrix (while preserving scale)
+    targetMatrix.translate(offsetX, offsetY);
+
+    // Set up animation controller
+    final AnimationController animationController = AnimationController(
+      vsync: this, // Ensure your widget implements TickerProviderStateMixin
+      duration: const Duration(milliseconds: 500), // Animation duration
+    );
+
+    // Set up tween between current and target matrix
+    final Matrix4Tween tween = Matrix4Tween(
+      begin: currentMatrix,
+      end: targetMatrix,
+    );
+
+    // Start animation
+    animationController.addListener(() {
+      setState(() {
+        _controller.value = tween.evaluate(animationController);
+      });
+    });
+
+    animationController.forward();
   }
 
   void moveToIcon(int index) {
