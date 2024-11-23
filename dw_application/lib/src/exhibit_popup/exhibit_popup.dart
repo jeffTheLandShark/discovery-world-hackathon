@@ -19,6 +19,7 @@ class ExhibitPopup extends StatefulWidget {
 
 class ExhibitPopupState extends State<ExhibitPopup> {
   late String displayText;
+  late int exhibitIndex;
 
   @override
   void initState() {
@@ -26,14 +27,22 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     displayText = widget.initialText;
   }
 
-  void updateText(String newText) {
+  void updateText(String newText, int index) {
     setState(() {
       displayText = newText;
+      exhibitIndex = index;
     });
+  }
+
+  late MainMap mainMap;
+
+  void zoom(int index){
+    mainMap.currentFloor?.key?.currentState?.moveToIcon(index);
   }
 
   @override
   Widget build(BuildContext context) {
+    mainMap = MainMap(popupState: this);
     return Scaffold(
       appBar: AppBar(
         title: Text("Test"),
@@ -43,16 +52,21 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         panel: Column(
           children: [
             const SizedBox(height: 5),
-            Container(
-              child: Text(
-                displayText,
-                style: const TextStyle(color: Colors.black),
-              ),
+            Column(
+              children: [
+                Text(
+                  displayText,
+                  style: const TextStyle(color: Colors.black),
+                ),
+                TextButton(
+                  onPressed: (){zoom(exhibitIndex);},
+                  child: const Text("Go to point"))
+              ],
             ),
           ],
         ),
         body: Center(
-          child: MainMap(popupState: this,),
+          child: mainMap,
         ),
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
-import 'dart:collection';
 
 import 'map_node.dart';
 import 'exhibit_node.dart';
@@ -8,7 +7,6 @@ import 'exhibit_node.dart';
 import 'package:dw_application/src/mapping/floor_map.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'floor_transition_node.dart';
 
 import '../exhibit_popup/exhibit_popup.dart';
 
@@ -16,78 +14,19 @@ class FloorMap extends StatefulWidget {
   final String _path;
   final ExhibitPopupState _popup;
 
-  // Define a GlobalKey to access the FloorMapState
-  final GlobalKey<FloorMapState> _key = GlobalKey<FloorMapState>();
+  GlobalKey<FloorMapState>? _key;
 
-  FloorMap({required String path, required ExhibitPopupState popup})
+  FloorMap({required String path, required ExhibitPopupState popup, required GlobalKey<FloorMapState> key})
       : _path = path,
-        _popup = popup;
+        _popup = popup,
+        _key = key,
+        super(key: key);
 
   String get path => _path;
-
-  List<MapNode> mapNodes = [];
-
-  // Method to zoom on a specific exhibit
-  void zoomOnExhibit(int exhibitIndex) {
-    // Access the FloorMapState and call movePosition
-    _key.currentState?.movePosition(mapNodes[exhibitIndex].xPos, mapNodes[exhibitIndex].yPos);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    mapNodes = [
-      ExhibitNode(floor: this, xPos: 0, yPos: 0, description: "description")
-    ];
-    return Container();
-  }
+  GlobalKey<FloorMapState>? get key => _key;
 
   @override
   FloorMapState createState() => FloorMapState();
-
-  /// Retrieves a transition node that can transition to the specified [node]'s floor.
-  /// 
-  /// If the specified [node] is already on the same floor, returns `null`.
-  /// Otherwise, iterates through the list of map nodes and returns the first 
-  /// [FloorTransitionNode] that can transition to the specified [node]'s floor.
-  /// 
-  /// Returns `null` if no such transition node is found.
-  /// 
-  /// - Parameter node: The target [MapNode] to find a transition node for.
-  /// - Returns: A [FloorTransitionNode] that can transition to the specified [node]'s floor, or `null` if no such node exists.
-  FloorTransitionNode? getTransitionNode(MapNode node) {
-    if (node.floor == this) {
-      return null;
-    }
-    for (var element in mapNodes) {
-      if (element is FloorTransitionNode) {
-        if (element.canGoTo.contains(node)) {
-          return element;
-        }
-      }
-    }
-    return null;
-  }
-
-  Queue<MapNode> getTransitions(MapNode start, MapNode end) {
-    Queue<MapNode> transitions = Queue();
-    FloorTransitionNode? transition = getTransitionNode(end);
-
-    //At the moment, this is true both if the nodes are on the same floor as well as if there is more than one step to get to the end node
-    if (transition == null) {
-      return transitions;
-    }
-    transitions.add(transition);
-
-    for (var node in transition.canGoTo) {
-      if (node.floor == end.floor) {
-        transitions.add(node);
-        return transitions;
-      }
-    }
-  
-    return transitions;
-  }
-
 }
 
 class FloorMapState extends State<FloorMap> {
@@ -97,18 +36,6 @@ class FloorMapState extends State<FloorMap> {
   List<ExhibitNode> exhibits = [];
   static const double iconSize = 20;
   int? activeIconIndex;
-
-  // Method to move position
-  void movePosition(double x, double y) {
-    // Extract the current scale from the transformation matrix
-    final Matrix4 currentMatrix = _controller.value;
-    final double currentScale = currentMatrix.getMaxScaleOnAxis();
-
-    // Create a new matrix with the same scale but updated position
-    _controller.value = Matrix4.identity()
-      ..scale(currentScale) // Preserve the current scale
-      ..translate(x, y);    // Update the position
-  }
 
   @override
   void initState() {
@@ -147,14 +74,13 @@ class FloorMapState extends State<FloorMap> {
           scale: _scale,
           isActive: activeIconIndex == i,
           onIconClick: () {
-            widget.zoomOnExhibit(i);
             setState(() {
               if (activeIconIndex != i) {
                 activeIconIndex = i;
-                widget._popup.updateText(ex.description);
+                widget._popup.updateText(ex.description, i);
               } else {
                 activeIconIndex = -1;
-                widget._popup.updateText("Click an exhibit to view information");
+                widget._popup.updateText("Click an exhibit to view information", -1);
               }
             });
           },
@@ -182,7 +108,36 @@ class FloorMapState extends State<FloorMap> {
       ),
     );
   }
+
+  void moveToIcon(int index) {
+    final ex = exhibits[index];
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    
+    // Position of the icon relative to the map's coordinates
+    double targetX = screenWidth / 2 + ex.xPos;
+    double targetY = screenHeight / 2 - ex.yPos;
+
+    // Adjust for the current scale (so the translation is scaled correctly)
+    double scale = _controller.value.getMaxScaleOnAxis();
+    targetX = screenWidth / 2 - targetX * scale;
+    targetY = screenHeight / 2 - targetY * scale;
+
+    // Get the current transformation matrix
+    Matrix4 currentMatrix = _controller.value.clone();
+
+    // Calculate the difference in position between the current view center and the target position
+    double offsetX = targetX - currentMatrix.getTranslation().x;
+    double offsetY = targetY - currentMatrix.getTranslation().y;
+
+    // Apply the translation to the current matrix (while preserving scale)
+    currentMatrix.translate(offsetX, offsetY);
+
+    // Set the new transformation matrix
+    _controller.value = currentMatrix;
+  }
 }
+
 
 
 class IconUpdater extends StatelessWidget {

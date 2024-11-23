@@ -25,27 +25,48 @@ class MainMap extends StatefulWidget {
   _MainMapState createState() => _MainMapState();
 }
 
+
 class _MainMapState extends State<MainMap> {
+  GlobalKey<FloorMapState> floorMapKey = GlobalKey<FloorMapState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("FloorMapState initialized!");
+
+    // Schedule a callback after the widget tree is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Access the state here
+      final state = floorMapKey.currentState;
+      if (state != null) {
+        state.moveToIcon(0); // Example usage
+      } else {
+        print("FloorMapState is null");
+      }
+    });
+  }
+
+  void setFloor(int index){
+    if(index >= 0 && index < widget.sections.length){
+      currentFloor = widget.sections[index];
+      widget.currentFloor = currentFloor;
+    }
+  }
+  
+  late FloorMap currentFloor;
+
   @override
   Widget build(BuildContext context) {
+
     widget.sections = [
-      FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState),
-      FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState),
-      FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState),
+      FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState, key: floorMapKey,),
+      //FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState),
+      //FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState),
     ];
     
-    FloorMap currentFloor = widget.sections[0];
-
-    void setFloor(int index){
-      if(index >= 0 && index < widget.sections.length){
-        currentFloor = widget.sections[index];
-      }
-    }
-
-    void zoomOnExhibit(int floorIndex, int exhibitIndex){
-      setFloor(floorIndex);
-      currentFloor.zoomOnExhibit(exhibitIndex);
-    }
+    currentFloor = widget.sections[0];
+    widget.currentFloor = currentFloor;
 
     return 
         currentFloor;
