@@ -4,13 +4,16 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import 'exhibit_map_data.dart';
 import '../exhibit_popup/exhibit_popup.dart';
+import 'map_node.dart';
 
 Future<String> loadAsset() async {
   return await rootBundle.loadString('assets/config.json');
 }
 
 class MainMap extends StatefulWidget {
-  MainMap({super.key, required this.popup});
+  final List<MapNode> mapNodes;
+
+  MainMap({super.key, required this.mapNodes, required this.popup});
 
   ExhibitPopupState popup;
 

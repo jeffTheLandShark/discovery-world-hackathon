@@ -10,8 +10,12 @@ import 'settings/settings_view.dart';
 import 'nfc_reader/exhibit_scan_view.dart';
 
 import 'mapping/main_map.dart';
+import 'mapping/map_node.dart';
+import 'mapping/floor_map.dart';
 
 import 'exhibit_popup/exhibit_popup.dart';
+
+
 
 /// The Widget that configures your application.
 class MyApp extends StatefulWidget {
@@ -28,6 +32,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
+
+  //create FloorMap(path_to_config)
+  //config: {
+  // - image: //path_to_image
+  // - node1: //info
+  // - yadayda
+  //}
 
   static final List<Widget> _widgetOptions = <Widget>[
     SampleItemListView(),
