@@ -24,6 +24,21 @@ class Exhibit {
   const Exhibit(this.id, this.image, this.article, this.languageCode,
       this.difficultyLevel);
 
+  factory Exhibit.fromJson(Map<String, dynamic> json) {
+    return Exhibit(
+      json['id'] as String,
+      json['image'] as String,
+      Article(
+        json['article']['id'] as String,
+        Map<String, String>.from(json['article']['titles'] as Map),
+        Map<String, String>.from(
+            json['article']['descriptions'] as Map<String, dynamic>),
+      ),
+      json['languageCode'] as String,
+      json['difficultyLevel'] as String,
+    );
+  }
+
   final String id;
   final String image;
   final Article article;
@@ -42,7 +57,7 @@ class Exhibit {
 class Article {
   const Article(this.id, this.titles, this.descriptions);
 
-  final int id;
+  final String id;
   final Map<String, String> titles;
   final Map<String, String> descriptions;
 

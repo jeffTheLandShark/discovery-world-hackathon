@@ -4,7 +4,7 @@
             "id": "exhibit1",
             "image": "assets/images/flutter_logo.png",
             "article": {
-                "id": 1,
+                "id": "exhibit1",
                 "titles": {
                     "en1": "Loreme",
                     "en2": "Loreme",
@@ -26,7 +26,7 @@
     ],
     "mapEntries": [
         {
-            "id": 1,
+            "id": "exhibit1",
             "location": {
                 "x": 12.5,
                 "y": 15.0,

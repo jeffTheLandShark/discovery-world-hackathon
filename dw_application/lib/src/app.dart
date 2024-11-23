@@ -29,27 +29,30 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
 
+  late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    readJson();
+    _widgetOptions = <Widget>[
+      ExhibitItemListView(exhibits: _exhibits), // Replace with actual widget
+      ExhibitScanView(),
+      SettingsView(controller: widget.settingsController),
+    ];
+  }
+
+  // Define the _exhibits variable
   List<Exhibit> _exhibits = [];
-  static late List<Widget> _widgetOptions;
 
   // Fetch content from the json file
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/example.json');
     final data = await json.decode(response);
     setState(() {
-      _exhibits = data["exhibits"];
+      _exhibits =
+          (data["exhibits"] as List).map((e) => Exhibit.fromJson(e)).toList();
     });
-  } 
-
-  @override
-  void initState() {
-    super.initState();
-    // Call the readJson method when the app starts
-    readJson();
-    _widgetOptions = <Widget>[
-      ExhibitItemListView(exhibits: _exhibits),
-      const ExhibitScanView()
-    ];
   }
 
   void _onItemTapped(int index) {
