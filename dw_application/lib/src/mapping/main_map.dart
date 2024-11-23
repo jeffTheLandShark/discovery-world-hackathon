@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 Future<String> loadAsset() async {
@@ -16,9 +14,10 @@ class MainMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
+      heightFactor: MediaQuery.sizeOf(context).height,
       child: InteractiveViewer(
         constrained: false,
-        boundaryMargin: const EdgeInsets.all(double.infinity),
+        boundaryMargin: const EdgeInsets.all(20),
         minScale: 0.1,
         maxScale: 10,
         child: Container(
