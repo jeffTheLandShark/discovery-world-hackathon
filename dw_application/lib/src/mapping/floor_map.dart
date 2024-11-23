@@ -119,12 +119,11 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   }
 
   void pan(MapNode start, MapNode end){
-
+    
   }
 
   void moveToIcon(int index) {
     final ex = mapNodes[index];
-    
 
     double scale = _controller.value.getMaxScaleOnAxis();
     // Adjust for the current scale (so the translation is scaled correctly)
