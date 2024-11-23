@@ -14,20 +14,28 @@ Future<String> loadAsset() async {
 }
 
 class MainMap extends StatefulWidget {
-  MainMap({super.key, required this.popupState});
+  
+  GlobalKey<MainMapState>? _mainKey;
+  
+  MainMap({super.key, required this.popupState, required GlobalKey<MainMapState> mainKey}) {
+    _mainKey = mainKey;
+  }
 
-  ExhibitPopupState popupState;
+  
+
+  final ExhibitPopupState popupState;
 
   List<FloorMap> sections = [];
 
   FloorMap? currentFloor;
 
+  GlobalKey<MainMapState>? get key => _mainKey;
+
   @override
-  _MainMapState createState() => _MainMapState();
+  MainMapState createState() => MainMapState();
 }
 
-
-class _MainMapState extends State<MainMap> {
+class MainMapState extends State<MainMap> {
   GlobalKey<FloorMapState> floorMapKey = GlobalKey<FloorMapState>();
 
   @override
