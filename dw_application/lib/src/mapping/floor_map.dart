@@ -29,7 +29,7 @@ class FloorMap extends StatefulWidget {
   FloorMapState createState() => FloorMapState();
 }
 
-class FloorMapState extends State<FloorMap> {
+class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   final TransformationController _controller = TransformationController();
   double _scale = 1.0;
 
@@ -51,6 +51,9 @@ class FloorMapState extends State<FloorMap> {
 
     _controller.addListener(() {
       final scale = _controller.value.getMaxScaleOnAxis();
+      print(_controller.value.getTranslation().x);
+      print(_controller.value.getTranslation().y);
+      print(" ");
       if (scale != _scale) {
         setState(() {
           _scale = scale;
@@ -67,8 +70,8 @@ class FloorMapState extends State<FloorMap> {
     for (int i = 0; i < exhibits.length; i++) {
       final ex = exhibits[i];
       Positioned p = Positioned(
-        bottom: MediaQuery.of(context).size.height / 2 - iconSize / 2 + ex.yPos,
-        left: MediaQuery.of(context).size.width / 2 - iconSize / 2 + ex.xPos,
+        top: MediaQuery.of(context).size.height/2 + ex.yPos,
+        left: MediaQuery.of(context).size.width/2 + ex.xPos,
         child: IconUpdater(
           iconSize: iconSize,
           scale: _scale,
@@ -93,11 +96,12 @@ class FloorMapState extends State<FloorMap> {
       heightFactor: MediaQuery.sizeOf(context).height,
       child: InteractiveViewer(
         constrained: false,
-        boundaryMargin: const EdgeInsets.all(20),
-        minScale: 0.1,
+        boundaryMargin: const EdgeInsets.all(100),
+        minScale: 1,
         maxScale: 10,
         transformationController: _controller,
         child: Container(
+          color: Colors.white,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
@@ -110,38 +114,58 @@ class FloorMapState extends State<FloorMap> {
   }
 
   void pan(MapNode start, MapNode end){
-    
+
   }
 
-  void moveToIcon(int index) {
-    final ex = exhibits[index];
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    
-    // Position of the icon relative to the map's coordinates
-    double targetX = screenWidth / 2 + ex.xPos;
-    double targetY = screenHeight / 2 - ex.yPos;
-
-    // Adjust for the current scale (so the translation is scaled correctly)
-    double scale = _controller.value.getMaxScaleOnAxis();
-    targetX = screenWidth / 2 - targetX * scale;
-    targetY = screenHeight / 2 - targetY * scale;
-
-    // Get the current transformation matrix
-    Matrix4 currentMatrix = _controller.value.clone();
-
-    // Calculate the difference in position between the current view center and the target position
-    double offsetX = targetX - currentMatrix.getTranslation().x;
-    double offsetY = targetY - currentMatrix.getTranslation().y;
-
-    // Apply the translation to the current matrix (while preserving scale)
-    currentMatrix.translate(offsetX, offsetY);
-
-    // Set the new transformation matrix
-    _controller.value = currentMatrix;
+  void moveToNode(int index) {
+  if (index < 0 || index >= exhibits.length) {
+    return;
   }
+
+  final ex = exhibits[index];
+  final screenWidth = MediaQuery.of(context).size.width;
+  final screenHeight = MediaQuery.of(context).size.height;
+
+  double scale = _controller.value.getMaxScaleOnAxis();
+
+  // Adjust for the current scale (so the translation is scaled correctly)
+  double targetX =  -ex.xPos*scale;
+  double targetY =  -ex.yPos*scale;
+
+  // Get the current transformation matrix
+  Matrix4 currentMatrix = _controller.value;
+  Matrix4 targetMatrix = Matrix4.identity();
+
+  // Calculate the difference in position between the current view center and the target position
+  double offsetX = targetX - targetMatrix.getTranslation().x*scale;
+  double offsetY = targetY - targetMatrix.getTranslation().y*scale;
+
+  // Apply the translation to the current matrix (while preserving scale)
+  targetMatrix.translate(offsetX, offsetY);
+
+  // Set up animation controller
+  final AnimationController animationController = AnimationController(
+    vsync: this, // Ensure your widget implements TickerProviderStateMixin
+    duration: const Duration(milliseconds: 500), // Animation duration
+  );
+
+  // Set up tween between current and target matrix
+  final Matrix4Tween tween = Matrix4Tween(
+    begin: currentMatrix,
+    end: targetMatrix,
+  );
+
+  // Start animation
+  animationController.addListener(() {
+    setState(() {
+      _controller.value = tween.evaluate(animationController);
+    });
+  });
+
+  animationController.forward();
 }
 
+}
 
 
 class IconUpdater extends StatelessWidget {

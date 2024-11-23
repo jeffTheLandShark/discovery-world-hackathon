@@ -34,18 +34,6 @@ class _MainMapState extends State<MainMap> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("FloorMapState initialized!");
-
-    // Schedule a callback after the widget tree is built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Access the state here
-      final state = floorMapKey.currentState;
-      if (state != null) {
-        state.moveToIcon(0); // Example usage
-      } else {
-        print("FloorMapState is null");
-      }
-    });
   }
 
   void transitionFloor(FloorTransitionNode start, FloorTransitionNode end){

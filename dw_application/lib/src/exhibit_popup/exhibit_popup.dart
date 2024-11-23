@@ -19,7 +19,7 @@ class ExhibitPopup extends StatefulWidget {
 
 class ExhibitPopupState extends State<ExhibitPopup> {
   late String displayText;
-  late int exhibitIndex;
+  int exhibitIndex = -1;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   late MainMap mainMap;
 
   void zoom(int index){
-    mainMap.currentFloor?.key?.currentState?.moveToIcon(index);
+    mainMap.currentFloor?.key?.currentState?.moveToNode(index);
   }
 
   @override
