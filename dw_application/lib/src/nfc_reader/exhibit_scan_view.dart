@@ -20,45 +20,51 @@ class ExhibitScanView extends StatelessWidget {
             } else if (snapshot.hasError || !snapshot.data!) {
               return const Text('NFC is not available');
             } else {
-              NfcManager.instance.startSession(
-                onDiscovered: (NfcTag tag) async {
-                  NfcManager.instance.stopSession();
-                  final ndef = Ndef.from(tag);
-                  if (ndef == null || !ndef.isWritable) {
-                    // Handle the case where the tag is not NDEF formatted
-                    return;
-                  }
-                  final ndefMessage = ndef.cachedMessage;
-                  if (ndefMessage == null) {
-                    // Handle the case where there is no NDEF message
-                    return;
-                  }
-                  for (var record in ndefMessage.records) {
-                    if (record.typeNameFormat ==
-                            NdefTypeNameFormat.nfcWellknown &&
-                        record.payload.isNotEmpty) {
-                      final payload = record.payload;
-                      // drop first character and extract URL from params
-                      final payloadString =
-                          String.fromCharCodes(payload.sublist(1));
-                      final uri = Uri.parse(payloadString);
-                      final routingInfo = uri.queryParameters['id'] ?? '';
-                      Navigator.restorablePushNamed(
-                        context,
-                        uri.path,
-                        arguments: routingInfo,
-                      );
-
-                      break;
-                    }
-                  }
-                },
-              );
+              _startNfcSession(context);
               return const Text('Listening for NFC tags...');
             }
           },
         ),
       ),
+    );
+  }
+
+  void _startNfcSession(BuildContext context) {
+    NfcManager.instance.startSession(
+      onDiscovered: (NfcTag tag) async {
+        NfcManager.instance.stopSession();
+        final ndef = Ndef.from(tag);
+        if (ndef == null || !ndef.isWritable) {
+          // Handle the case where the tag is not NDEF formatted
+          _startNfcSession(context);
+          return;
+        }
+        final ndefMessage = ndef.cachedMessage;
+        if (ndefMessage == null) {
+          // Handle the case where there is no NDEF message
+          _startNfcSession(context);
+          return;
+        }
+        for (var record in ndefMessage.records) {
+          if (record.typeNameFormat == NdefTypeNameFormat.nfcWellknown &&
+              record.payload.isNotEmpty) {
+            final payload = record.payload;
+            // drop first character and extract URL from params
+            final payloadString = String.fromCharCodes(payload.sublist(1));
+            final uri = Uri.parse(payloadString);
+            final routingInfo = uri.queryParameters['id'] ?? '';
+            Navigator.restorablePushNamed(
+              context,
+              uri.path,
+              arguments: routingInfo,
+            );
+
+            break;
+          }
+        }
+        // Restart the NFC session after processing the tag
+        _startNfcSession(context);
+      },
     );
   }
 }
