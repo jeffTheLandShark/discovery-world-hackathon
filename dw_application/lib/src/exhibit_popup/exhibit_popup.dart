@@ -1,8 +1,11 @@
+import 'dart:collection';
+
 import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../mapping/floor_map.dart';
+import '../mapping/floor_transition_node.dart';
 import '../mapping/map_node.dart';
 
 class ExhibitPopup extends StatefulWidget {
@@ -18,6 +21,7 @@ class ExhibitPopup extends StatefulWidget {
 }
 
 class ExhibitPopupState extends State<ExhibitPopup> {
+  GlobalKey<MainMapState> mainMapKey = GlobalKey<MainMapState>();
   late String displayText;
   int exhibitIndex = -1;
 
@@ -37,13 +41,25 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   late MainMap mainMap;
 
   void zoom(int index){
-    FloorMapState? state = mainMap.currentFloor?.key?.currentState;
-    state?.moveToIcon(index);
-  }
+    FloorMapState? floorState = mainMap.currentFloor?.key?.currentState;
+    MainMapState? mapState = mainMap.key?.currentState;
+    Queue<MapNode>? transitions = floorState?.getTransitions(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
+    if (transitions == null) {
+      floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
+    } else {
+      for (var node in transitions){
+        if (node is FloorTransitionNode) {
+          floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], node);
+        } else {
+          mapState!.transitionFloor(floorState!.mapNodes[floorState.activeIconIndex!] as FloorTransitionNode, node as FloorTransitionNode);
+        }
+      }
+    }
+}
 
   @override
   Widget build(BuildContext context) {
-    mainMap = MainMap(popupState: this);
+    mainMap = MainMap(popupState: this, mainKey: mainMapKey);
     return Scaffold(
       appBar: AppBar(
         title: Text("Test"),
