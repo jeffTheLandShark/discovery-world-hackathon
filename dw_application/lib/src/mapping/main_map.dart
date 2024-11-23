@@ -9,7 +9,9 @@ Future<String> loadAsset() async {
 }
 
 class MainMap extends StatelessWidget {
-  const MainMap({super.key});
+  MainMap({super.key});
+
+  final IconColorChanger icon = IconColorChanger();
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,45 @@ class MainMap extends StatelessWidget {
         constrained: false,
         boundaryMargin: const EdgeInsets.all(double.infinity),
         minScale: 0.1,
-        maxScale: 1.6,
-        child: const Image(image: AssetImage('assets/images/map_assets/tech_floor2.png'))
+        maxScale: 10,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image(image: AssetImage('assets/images/map_assets/tech_floor2.png')),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: icon),
+          ],
+        )
       ),
+    );
+  }
+}
+
+class IconColorChanger extends StatefulWidget {
+  @override
+  _IconColorChangerState createState() => _IconColorChangerState();
+}
+
+class _IconColorChangerState extends State<IconColorChanger> {
+  // Initial color of the icon
+  Color iconColor = Colors.red;
+
+  // Method to toggle the color on click
+  void _changeIconColor() {
+    setState(() {
+      // Toggle between blue and red
+      iconColor = (iconColor == Colors.red) ? Colors.blue : Colors.red;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.circle, color: iconColor),
+      onPressed: _changeIconColor,
+      iconSize: 30,
     );
   }
 }
