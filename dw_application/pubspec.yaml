@@ -15,6 +15,9 @@ dependencies:
   nfc_manager: ^3.0.0  # Check for the latest version
   flutter_localizations:
     sdk: flutter
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  flutter_map_cancellable_tile_provider: ^3.0.2
 
 dev_dependencies:
   flutter_test:

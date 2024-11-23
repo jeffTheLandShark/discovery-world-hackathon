@@ -9,6 +9,8 @@ import 'settings/settings_view.dart';
 
 import 'nfc_reader/exhibit_scan_view.dart';
 
+import 'mapping/main_map.dart';
+
 /// The Widget that configures your application.
 class MyApp extends StatefulWidget {
   const MyApp({
@@ -27,7 +29,8 @@ class _MyAppState extends State<MyApp> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     SampleItemListView(),
-    ExhibitScanView()
+    ExhibitScanView(),
+    MainMap()
   ];
 
   void _onItemTapped(int index) {
@@ -125,6 +128,9 @@ class _MyAppState extends State<MyApp> {
                   icon: Icon(Icons.nfc),
                   label: 'Scan NFC',
                 ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.map),
+                  label: 'Map')
               ],
               currentIndex: _selectedIndex,
               selectedItemColor: Colors.amber[800],
