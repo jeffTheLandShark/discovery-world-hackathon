@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
 
+import 'floor_transition_node.dart';
 import 'map_node.dart';
 import 'exhibit_node.dart';
 
@@ -33,7 +36,7 @@ class FloorMapState extends State<FloorMap> {
   final TransformationController _controller = TransformationController();
   double _scale = 1.0;
 
-  List<ExhibitNode> exhibits = [];
+  List<MapNode> mapNodes = [];
   static const double iconSize = 20;
   int? activeIconIndex;
 
@@ -41,7 +44,7 @@ class FloorMapState extends State<FloorMap> {
   void initState() {
     super.initState();
 
-    exhibits = [
+    mapNodes = [
       ExhibitNode(floor: widget, xPos: 0, yPos: 0, description: "description 1"),
       ExhibitNode(floor: widget, xPos: 10, yPos: 10, description: "description 2"),
       ExhibitNode(floor: widget, xPos: 100, yPos: -20, description: "description 3"),
@@ -64,8 +67,8 @@ class FloorMapState extends State<FloorMap> {
     final stackChildren = <Widget>[];
     stackChildren.add(const Image(image: AssetImage('assets/images/map_assets/tech_floor2.png')));
 
-    for (int i = 0; i < exhibits.length; i++) {
-      final ex = exhibits[i];
+    for (int i = 0; i < mapNodes.length; i++) {
+      final ex = mapNodes[i];
       Positioned p = Positioned(
         bottom: MediaQuery.of(context).size.height / 2 - iconSize / 2 + ex.yPos,
         left: MediaQuery.of(context).size.width / 2 - iconSize / 2 + ex.xPos,
@@ -77,7 +80,9 @@ class FloorMapState extends State<FloorMap> {
             setState(() {
               if (activeIconIndex != i) {
                 activeIconIndex = i;
-                widget._popup.updateText(ex.description, i);
+                if (ex is ExhibitNode) {
+                  widget._popup.updateText(ex.description, i);
+                }
               } else {
                 activeIconIndex = -1;
                 widget._popup.updateText("Click an exhibit to view information", -1);
@@ -114,7 +119,7 @@ class FloorMapState extends State<FloorMap> {
   }
 
   void moveToIcon(int index) {
-    final ex = exhibits[index];
+    final ex = mapNodes[index];
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     
@@ -139,6 +144,40 @@ class FloorMapState extends State<FloorMap> {
 
     // Set the new transformation matrix
     _controller.value = currentMatrix;
+  }
+
+  FloorTransitionNode? getTransitionNode(MapNode node) {
+    if (node.floor == this) {
+      return null;
+    }
+    for (var element in mapNodes) {
+      if (element is FloorTransitionNode) {
+        if (element.canGoTo.contains(node)) {
+          return element;
+        }
+      }
+    }
+    return null;
+  }
+
+  Queue<MapNode> getTransitions(MapNode start, MapNode end) {
+    Queue<MapNode> transitions = Queue();
+    FloorTransitionNode? transition = getTransitionNode(end);
+
+    //At the moment, this is true both if the nodes are on the same floor as well as if there is more than one step to get to the end node
+    if (transition == null) {
+      return transitions;
+    }
+    transitions.add(transition);
+
+    for (var node in transition.canGoTo) {
+      if (node.floor == end.floor) {
+        transitions.add(node);
+        return transitions;
+      }
+    }
+  
+    return transitions;
   }
 }
 
