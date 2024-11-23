@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import 'exhibit_map_data.dart';
+import '../exhibit_popup/exhibit_popup.dart';
+
 Future<String> loadAsset() async {
   return await rootBundle.loadString('assets/config.json');
 }
 
 class MainMap extends StatefulWidget {
-  MainMap({super.key});
+  MainMap({super.key, required this.popup});
+
+  ExhibitPopupState popup;
 
   @override
   _MainMapState createState() => _MainMapState();
@@ -15,16 +20,22 @@ class MainMap extends StatefulWidget {
 
 class _MainMapState extends State<MainMap> {
   final TransformationController _controller = TransformationController();
-  double _scale = 1.0;  // To track the zoom scale
+  double _scale = 1.0; // To track the zoom scale
 
-  final List<List<double>> dotPositions = [
-    [0, 0],
-    [10, 10],
-    [100, 10],
-    [75, 75]
+  // Add a GlobalKey for ExhibitPopup
+  final GlobalKey<ExhibitPopupState> popupKey = GlobalKey();
+
+  final List<ExhibitMapData> exhibits = [
+    ExhibitMapData("Exhibit 1", "This is description for exhibit 1", 0, 0),
+    ExhibitMapData("Exhibit 2", "This is description for exhibit 2", -20, 10),
+    ExhibitMapData("Exhibit 3", "This is description for exhibit 3", 30, -20),
+    ExhibitMapData("Exhibit 4", "This is description for exhibit 4", 100, 20),
   ];
 
-  static const double iconSize = 15;
+  static const double iconSize = 20;
+
+  // Keep track of the active icon's index
+  int? activeIconIndex;
 
   @override
   void initState() {
@@ -35,7 +46,7 @@ class _MainMapState extends State<MainMap> {
       final scale = _controller.value.getMaxScaleOnAxis();
       if (scale != _scale) {
         setState(() {
-          _scale = scale;  // Update the scale when it changes
+          _scale = scale; // Update the scale when it changes
         });
       }
     });
@@ -46,13 +57,21 @@ class _MainMapState extends State<MainMap> {
     final stackChildren = <Widget>[];
     stackChildren.add(const Image(image: AssetImage('assets/images/map_assets/tech_floor2.png')));
 
-    for (List<double> l in dotPositions) {
+    for (int i = 0; i < exhibits.length; i++) {
+      final ex = exhibits[i];
       Positioned p = Positioned(
-        bottom: MediaQuery.of(context).size.height / 2 - iconSize / 2 + l[0],
-        left: MediaQuery.of(context).size.width / 2 - iconSize / 2 + l[1],
+        bottom: MediaQuery.of(context).size.height / 2 - iconSize / 2 + ex.y,
+        left: MediaQuery.of(context).size.width / 2 - iconSize / 2 + ex.x,
         child: IconUpdater(
           iconSize: iconSize,
-          scale: _scale,  // Pass the updated scale
+          scale: _scale, // Pass the updated scale
+          isActive: activeIconIndex == i, // Pass whether the icon is active
+          onIconClick: () {
+            setState(() {
+              activeIconIndex = i; // Update the active icon index
+            });
+            widget.popup.updateText(ex.description); // Update the text dynamically
+          },
         ),
       );
       stackChildren.add(p);
@@ -79,37 +98,29 @@ class _MainMapState extends State<MainMap> {
   }
 }
 
-class IconUpdater extends StatefulWidget {
+class IconUpdater extends StatelessWidget {
   final double iconSize;
-  final double scale;  // Receive the scale from MainMap
+  final double scale; // Receive the scale from MainMap
+  final bool isActive; // Indicates if the icon is active
+  final VoidCallback onIconClick; // Add callback for click
 
-  const IconUpdater({super.key, required this.iconSize, required this.scale});
-
-  @override
-  _IconUpdaterState createState() => _IconUpdaterState();
-}
-
-class _IconUpdaterState extends State<IconUpdater> {
-  // Initial color of the icon
-  Color iconColor = Colors.red;
-
-  // Method to toggle the color on click
-  void _changeIconColor() {
-    setState(() {
-      // Toggle between blue and red
-      iconColor = (iconColor == Colors.red) ? Colors.blue : Colors.red;
-    });
-  }
+  const IconUpdater({
+    super.key,
+    required this.iconSize,
+    required this.scale,
+    required this.isActive, // Accept whether the icon is active
+    required this.onIconClick, // Accept the callback
+  });
 
   @override
   Widget build(BuildContext context) {
     // Apply the inverse scale to the icon to maintain its constant size
     return Transform.scale(
-      scale: 1 / widget.scale,  // Use the passed scale to update the icon size
+      scale: 1 / scale, // Use the passed scale to update the icon size
       child: IconButton(
-        icon: Icon(Icons.circle, color: iconColor),
-        onPressed: _changeIconColor,
-        iconSize: widget.iconSize,  // Use the passed iconSize
+        icon: Icon(Icons.circle, color: isActive ? Colors.blue : Colors.red),
+        onPressed: onIconClick, // Call the provided callback
+        iconSize: iconSize, // Use the passed iconSize
       ),
     );
   }

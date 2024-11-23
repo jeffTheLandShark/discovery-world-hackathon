@@ -32,9 +32,7 @@ class _MyAppState extends State<MyApp> {
   static final List<Widget> _widgetOptions = <Widget>[
     SampleItemListView(),
     ExhibitScanView(),
-    ExhibitPopup(
-      over: MainMap()
-    ),
+    ExhibitPopup(),
   ];
 
   void _onItemTapped(int index) {
