@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dw_application/src/exhibits/exhibit_details_view.dart';
 import 'package:dw_application/src/exhibits/exhibit_list_view.dart';
+import 'package:dw_application/src/exhibits/exhibit_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -72,6 +73,7 @@ class MyAppState extends State<MyApp> {
     //
     // The ListenableBuilder Widget listens to the SettingsController for changes.
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
+
     return ListenableBuilder(
       listenable: widget.settingsController,
       builder: (BuildContext context, Widget? child) {
@@ -148,6 +150,10 @@ class MyAppState extends State<MyApp> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.list),
                   label: 'List',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list),
+                  label: 'Search Lists',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.nfc),
