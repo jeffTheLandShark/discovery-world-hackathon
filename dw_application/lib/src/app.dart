@@ -31,28 +31,33 @@ class MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
 
   late List<Widget> _widgetOptions;
+  final GlobalKey<ExhibitListViewState> _exhibitListViewKey =
+      GlobalKey<ExhibitListViewState>();
+  List<Exhibit> _exhibits = [];
 
   @override
   void initState() {
     super.initState();
     readJson();
     _widgetOptions = <Widget>[
-      ExhibitItemListView(exhibits: _exhibits), // Replace with actual widget
+      ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibits),
       const ExhibitScanView(),
       SettingsView(controller: widget.settingsController),
     ];
   }
 
-  // Define the _exhibits variable
-  List<Exhibit> _exhibits = [];
-
   // Fetch content from the json file
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/example.json');
     final data = await json.decode(response);
+
     setState(() {
       _exhibits =
           (data["exhibits"] as List).map((e) => Exhibit.fromJson(e)).toList();
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _exhibitListViewKey.currentState?.updateExhibits(_exhibits);
     });
   }
 
@@ -120,10 +125,9 @@ class MyAppState extends State<MyApp> {
                     final id = routeSettings.arguments as String;
                     final exhibit = _exhibits.firstWhere((e) => e.id == id);
                     return ExhibitDetailsView(exhibit: exhibit);
-                  case ExhibitItemListView.routeName:
-                    return ExhibitItemListView(exhibits: _exhibits);
-                  case ExhibitSearchView.routeName:
-                    return ExhibitSearchView(exhibits: _exhibits);
+                  case ExhibitListView.routeName:
+                    return ExhibitListView(
+                        key: _exhibitListViewKey, exhibits: _exhibits);
                   case ExhibitScanView.routeName:
                     return const ExhibitScanView();
                   default:
@@ -137,8 +141,9 @@ class MyAppState extends State<MyApp> {
             );
           },
           home: Scaffold(
-            body: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
+            body: IndexedStack(
+              index: _selectedIndex,
+              children: _widgetOptions,
             ),
             bottomNavigationBar: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
@@ -153,6 +158,10 @@ class MyAppState extends State<MyApp> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.nfc),
                   label: 'Scan NFC',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',
                 ),
               ],
               currentIndex: _selectedIndex,
