@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('assets/config.json');
+}
 
 class MainMap extends StatelessWidget {
   const MainMap({super.key});
@@ -10,19 +15,11 @@ class MainMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: InteractiveViewer(
-        boundaryMargin: const EdgeInsets.all(20.0),
+        constrained: false,
+        boundaryMargin: const EdgeInsets.all(double.infinity),
         minScale: 0.1,
         maxScale: 1.6,
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: <Color>[Colors.orange, Colors.red],
-              stops: <double>[0.0, 1.0],
-            ),
-          ),
-        ),
+        child: const Image(image: AssetImage('assets/images/map_assets/tech_floor2.png'))
       ),
     );
   }
