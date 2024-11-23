@@ -147,7 +147,7 @@ class FloorMapState extends State<FloorMap> {
   }
 
   FloorTransitionNode? getTransitionNode(MapNode node) {
-    if (node.floor == this) {
+    if (node.floor == widget) {
       return null;
     }
     for (var element in mapNodes) {
