@@ -21,15 +21,19 @@ class MainMap extends StatelessWidget {
         boundaryMargin: const EdgeInsets.all(double.infinity),
         minScale: 0.1,
         maxScale: 10,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image(image: AssetImage('assets/images/map_assets/tech_floor2.png')),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: icon),
-          ],
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              const Image(image: AssetImage('assets/images/map_assets/tech_floor2.png')),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: icon),
+            ],
+          ),
         )
       ),
     );
