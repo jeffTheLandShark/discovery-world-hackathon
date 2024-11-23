@@ -1,5 +1,6 @@
 import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
+import 'dart:collection';
 
 import 'map_node.dart';
 import 'exhibit_node.dart';
@@ -7,6 +8,7 @@ import 'exhibit_node.dart';
 import 'package:dw_application/src/mapping/floor_map.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'floor_transition_node.dart';
 
 import '../exhibit_popup/exhibit_popup.dart';
 
@@ -41,6 +43,51 @@ class FloorMap extends StatefulWidget {
 
   @override
   FloorMapState createState() => FloorMapState();
+
+  /// Retrieves a transition node that can transition to the specified [node]'s floor.
+  /// 
+  /// If the specified [node] is already on the same floor, returns `null`.
+  /// Otherwise, iterates through the list of map nodes and returns the first 
+  /// [FloorTransitionNode] that can transition to the specified [node]'s floor.
+  /// 
+  /// Returns `null` if no such transition node is found.
+  /// 
+  /// - Parameter node: The target [MapNode] to find a transition node for.
+  /// - Returns: A [FloorTransitionNode] that can transition to the specified [node]'s floor, or `null` if no such node exists.
+  FloorTransitionNode? getTransitionNode(MapNode node) {
+    if (node.floor == this) {
+      return null;
+    }
+    for (var element in mapNodes) {
+      if (element is FloorTransitionNode) {
+        if (element.canGoTo.contains(node)) {
+          return element;
+        }
+      }
+    }
+    return null;
+  }
+
+  Queue<MapNode> getTransitions(MapNode start, MapNode end) {
+    Queue<MapNode> transitions = Queue();
+    FloorTransitionNode? transition = getTransitionNode(end);
+
+    //At the moment, this is true both if the nodes are on the same floor as well as if there is more than one step to get to the end node
+    if (transition == null) {
+      return transitions;
+    }
+    transitions.add(transition);
+
+    for (var node in transition.canGoTo) {
+      if (node.floor == end.floor) {
+        transitions.add(node);
+        return transitions;
+      }
+    }
+  
+    return transitions;
+  }
+
 }
 
 class FloorMapState extends State<FloorMap> {
