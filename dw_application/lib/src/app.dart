@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dw_application/src/exhibits/exhibit_details_view.dart';
 import 'package:dw_application/src/exhibits/exhibit_list_view.dart';
-import 'package:dw_application/src/exhibits/exhibit_search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,6 +32,7 @@ class MyAppState extends State<MyApp> {
   late List<Widget> _widgetOptions;
   final GlobalKey<ExhibitListViewState> _exhibitListViewKey =
       GlobalKey<ExhibitListViewState>();
+
   List<Exhibit> _exhibits = [];
 
   @override
@@ -141,6 +141,10 @@ class MyAppState extends State<MyApp> {
             );
           },
           home: Scaffold(
+            appBar: AppBar(
+              title: Text(AppLocalizations.of(context)?.appTitle ??
+                  "Explore Discovery World"),
+            ),
             body: IndexedStack(
               index: _selectedIndex,
               children: _widgetOptions,
@@ -149,11 +153,7 @@ class MyAppState extends State<MyApp> {
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.list),
-                  label: 'List',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.list),
-                  label: 'Search Lists',
+                  label: 'Exhibits',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.nfc),
@@ -162,7 +162,7 @@ class MyAppState extends State<MyApp> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
                   label: 'Settings',
-                ),
+                )
               ],
               currentIndex: _selectedIndex,
               selectedItemColor: Colors.amber[800],
