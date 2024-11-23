@@ -109,6 +109,10 @@ class FloorMapState extends State<FloorMap> {
     );
   }
 
+  void pan(MapNode start, MapNode end){
+    
+  }
+
   void moveToIcon(int index) {
     final ex = exhibits[index];
     final screenWidth = MediaQuery.of(context).size.width;

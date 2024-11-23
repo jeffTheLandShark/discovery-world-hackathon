@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../exhibit_popup/exhibit_popup.dart';
+import 'floor_transition_node.dart';
 
 
 Future<String> loadAsset() async {
@@ -45,6 +46,10 @@ class _MainMapState extends State<MainMap> {
         print("FloorMapState is null");
       }
     });
+  }
+
+  void transitionFloor(FloorTransitionNode start, FloorTransitionNode end){
+
   }
 
   void setFloor(int index){
