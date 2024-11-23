@@ -37,7 +37,7 @@ class MyAppState extends State<MyApp> {
     readJson();
     _widgetOptions = <Widget>[
       ExhibitItemListView(exhibits: _exhibits), // Replace with actual widget
-      ExhibitScanView(),
+      const ExhibitScanView(),
       SettingsView(controller: widget.settingsController),
     ];
   }
