@@ -37,7 +37,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   late MainMap mainMap;
 
   void zoom(int index){
-    mainMap.currentFloor?.key?.currentState?.moveToNode(index);
+    FloorMapState? state = mainMap.currentFloor?.key?.currentState;
+    state?.moveToIcon(index);
   }
 
   @override
