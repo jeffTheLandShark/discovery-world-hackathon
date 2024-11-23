@@ -19,6 +19,7 @@ dependencies:
   latlong2: ^0.9.1
   flutter_map_cancellable_tile_provider: ^3.0.2
   sliding_up_panel: ^2.0.0+1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

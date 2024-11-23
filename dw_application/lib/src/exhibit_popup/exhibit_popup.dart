@@ -8,7 +8,7 @@ import '../mapping/map_node.dart';
 class ExhibitPopup extends StatefulWidget {
   const ExhibitPopup({
     Key? key,
-    this.initialText = "This is a slider", // Initial text value
+    this.initialText = "Click an exhibit to view information", // Initial text value
   }) : super(key: key);
 
   final String initialText;
@@ -28,14 +28,12 @@ class ExhibitPopupState extends State<ExhibitPopup> {
 
   void updateText(String newText) {
     setState(() {
-      
       displayText = newText;
-      print("Text changed");
     });
   }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Test"),
@@ -54,12 +52,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           ],
         ),
         body: Center(
-          child: MainMap(popup: this,
-          mapNodes:[
-          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'),xPos: 50,yPos: 100),
-          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'), xPos: 0, yPos: 40),
-          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'), xPos: 75, yPos: 100),
-          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'), xPos: 13, yPos: 12),]),
+          child: MainMap(popupState: this,),
         ),
       ),
     );
