@@ -17,7 +17,17 @@ class ExhibitListView extends StatefulWidget {
   ExhibitListViewState createState() => ExhibitListViewState();
 }
 
-class ExhibitListViewState extends State<ExhibitListView> {
+class ExhibitListViewState extends State<ExhibitListView>
+    with RestorationMixin {
+  @override
+  String get restorationId => 'exhibit_list_view';
+
+  final RestorableInt _exhibitListViewKey = RestorableInt(0);
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_exhibitListViewKey, 'exhibit_list_view_key');
+  }
   
   late ValueNotifier<List<Exhibit>> _exhibits;
 
