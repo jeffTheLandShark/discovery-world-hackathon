@@ -24,6 +24,14 @@ class Exhibit {
   const Exhibit(this.id, this.image, this.article, this.languageCode,
       this.difficultyLevel);
 
+  Exhibit.blank()
+      : id = '',
+        image = '',
+        article = Article('', {}, {}),
+        languageCode = '',
+        difficultyLevel = '';
+        
+
   factory Exhibit.fromJson(Map<String, dynamic> json) {
     return Exhibit(
       json['id'] as String,
