@@ -2,6 +2,9 @@ import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../mapping/floor_map.dart';
+import '../mapping/map_node.dart';
+
 class ExhibitPopup extends StatefulWidget {
   const ExhibitPopup({
     Key? key,
@@ -51,7 +54,12 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           ],
         ),
         body: Center(
-          child: MainMap(popup: this,),
+          child: MainMap(popup: this,
+          mapNodes:[
+          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'),xPos: 50,yPos: 100),
+          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'), xPos: 0, yPos: 40),
+          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'), xPos: 75, yPos: 100),
+          MapNode(floor: FloorMap(path:'assets/images/map_assets/tech_floor2.png'), xPos: 13, yPos: 12),]),
         ),
       ),
     );
