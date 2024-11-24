@@ -29,11 +29,11 @@ class SettingsView extends StatelessWidget {
         child:  
           SettingsList(sections: [
             SettingsSection(
-            title: Text('Settings'),
+            title: const Text('Settings'),
             tiles: [
               SettingsTile.switchTile(
-              title: Text('Dark Mode'),
-              leading: Icon(Icons.dark_mode),
+              title: const Text('Dark Mode'),
+              leading: const Icon(Icons.dark_mode),
               onToggle: (bool value) {
                 if (value) {
                   controller.updateThemeMode(ThemeMode.dark);
@@ -42,6 +42,60 @@ class SettingsView extends StatelessWidget {
                 }
                 },
               initialValue: controller.themeMode == ThemeMode.dark,
+              ),
+              SettingsTile(
+                title: const Text("About"),
+                leading: const Icon(Icons.info),
+                onPressed: (context) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("About This App"),
+                        content: const Text(
+                          "This app is used for assisting the Discovery World attendants with understanding the exhibits. \n"
+                          "Select 'Help' for instructions on how to use this app.",
+                          style: TextStyle(fontSize: 16),
+                          ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              ),
+              SettingsTile(
+                title: const Text("Help"),
+                leading: const Icon(Icons.help),
+                onPressed: (context) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Help"),
+                        content: const Text(
+                          "To scan an NFC tag, press Scan NFC and hold your phone next to the tag. \n"
+                          "This will have info on the exhibit.",
+                          style: TextStyle(fontSize: 16),
+                          ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               )
             ]
             )
