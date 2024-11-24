@@ -51,12 +51,12 @@ class SettingsController with ChangeNotifier {
   notifyListeners();
   }
 
-  List<Future<void>> initPreferences() {
-    List<Future<void>> promises = [];
-    promises.add(_settingsService.updateDifficlty(1));
-    promises.add(_settingsService.updateLanguage("English"));
-    return promises;
-  }
+  // List<Future<void>> initPreferences() {
+  //   List<Future<void>> promises = [];
+  //   promises.add(_settingsService.updateDifficlty(1));
+  //   promises.add(_settingsService.updateLanguage("English"));
+  //   return promises;
+  // }
 
   /// Update and persist the ThemeMode based on the user's selection.
   Future<void> updateThemeMode(ThemeMode? newThemeMode) async {
@@ -76,7 +76,9 @@ class SettingsController with ChangeNotifier {
     await _settingsService.updateThemeMode(newThemeMode);
   }
 
-  Future<void> updateDifficulty(int newDifficulty) async {
+  Future<void> updateDifficulty(int? newDifficulty) async {
+    if (newDifficulty == null) return;
+    
     if (newDifficulty == _difficulty) return;
 
     _difficulty = newDifficulty;
@@ -86,7 +88,9 @@ class SettingsController with ChangeNotifier {
     await _settingsService.updateDifficlty(newDifficulty);
   }
 
-  Future<void> updateLanguage(String newLanguage) async {    
+  Future<void> updateLanguage(String? newLanguage) async {    
+    if (newLanguage == null) return;
+
     if (newLanguage == _language) return;
 
     _language = newLanguage;
