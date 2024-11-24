@@ -28,6 +28,21 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
     super.initState();
     _initializeMapNodes();
     _controller.addListener(_onScaleChanged);
+    setViewer();
+  }
+
+  void setViewer(){
+    // Clone the current transformation matrix
+    // Get the screen size
+
+    // Calculate the target translation to center the content
+
+    // Create a new transformation matrix
+    final Matrix4 newMatrix = Matrix4.identity()
+      ..translate(0, -100);
+
+    // Apply the updated matrix to the controller
+    _controller.value = newMatrix;
   }
 
   void clearNodes() {
@@ -37,13 +52,14 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   }
 
   void _initializeMapNodes() {
-    mapNodes = [
-      FloorTransitionNode(
-          floor: widget,
-          xPos: 50,
-          yPos: 50,
-          canGoTo: List<FloorTransitionNode>.empty()),
-    ];
+    // mapNodes = [
+    //   FloorTransitionNode(
+    //       floor: widget,
+    //       xPos: 50,
+    //       yPos: 50,
+    //       canGoTo: List<FloorTransitionNode>.empty()),
+    // ];
+    mapNodes = [];
   }
 
   void _onScaleChanged() {
@@ -56,21 +72,21 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   }
 
   void addExhibitNode(ExhibitNode node) {
-    setState(() {
+    //setState(() {
       mapNodes.add(node);
-    });
+    //});
   }
 
   @override
   Widget build(BuildContext context) {
     final stackChildren = <Widget>[
-      Image(image: AssetImage(widget.path)),
+      Container(width: 500, height: 500, child: Image(image: AssetImage(widget.path))),
       ..._buildMapNodes(context),
     ];
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    return Center(
-      child: InteractiveViewer(
+    return
+      InteractiveViewer(
         constrained: false,
         boundaryMargin: const EdgeInsets.all(100),
         minScale: 1,
@@ -80,13 +96,14 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
           color: isDarkMode ? Color.fromARGB(255, 49, 48, 52) : Colors.white,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: Stack(
-            alignment: Alignment.center,
-            children: stackChildren,
+          child: Positioned(
+            child: Stack(
+              alignment: Alignment.center,
+              children: stackChildren,
+            ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   List<Widget> _buildMapNodes(BuildContext context) {
