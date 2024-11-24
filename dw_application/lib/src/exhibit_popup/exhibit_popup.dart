@@ -285,7 +285,27 @@ class ExhibitPopupState extends State<ExhibitPopup> {
             );
           }).toList(),
           onChanged: (String? newValue) {
-            // TODO Handle change
+            setState(() {
+              if (newValue != null) {
+                switch (newValue) {
+                  case 'Tech Lower level':
+                    mainMap.changeFloor(0);
+                    break;
+                  case 'Tech level 1':
+                    mainMap.changeFloor(1);
+                    break;
+                  case 'Tech level 2':
+                    mainMap.changeFloor(2);
+                    break;
+                  case 'Tech Mezzanine':
+                    mainMap.changeFloor(3);
+                    break;
+                  case 'Building Side View':
+                    mainMap.changeFloor(4);
+                    break;
+                }
+              }
+            });
           },
         ),
       ),
