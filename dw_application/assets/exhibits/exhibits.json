@@ -1,35 +1,35 @@
 {
   "mapPoints": [
     {
-      "id": 1,
+      "id": "entrance",
       "x": 34.5,
       "y": 78.9,
       "description": "Entrance",
       "layer": 1
     },
     {
-      "id": 2,
+      "id": "dinosaur",
       "x": 45.2,
       "y": 88.1,
       "description": "Dinosaur Exhibit",
       "layer": 1
     },
     {
-      "id": 3,
+      "id": "aquarium",
       "x": 56.7,
       "y": 67.3,
       "description": "Aquarium",
       "layer": 1
     },
     {
-      "id": 4,
+      "id": "gravity_ball_wall",
       "x": 23.4,
       "y": 45.6,
-      "description": "Space Exhibit",
+      "description": "Gravity Ball Wall - How water power works in Wisconsin",
       "layer": 1
     },
     {
-      "id": 5,
+      "id": "gift_shop",
       "x": 78.9,
       "y": 12.3,
       "description": "Gift Shop",
@@ -38,10 +38,10 @@
   ],
   "exhibits": [
     {
-      "id": "exhibit0",
+      "id": "all_aboard",
       "image": "assets/images/flutter_logo.png",
       "article": {
-        "id": "exhibit0",
+        "id": "all_aboard",
         "titles": {
           "en1": "All-Aboard",
           "es1": "All-Aboard",
@@ -55,10 +55,10 @@
       }
     },
     {
-      "id": "exhibit5",
+      "id": "gary_the_robot",
       "image": "assets/images/flutter_logo.png",
       "article": {
-        "id": "exhibit5",
+        "id": "gary_the_robot",
         "titles": {
           "es1": "Connect Four",
           "Hmong1": "Connect Four",
@@ -405,9 +405,9 @@
           "Hmong1": "Air Rockets"
         },
         "descriptions": {
-          "es1": "Aquí está el texto con su formato recuperado en Markdown:\n\n### Despegue\n\nEl motor de un cohete también se denomina motor de reacción, en honor a la Tercera Ley de Newton. Los gases de escape increíblemente calientes se precipitan hacia abajo y empujan el cohete hacia el espacio.\n\n### ¿Sabías que?\n\nPasaron casi 300 años desde que Sir Isaac Newton describió matemáticamente la gravedad y el movimiento hasta que Neil Armstrong dio su histórico primer paso en la Luna.",
-          "en1": "Here is the text with its formatting recovered in markdown:\n\n\n### Blast Off\n\nA rocket's engine is also called a reaction engine after Newton's Third Law. Incredibly hot exhaust gas rushes downward pushing the rocket upward into space.\n\n### Did You Know?\n\nIt took nearly 300 years from the time Sir Isaac Newton mathematically described Gravity and Motion to the time Neil Armstrong took his historic first step on the moon.",
-          "Hmong1": "Ntawm no yog cov ntawv nyeem nrog nws formatting zoo tu qab tso nyob rau hauv markdown:\n\n\n### Blast Off\n\nLub foob pob hluav taws lub cav tseem hu ua lub cav tshuaj tiv thaiv tom qab Newton Txoj Cai Thib Peb. Cov pa hluav taws kub tsis txaus ntseeg tau maj mam thawb lub foob pob hluav taws mus rau hauv qhov chaw.\n\n### Koj Puas Paub?\n\nNws tau siv ze li 300 xyoo txij li lub sijhawm Sir Isaac Newton lej piav qhia txog lub ntiajteb txawj nqus thiab kev txav mus rau lub sijhawm Neil Armstrong coj nws thawj kauj ruam keeb kwm ntawm lub hli."
+          "es1": "### Despegue\n\nEl motor de un cohete también se denomina motor de reacción, en honor a la Tercera Ley de Newton. Los gases de escape increíblemente calientes se precipitan hacia abajo y empujan el cohete hacia el espacio.\n\n### ¿Sabías que?\n\nPasaron casi 300 años desde que Sir Isaac Newton describió matemáticamente la gravedad y el movimiento hasta que Neil Armstrong dio su histórico primer paso en la Luna.",
+          "en1": "### Blast Off\n\nA rocket's engine is also called a reaction engine after Newton's Third Law. Incredibly hot exhaust gas rushes downward pushing the rocket upward into space.\n\n### Did You Know?\n\nIt took nearly 300 years from the time Sir Isaac Newton mathematically described Gravity and Motion to the time Neil Armstrong took his historic first step on the moon.",
+          "Hmong1": "### Blast Off\n\nLub foob pob hluav taws lub cav tseem hu ua lub cav tshuaj tiv thaiv tom qab Newton Txoj Cai Thib Peb. Cov pa hluav taws kub tsis txaus ntseeg tau maj mam thawb lub foob pob hluav taws mus rau hauv qhov chaw.\n\n### Koj Puas Paub?\n\nNws tau siv ze li 300 xyoo txij li lub sijhawm Sir Isaac Newton lej piav qhia txog lub ntiajteb txawj nqus thiab kev txav mus rau lub sijhawm Neil Armstrong coj nws thawj kauj ruam keeb kwm ntawm lub hli."
         }
       }
     },
@@ -492,10 +492,10 @@
       }
     },
     {
-      "id": "exhibit71",
+      "id": "gravity_ball_wall",
       "image": "assets/images/flutter_logo.png",
       "article": {
-        "id": "exhibit71",
+        "id": "gravity_ball_wall",
         "titles": {
           "Hmong1": "Gravity Ball Wall",
           "en1": "Gravity Ball Wall",
