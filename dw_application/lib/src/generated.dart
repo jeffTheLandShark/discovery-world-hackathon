@@ -57,7 +57,6 @@ class _FigmaToCodeAppState extends State<FigmaToCodeApp> {
         body: IndexedStack(
           index: _selectedIndex,
           children: [
-            Landing(),
             Popup(),
             Container(),
           ],
@@ -96,10 +95,7 @@ class Popup extends StatelessWidget {
             'assets/discovery-world-2-1.png',
             fit: BoxFit.cover,
           ),
-          Image.asset(
-            'assets/curious-beep.png',
-            fit: BoxFit.cover,
-          ),
+          
           Positioned(
             top: 1501,
             left: 342,
@@ -172,36 +168,6 @@ class Popup extends StatelessWidget {
                 ], // Update this list based on the selected language
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Landing extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          Image.asset(
-            'assets/discovery-world-2-1.png',
-            fit: BoxFit.cover,
-          ),
-          Text(
-            'INTERACTIVE MAP',
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
-          Container(
-            // put interactive map here
-            // get device height
-            height: MediaQuery.of(context).size.height * 0.9,
-            color: Colors.grey,
-          ),
-          Image.asset(
-            'assets/images/website_bb.png',
-            fit: BoxFit.cover,
           ),
         ],
       ),
