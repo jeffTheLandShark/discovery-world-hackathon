@@ -46,6 +46,7 @@ class DiscoveryAppState extends State<DiscoveryApp> {
       ExhibitPopup(
           exhibits: _exhibitsNotifier,
           exhibitMapEntries: _exhibitMapDetailsNotifier,
+          settingsController: widget.settingsController,
           key: _mainMapKey),
       ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibitsNotifier),
       const ExhibitScanView(),
@@ -109,7 +110,7 @@ class DiscoveryAppState extends State<DiscoveryApp> {
                       final id = routeSettings.arguments as String;
                       final exhibit =
                           _exhibitsNotifier.value.firstWhere((e) => e.id == id);
-                      return ExhibitDetailsView(exhibit: exhibit);
+                      return ExhibitDetailsView(exhibit: exhibit, settingsController: widget.settingsController);
                     case ExhibitListView.routeName:
                       return ExhibitListView(
                           key: _exhibitListViewKey,
@@ -156,8 +157,9 @@ class HomeNavigationState extends State<HomeNavigation> {
       appBar: AppBar(
         title: Image.asset(
           'assets/images/Discovery-World.png',
-          fit: BoxFit.cover,
           width: MediaQuery.of(context).size.width * 0.25,
+          height: MediaQuery.of(context).size.height * 0.1,
+          fit: BoxFit.contain,
         ),
       ),
       body: IndexedStack(

@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:dw_application/src/mapping/main_map.dart';
+import 'package:dw_application/src/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -13,6 +14,7 @@ class ExhibitPopup extends StatefulWidget {
     Key? key,
     required this.exhibits,
     required this.exhibitMapEntries,
+    required this.settingsController,
     this.initialText =
         "Click an exhibit to view information", // Initial text value
   }) : super(key: key);
@@ -21,6 +23,8 @@ class ExhibitPopup extends StatefulWidget {
   final ValueNotifier<List<ExhibitMapEntry>> exhibitMapEntries;
 
   final String initialText;
+
+  final SettingsController settingsController;
 
   @override
   ExhibitPopupState createState() => ExhibitPopupState();
@@ -47,15 +51,16 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     filteredExhibits = [];
   }
 
-  void updateText(String newText, int index) {
+  void updateText(String id, int index) {
     panelController.open();
     setState(() {
-      displayText = newText;
+      displayText = widget.exhibits.value[index].getDescription();
+      // displayText = newText;
     });
     panelController.open();
     setState(() {
-      displayText = newText;
-      exhibitIndex = index;
+      displayText = widget.exhibits.value[index].getDescription();;
+      // exhibitIndex = index;
     });
   }
 
@@ -78,14 +83,10 @@ class ExhibitPopupState extends State<ExhibitPopup> {
       } else {
         filteredExhibits = widget.exhibits.value
             .where((exhibit) =>
-                exhibit
-                    .getTitle()
-                    .toLowerCase()
-                    .contains(query.toLowerCase()) ||
-                exhibit
-                    .getDescription()
-                    .toLowerCase()
-                    .contains(query.toLowerCase()))
+          exhibit.getTitle().toLowerCase().contains(query.toLowerCase()) ||
+          exhibit.getDescription(
+            language: widget.settingsController.language, difficultyLevel: widget.settingsController.difficulty.toString()
+          ).toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
     });

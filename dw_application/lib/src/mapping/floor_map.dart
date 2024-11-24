@@ -114,7 +114,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
         activeIconIndex = index;
         widget.popup.updateText(
             ex is ExhibitNode
-                ? ex.description
+                ? ex.id
                 : (ex as FloorTransitionNode).type,
             index);
       } else {
