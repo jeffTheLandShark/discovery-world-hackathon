@@ -165,7 +165,9 @@ class MainMapState extends State<MainMap> with RestorationMixin {
             if (currentFloorIndex >= widget.sections.length) {
               return const Center(child: Text('Floor not available'));
             }
-            updateExhibitNodes();
+            Future.delayed(Duration(milliseconds: 100), () {
+              updateExhibitNodes();
+            });
             return widget.sections[currentFloorIndex];
           }),
     );
