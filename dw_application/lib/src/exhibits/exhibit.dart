@@ -6,8 +6,8 @@ class ExhibitMapEntry {
   factory ExhibitMapEntry.fromJson(Map<String, dynamic> json) {
     return ExhibitMapEntry.withLocation(
         json['id'] as String,
-        json['x'] as double,
-        json['y'] as double,
+        json['x'] as int,
+        json['y'] as int,
         json['layer'] as int,
         json['description'] as String);
   }
@@ -25,8 +25,8 @@ class ExhibitMapEntry {
 class Location {
   const Location(this.x, this.y, this.layer);
 
-  final double x;
-  final double y;
+  final int x;
+  final int y;
   final int layer;
 }
 

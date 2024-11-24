@@ -29,15 +29,15 @@ class ExhibitNode extends MapNode {
 
 class MapNode {
   FloorMap _floor;
-  double _xPos;
-  double _yPos;
+  int _xPos;
+  int _yPos;
 
-  MapNode({required FloorMap floor, required double xPos, required double yPos})
+  MapNode({required FloorMap floor, required int xPos, required int yPos})
       : _floor = floor,
         _xPos = xPos,
         _yPos = yPos;
 
   FloorMap get floor => _floor;
-  double get xPos => _xPos;
-  double get yPos => _yPos;
+  int get xPos => _xPos;
+  int get yPos => _yPos;
 }
