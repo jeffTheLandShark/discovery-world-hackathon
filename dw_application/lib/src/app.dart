@@ -156,7 +156,7 @@ class HomeNavigationState extends State<HomeNavigation> {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
-          'images/Discovery-World.png',
+          'assets/images/Discovery-World.png',
           width: MediaQuery.of(context).size.width * 0.25,
           height: MediaQuery.of(context).size.height * 0.1,
           fit: BoxFit.contain,
