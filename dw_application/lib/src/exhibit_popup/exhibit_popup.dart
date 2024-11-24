@@ -62,15 +62,16 @@ class ExhibitPopupState extends State<ExhibitPopup> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     mainMap = MainMap(popupState: this, mainKey: mainMapKey);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Exhibit Explorer"),
-        backgroundColor: Colors.white,
+        backgroundColor: isDarkMode ? Colors.grey[800] : Colors.white,
         elevation: 0,
         actions: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Icon(
               Icons.search,
               color: Colors.black,
@@ -83,6 +84,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
+        color: isDarkMode ? (Colors.grey[800] ?? Colors.grey) : Colors.white,
+
         maxHeight: 400,
         minHeight: 100,
         panel: _buildPanel(context),
@@ -94,6 +97,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   }
 
   Widget _buildPanel(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -153,7 +157,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           margin: const EdgeInsets.symmetric(horizontal: 16),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDarkMode ? (Colors.grey[800] ?? Colors.grey) : Colors.white,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.grey),
           ),

@@ -101,6 +101,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
       stackChildren.add(p);
     }
 
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Center(
       heightFactor: MediaQuery.sizeOf(context).height,
       child: InteractiveViewer(
@@ -110,7 +111,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
         maxScale: 10,
         transformationController: _controller,
         child: Container(
-          color: Colors.white,
+          color: isDarkMode ? Color.fromARGB(255, 49, 48, 52) : Colors.white,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
