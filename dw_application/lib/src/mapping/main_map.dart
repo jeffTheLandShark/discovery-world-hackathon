@@ -6,6 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../exhibit_popup/exhibit_popup.dart';
+import '../exhibits/exhibit.dart';
+import 'exhibit_node.dart';
 import 'floor_transition_node.dart';
 
 
@@ -56,12 +58,24 @@ class MainMapState extends State<MainMap> {
   @override
   Widget build(BuildContext context) {
 
+    List<ExhibitMapEntry> exhibits = [];
+
     widget.sections = [
       FloorMap(path: 'assets/images/map_assets/Tech Floor 1.png', popup: widget.popupState, key: floorMapKey,),
       FloorMap(path: 'assets/images/map_assets/Tech Floor 2.png', popup: widget.popupState, key: floorMapKey,),
       FloorMap(path: 'assets/images/map_assets/Tech Lower Level.png', popup: widget.popupState, key: floorMapKey,),
       FloorMap(path: 'assets/images/map_assets/Tech Mezzanine.png', popup: widget.popupState, key: floorMapKey,),
     ];
+
+    for (var exhibit in exhibits) {
+      widget.sections[exhibit.location.layer].key!.currentState!.addExhibitNode(ExhibitNode(
+        floor: widget.sections[exhibit.location.layer],
+        xPos: exhibit.location.x,
+        yPos: exhibit.location.y,
+        description: "description 1"
+        ));
+    }
+    
     
     currentFloor = widget.sections[0];
     widget.currentFloor = currentFloor;
