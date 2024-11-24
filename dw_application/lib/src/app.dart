@@ -46,7 +46,8 @@ class DiscoveryAppState extends State<DiscoveryApp> {
       MapView(
           exhibits: _exhibits,
           exhibitMapEntries: _exhibitMapDetails,
-          passedKey: _mainMapKey),
+          passedKey: _mainMapKey,
+          settingsController: widget.settingsController,),
       ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibits),
       const ExhibitScanView(),
       SettingsView(controller: widget.settingsController),
@@ -120,7 +121,7 @@ class DiscoveryAppState extends State<DiscoveryApp> {
                     case ExhibitDetailsView.routeName:
                       final id = routeSettings.arguments as String;
                       final exhibit = _exhibits.firstWhere((e) => e.id == id);
-                      return ExhibitDetailsView(exhibit: exhibit);
+                      return ExhibitDetailsView(exhibit: exhibit, settingsController: widget.settingsController);
                     case ExhibitListView.routeName:
                       return ExhibitListView(
                           key: _exhibitListViewKey, exhibits: _exhibits);
