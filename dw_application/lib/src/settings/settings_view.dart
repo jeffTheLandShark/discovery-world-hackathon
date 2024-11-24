@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'settings_controller.dart';
 
@@ -42,7 +43,35 @@ class SettingsView extends StatelessWidget {
                 }
                 },
               initialValue: controller.themeMode == ThemeMode.dark,
+              ),
+              SettingsTile(
+                title: Text('Difficulty'),
+                leading: Icon(Icons.description),
+                trailing: Slider(
+                  min: 1,
+                  max: 3,
+                  divisions: 2,
+                  value: controller.difficulty.toDouble(),
+                  onChanged: (newValue) {
+                    controller.updateDifficulty(newValue.toInt());
+                    }
+                )
+              ),
+              SettingsTile(
+                title: Text('Language'),
+                leading: Icon(Icons.language),
+                trailing: DropdownButton<String>(
+            value: controller.language,
+            onChanged: (newValue) {controller.updateLanguage(newValue!);},
+            items: controller.getLanguages()
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
               )
+              ),
             ]
             )
           ])
