@@ -30,38 +30,14 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
     _controller.addListener(_onScaleChanged);
   }
 
+  void clearNodes() {
+    setState(() {
+      mapNodes = [];
+    });
+  }
+
   void _initializeMapNodes() {
     mapNodes = [
-      ExhibitNode(
-          floor: widget,
-          xPos: 0,
-          yPos: 0,
-          description: "description 1",
-          id: "Temp"),
-      ExhibitNode(
-          floor: widget,
-          xPos: 10,
-          yPos: 10,
-          description: "description 2",
-          id: "Temp"),
-      ExhibitNode(
-          floor: widget,
-          xPos: 100,
-          yPos: -20,
-          description: "description 3",
-          id: "Temp"),
-      ExhibitNode(
-          floor: widget,
-          xPos: -80,
-          yPos: 20,
-          description: "description 4",
-          id: "Temp"),
-      ExhibitNode(
-          floor: widget,
-          xPos: -40,
-          yPos: -10,
-          description: "description 5",
-          id: "Temp"),
       FloorTransitionNode(
           floor: widget,
           xPos: 50,
@@ -132,6 +108,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   }
 
   void _onIconClick(int index, MapNode ex) {
+    print('Icon clicked: index=$index, activeIconIndex=$activeIconIndex');
     setState(() {
       if (activeIconIndex != index) {
         activeIconIndex = index;
