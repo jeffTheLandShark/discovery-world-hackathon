@@ -39,3 +39,4 @@ flutter:
     - assets/example.json
     - assets/images/
     - assets/images/map_assets/
+    - assets/exhibits/

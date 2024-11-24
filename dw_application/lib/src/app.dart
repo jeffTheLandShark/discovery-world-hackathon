@@ -49,7 +49,8 @@ class DiscoveryAppState extends State<DiscoveryApp> {
 
   // Fetch content from the json file
   Future<void> readJson() async {
-    final String response = await rootBundle.loadString('assets/example.json');
+    final String response =
+        await rootBundle.loadString('assets/exhibits/exhibits.json');
     final data = await json.decode(response);
 
     setState(() {
