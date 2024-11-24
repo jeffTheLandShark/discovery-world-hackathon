@@ -44,13 +44,16 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     FloorMapState? floorState = mainMap.currentFloor?.key?.currentState;
     MainMapState? mapState = mainMap.key?.currentState;
     Queue<MapNode>? transitions = floorState?.getTransitions(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
-    if (transitions == null) {
+    if (transitions!.isEmpty) {
+      print("panning, no transition");
       floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
     } else {
       for (var node in transitions){
         if (node is FloorTransitionNode) {
+          print("panning");
           floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], node);
         } else {
+          print("Transitioning to floor");
           mapState!.transitionFloor(floorState!.mapNodes[floorState.activeIconIndex!] as FloorTransitionNode, node as FloorTransitionNode);
         }
       }
@@ -76,7 +79,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
                   style: const TextStyle(color: Colors.black),
                 ),
                 TextButton(
-                  onPressed: (){zoom(exhibitIndex);},
+                  onPressed: (){zoom(0);},
                   child: const Text("Go to point"))
               ],
             ),
