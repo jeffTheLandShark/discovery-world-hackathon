@@ -195,6 +195,20 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextField(
+            controller: descriptionController,
+            readOnly: true,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              labelText: 'Selected Exhibit Translation',
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: DropdownButton<int>(
             // Read the selected floor from map
             value: mainMapKey.currentState?.currentFloorIndex,
