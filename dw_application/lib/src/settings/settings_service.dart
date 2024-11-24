@@ -21,7 +21,7 @@ class SettingsService {
     preferences.setString("Theme", theme.name);
   }
 
-  Future<void> updateDifficlty(int difficulty) async {
+  Future<void> updateDifficulty(int difficulty) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setInt("Difficulty", difficulty);
   }

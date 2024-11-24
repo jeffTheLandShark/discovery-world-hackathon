@@ -46,7 +46,7 @@ class SettingsController with ChangeNotifier {
   }
 
   void initPreferences() {
-    _settingsService.updateDifficlty(1);
+    _settingsService.updateDifficulty(1);
     _settingsService.updateLanguage("English");
   }
 
@@ -75,7 +75,7 @@ class SettingsController with ChangeNotifier {
 
     notifyListeners();
 
-    await _settingsService.updateDifficlty(newDifficulty);
+    await _settingsService.updateDifficulty(newDifficulty);
   }
 
   Future<void> updateLanguage(String newLanguage) async {    
