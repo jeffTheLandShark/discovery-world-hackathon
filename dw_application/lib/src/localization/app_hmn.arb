@@ -1,0 +1,59 @@
+{
+  "@@locale": "hmn",
+  "appTitle": "Discovery World App",
+  "@appTitle": {
+    "description": "Lub npe ntawm daim ntawv thov"
+  },
+  "loginButton": "Nkag mus",
+  "@loginButton": {
+    "description": "Daim ntawv nyeem rau lub pob nkag mus"
+  },
+  "signupButton": "Sau npe",
+  "@signupButton": {
+    "description": "Daim ntawv nyeem rau lub pob sau npe"
+  },
+  "logoutButton": "Tawm",
+  "@logoutButton": {
+    "description": "Daim ntawv nyeem rau lub pob tawm"
+  },
+  "profileTitle": "Tus neeg siv cov ntaub ntawv",
+  "@profileTitle": {
+    "description": "Lub npe rau tus neeg siv cov ntaub ntawv"
+  },
+  "settingsTitle": "Chaw",
+  "@settingsTitle": {
+    "description": "Lub npe rau lub vijtsam chaw"
+  },
+  "languageOption": "Lus",
+  "@languageOption": {
+    "description": "Kev xaiv los hloov cov lus"
+  },
+  "themeOption": "Tsim",
+  "@themeOption": {
+    "description": "Kev xaiv los hloov qhov tsim"
+  },
+  "map": "Daim ntawv qhia",
+  "@map": {
+    "description": "Daim ntawv nyeem rau lub pob daim ntawv qhia"
+  },
+  "searchPlaceholder": "Nrhiav...",
+  "@searchPlaceholder": {
+    "description": "Cov ntawv qhia chaw rau kev tshawb nrhiav"
+  },
+  "noResultsFound": "Tsis pom qhov tshwm sim",
+  "@noResultsFound": {
+    "description": "Cov lus qhia pom thaum tsis muaj qhov tshwm sim tshawb nrhiav"
+  },
+  "retryButton": "Sim dua",
+  "@retryButton": {
+    "description": "Daim ntawv nyeem rau lub pob sim dua"
+  },
+  "exhibits": "Cov yeeb yam",
+  "@exhibits": {
+    "description": "Lub npe rau cov yeeb yam seem"
+  },
+  "scanNfc": "Luam NFC",
+  "@scanNfc" : {
+    "description": "Scan nfc"
+  }
+}
