@@ -5,14 +5,14 @@ class ExhibitMapEntry {
 
   factory ExhibitMapEntry.fromJson(Map<String, dynamic> json) {
     return ExhibitMapEntry.withLocation(
-        json['id'] as int,
-        json['location']['x'] as double,
-        json['location']['y'] as double,
-        json['location']['layer'] as int,
+        json['id'] as String,
+        json['x'] as double,
+        json['y'] as double,
+        json['layer'] as int,
         json['description'] as String);
   }
 
-  final int id;
+  final String id;
   final Location location;
   final String description;
 
