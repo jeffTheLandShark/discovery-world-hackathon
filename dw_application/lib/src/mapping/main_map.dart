@@ -15,6 +15,12 @@ Future<String> loadAsset() async {
 }
 
 class MainMap extends StatefulWidget {
+  final GlobalKey<MainMapState> _mainKey = GlobalKey<MainMapState>();
+
+  void changeFloor(int index) {
+    _mainKey.currentState?.changeFloor(index);
+  }
+
   MainMap(
       {super.key,
       required this.popupState,
@@ -63,10 +69,16 @@ class MainMapState extends State<MainMap> with RestorationMixin {
     //TODO: Implement transitionFloor
   }
 
+  void changeFloor(int index) {
+    setFloor(index);
+  }
+
   void setFloor(int index) {
     if (index >= 0 && index < widget.sections.length) {
-      currentFloor = widget.sections[index];
-      widget.currentFloor = currentFloor;
+      setState(() {
+        currentFloor = widget.sections[index];
+        widget.currentFloor = currentFloor;
+      });
     }
   }
 
