@@ -11,11 +11,10 @@ class ExhibitListView extends StatefulWidget {
   }
 
   static const routeName = '/exhibits';
-  final List<Exhibit> exhibits;
+  final ValueNotifier<List<Exhibit>> exhibits;
 
   void updateExhibits(List<Exhibit> newExhibits) {
-    exhibits.clear();
-    exhibits.addAll(newExhibits);
+    exhibits.value = newExhibits;
   }
 
   @override
@@ -39,7 +38,7 @@ class ExhibitListViewState extends State<ExhibitListView>
   @override
   void initState() {
     super.initState();
-    _filteredExhibits = ValueNotifier(widget.exhibits);
+    _filteredExhibits = ValueNotifier(widget.exhibits.value);
   }
 
   updateExhibits(List<Exhibit> newExhibits) {
@@ -53,9 +52,9 @@ class ExhibitListViewState extends State<ExhibitListView>
 
   void searchExhibits(String query) {
     if (query.isEmpty) {
-      updateFilteredExhibits(widget.exhibits);
+      updateFilteredExhibits(widget.exhibits.value);
     } else {
-      final List<Exhibit> filteredExhibits = widget.exhibits
+      final List<Exhibit> filteredExhibits = widget.exhibits.value
           .where((exhibit) => (exhibit.hasContent(query, language: 'en')))
           .toList();
       updateFilteredExhibits(filteredExhibits);

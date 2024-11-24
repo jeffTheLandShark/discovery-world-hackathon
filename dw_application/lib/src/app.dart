@@ -1,3 +1,4 @@
+import 'package:dw_application/src/exhibit_popup/exhibit_popup.dart';
 import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
 import 'appTheme.dart';
@@ -13,8 +14,6 @@ import 'package:dw_application/src/exhibits/exhibit_details_view.dart';
 import 'package:dw_application/src/exhibits/exhibit_list_view.dart';
 import 'nfc_reader/exhibit_scan_view.dart';
 import 'dart:convert';
-
-import 'map_page.dart';
 
 class DiscoveryApp extends StatefulWidget {
   const DiscoveryApp({
@@ -35,19 +34,20 @@ class DiscoveryAppState extends State<DiscoveryApp> {
       GlobalKey<ExhibitListViewState>();
   final GlobalKey<MainMapState> _mainMapKey = GlobalKey<MainMapState>();
 
-  List<ExhibitMapEntry> _exhibitMapDetails = [];
-  List<Exhibit> _exhibits = [];
+  final ValueNotifier<List<ExhibitMapEntry>> _exhibitMapDetailsNotifier =
+      ValueNotifier([]);
+  final ValueNotifier<List<Exhibit>> _exhibitsNotifier = ValueNotifier([]);
 
   @override
   void initState() {
     super.initState();
     readJson();
     _widgetOptions = <Widget>[
-      MapView(
-          exhibits: _exhibits,
-          exhibitMapEntries: _exhibitMapDetails,
-          passedKey: _mainMapKey),
-      ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibits),
+      ExhibitPopup(
+          exhibits: _exhibitsNotifier,
+          exhibitMapEntries: _exhibitMapDetailsNotifier,
+          key: _mainMapKey),
+      ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibitsNotifier),
       const ExhibitScanView(),
       SettingsView(controller: widget.settingsController),
     ];
@@ -58,23 +58,11 @@ class DiscoveryAppState extends State<DiscoveryApp> {
     final String response =
         await rootBundle.loadString('assets/exhibits/exhibits.json');
     final data = await json.decode(response);
-
-
-    setState(() {
-      _exhibits =
-          (data["exhibits"] as List).map((e) => Exhibit.fromJson(e)).toList();
-      _exhibitMapDetails = (data["mapPoints"] as List)
-          .map((e) => ExhibitMapEntry.fromJson(e))
-          .toList();
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _exhibitListViewKey.currentState?.updateExhibits(_exhibits);
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _mainMapKey.currentState?.updateExhibits(_exhibitMapDetails);
-    });
+    _exhibitsNotifier.value =
+        (data["exhibits"] as List).map((e) => Exhibit.fromJson(e)).toList();
+    _exhibitMapDetailsNotifier.value = (data["mapPoints"] as List)
+        .map((e) => ExhibitMapEntry.fromJson(e))
+        .toList();
   }
 
   @override
@@ -119,11 +107,13 @@ class DiscoveryAppState extends State<DiscoveryApp> {
                           controller: widget.settingsController);
                     case ExhibitDetailsView.routeName:
                       final id = routeSettings.arguments as String;
-                      final exhibit = _exhibits.firstWhere((e) => e.id == id);
+                      final exhibit =
+                          _exhibitsNotifier.value.firstWhere((e) => e.id == id);
                       return ExhibitDetailsView(exhibit: exhibit);
                     case ExhibitListView.routeName:
                       return ExhibitListView(
-                          key: _exhibitListViewKey, exhibits: _exhibits);
+                          key: _exhibitListViewKey,
+                          exhibits: _exhibitsNotifier);
                     case ExhibitScanView.routeName:
                       return const ExhibitScanView();
                     default:
