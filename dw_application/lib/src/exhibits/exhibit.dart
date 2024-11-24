@@ -1,10 +1,11 @@
 class ExhibitMapEntry {
-  const ExhibitMapEntry(this.id, this.location);
-  ExhibitMapEntry.withLocation(this.id, x, y, layer)
+  const ExhibitMapEntry(this.id, this.location, this.description);
+  ExhibitMapEntry.withLocation(this.id, x, y, layer, this.description)
       : location = Location(x, y, layer);
 
   final int id;
   final Location location;
+  final String description;
 
   // plotting information
   final String icon = 'assets/images/exhibit_icon.png';
@@ -17,7 +18,7 @@ class Location {
 
   final double x;
   final double y;
-  final double layer;
+  final int layer;
 }
 
 class Exhibit {
