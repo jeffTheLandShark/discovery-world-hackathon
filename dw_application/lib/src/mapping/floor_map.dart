@@ -36,14 +36,13 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
     });
   }
 
-  MapNode getNodeById(String id) {
-    int index = mapNodes.indexWhere((element) {
+  MapNode? getNodeById(String id) {
+    return mapNodes.firstWhereOrNull((element) {
       if (element is ExhibitNode) {
         return element.id == id;
       }
       return false;
     });
-    return mapNodes[index];
   }
 
   void _initializeMapNodes() {
