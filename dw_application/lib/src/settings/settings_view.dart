@@ -27,7 +27,37 @@ class SettingsViewState extends State<SettingsView>{
         title: const Text('Settings'),
       ),
       body:
-            SettingsList(
+          buildSettingsList(),
+          // DropdownButton<ThemeMode>(
+          //   // Read the selected themeMode from the controller
+          //   value: controller.themeMode,
+          //   // Call the updateThemeMode method any time the user selects a theme.
+          //   onChanged: controller.updateThemeMode,
+          //   items: const [
+          //     DropdownMenuItem(
+          //       value: ThemeMode.system,
+          //       child: Text('System Theme'),
+          //     ),
+          //     DropdownMenuItem( 
+          //       value: ThemeMode.light,
+          //       child: Text('Light Theme'),
+          //     ),
+          //     DropdownMenuItem(
+          //       value: ThemeMode.dark,
+          //       child: Text('Dark Theme'),
+          //     )
+          //   ],
+          // ),
+        // ),
+        // Image.asset(
+        //   'assets/images/website_bb.png',
+        //   fit: BoxFit.cover,
+        // ),
+      );
+    }
+
+    SettingsList buildSettingsList() {
+      return SettingsList(
               sections: [
                 SettingsSection(
                   title: Text('General'),
@@ -138,33 +168,12 @@ class SettingsViewState extends State<SettingsView>{
               ),
                   ],
                 ),
+                CustomSettingsSection(child: Image.asset(
+                'assets/images/website_bb.png',
+                fit: BoxFit.cover,
+              ),
+              ),
               ],
-            ),
-          // DropdownButton<ThemeMode>(
-          //   // Read the selected themeMode from the controller
-          //   value: controller.themeMode,
-          //   // Call the updateThemeMode method any time the user selects a theme.
-          //   onChanged: controller.updateThemeMode,
-          //   items: const [
-          //     DropdownMenuItem(
-          //       value: ThemeMode.system,
-          //       child: Text('System Theme'),
-          //     ),
-          //     DropdownMenuItem( 
-          //       value: ThemeMode.light,
-          //       child: Text('Light Theme'),
-          //     ),
-          //     DropdownMenuItem(
-          //       value: ThemeMode.dark,
-          //       child: Text('Dark Theme'),
-          //     )
-          //   ],
-          // ),
-        // ),
-        // Image.asset(
-        //   'assets/images/website_bb.png',
-        //   fit: BoxFit.cover,
-        // ),
-      );
+            );
     }
 }
