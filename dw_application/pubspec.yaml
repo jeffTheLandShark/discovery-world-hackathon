@@ -21,6 +21,11 @@ dependencies:
   searchable_listview: ^2.15.2
   dio: ^5.4.3+1
   flutter_markdown: ^0.7.0
+  shared_preferences: ^2.3.3
+  settings_ui: 
+    git:
+      url: https://github.com/yako-dev/flutter-settings-ui
+      ref: 56f4f1b812b76d95ac86377504bc6bb144718497
 
 dev_dependencies:
   flutter_test:
