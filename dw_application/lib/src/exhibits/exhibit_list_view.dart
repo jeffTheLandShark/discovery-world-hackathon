@@ -56,17 +56,7 @@ class ExhibitListViewState extends State<ExhibitListView>
       updateFilteredExhibits(widget.exhibits);
     } else {
       final List<Exhibit> filteredExhibits = widget.exhibits
-          .where((exhibit) =>
-              // chaeck for any string matches for words in the query (split on spaces)
-              query.split(' ').any((word) =>
-                  exhibit
-                      .getTitle()
-                      .toLowerCase()
-                      .contains(word.toLowerCase()) ||
-                  exhibit
-                      .getDescription()
-                      .toLowerCase()
-                      .contains(word.toLowerCase())))
+          .where((exhibit) => (exhibit.hasContent(query, language: 'en')))
           .toList();
       updateFilteredExhibits(filteredExhibits);
     }
@@ -94,7 +84,6 @@ class ExhibitListViewState extends State<ExhibitListView>
               return ListTile(
                 key: Key(item.id),
                 title: Text(item.getTitle()),
-                subtitle: Text(item.getDescription()),
                 leading: CircleAvatar(
                   foregroundImage: AssetImage(item.image),
                 ),

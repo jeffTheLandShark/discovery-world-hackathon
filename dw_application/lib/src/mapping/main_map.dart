@@ -6,68 +6,114 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../exhibit_popup/exhibit_popup.dart';
+import '../exhibits/exhibit.dart';
+import 'exhibit_node.dart';
 import 'floor_transition_node.dart';
-
 
 Future<String> loadAsset() async {
   return await rootBundle.loadString('assets/config.json');
 }
 
 class MainMap extends StatefulWidget {
-  
-  GlobalKey<MainMapState>? _mainKey;
-  
-  MainMap({super.key, required this.popupState, required GlobalKey<MainMapState> mainKey}) {
-    _mainKey = mainKey;
+  MainMap(
+      {super.key,
+      required this.popupState,
+      required List<ExhibitMapEntry> exhibits}) {
+    this.exhibits.value = exhibits;
   }
+
+  static MainMapState? of(BuildContext context) {
+    return context.findAncestorStateOfType<MainMapState>();
+  }
+
+  static const routeName = '/map';
+
+  ValueNotifier<List<ExhibitMapEntry>> exhibits = ValueNotifier([]);
+
+  void updateExhibits(List<ExhibitMapEntry> newExhibits) {
+    exhibits.value = newExhibits;
+  }
+
   final ExhibitPopupState popupState;
   List<FloorMap> sections = [];
   FloorMap? currentFloor;
 
   @override
-  GlobalKey<MainMapState>? get key => _mainKey;
-
-  @override
   MainMapState createState() => MainMapState();
 }
 
-class MainMapState extends State<MainMap> {
-  GlobalKey<FloorMapState> floorMapKey = GlobalKey<FloorMapState>();
-
+class MainMapState extends State<MainMap> with RestorationMixin {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  String get restorationId => 'main_map';
+
+  void updateExhibits(List<ExhibitMapEntry> newExhibits) {
+    widget.updateExhibits(newExhibits);
   }
 
-  void transitionFloor(FloorTransitionNode start, FloorTransitionNode end){
+  final RestorableInt _mainMapKey = RestorableInt(0);
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_mainMapKey, 'main_map_key');
+  }
+
+  GlobalKey<FloorMapState> floorMapKey = GlobalKey<FloorMapState>();
+
+  void transitionFloor(FloorTransitionNode start, FloorTransitionNode end) {
     //TODO: Implement transitionFloor
   }
 
-  void setFloor(int index){
-    if(index >= 0 && index < widget.sections.length){
+  void setFloor(int index) {
+    if (index >= 0 && index < widget.sections.length) {
       currentFloor = widget.sections[index];
       widget.currentFloor = currentFloor;
     }
   }
-  
+
   late FloorMap currentFloor;
 
   @override
   Widget build(BuildContext context) {
-
     widget.sections = [
-      FloorMap(path: 'assets/images/map_assets/Tech Floor 1.png', popup: widget.popupState, key: floorMapKey,),
-      FloorMap(path: 'assets/images/map_assets/Tech Floor 2.png', popup: widget.popupState, key: floorMapKey,),
-      FloorMap(path: 'assets/images/map_assets/Tech Lower Level.png', popup: widget.popupState, key: floorMapKey,),
-      FloorMap(path: 'assets/images/map_assets/Tech Mezzanine.png', popup: widget.popupState, key: floorMapKey,),
+      FloorMap(
+        path: 'assets/images/map_assets/Tech Floor 1.png',
+        popup: widget.popupState,
+        key: floorMapKey,
+      ),
+      FloorMap(
+        path: 'assets/images/map_assets/Tech Floor 2.png',
+        popup: widget.popupState,
+        key: floorMapKey,
+      ),
+      FloorMap(
+        path: 'assets/images/map_assets/Tech Lower Level.png',
+        popup: widget.popupState,
+        key: floorMapKey,
+      ),
+      FloorMap(
+        path: 'assets/images/map_assets/Tech Mezzanine.png',
+        popup: widget.popupState,
+        key: floorMapKey,
+      ),
     ];
-    
-    currentFloor = widget.sections[0];
-    widget.currentFloor = currentFloor;
 
-    return 
-        currentFloor;
+    return ValueListenableBuilder<List<ExhibitMapEntry>>(
+      valueListenable: widget.exhibits,
+      builder: (context, exhibits, child) {
+        for (var exhibit in exhibits) {
+          widget.sections[exhibit.location.layer].key!.currentState!
+              .addExhibitNode(ExhibitNode(
+                  floor: widget.sections[exhibit.location.layer],
+                  xPos: exhibit.location.x,
+                  yPos: exhibit.location.y,
+                  description: "description 1"));
+        }
+
+        currentFloor = widget.sections[0];
+        widget.currentFloor = currentFloor;
+
+        return currentFloor;
+      },
+    );
   }
-  
 }

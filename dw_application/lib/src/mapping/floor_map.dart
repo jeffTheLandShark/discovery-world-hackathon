@@ -26,6 +26,7 @@ class FloorMap extends StatefulWidget {
         super(key: key);
 
   String get path => _path;
+  @override
   GlobalKey<FloorMapState>? get key => _key;
 
   @override
@@ -63,6 +64,12 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
           _scale = scale;
         });
       }
+    });
+  }
+
+  void addExhibitNode(ExhibitNode node) {
+    setState(() {
+      mapNodes.add(node);
     });
   }
 
