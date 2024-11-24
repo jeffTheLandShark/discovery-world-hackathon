@@ -57,9 +57,10 @@ class MainMapState extends State<MainMap> {
   Widget build(BuildContext context) {
 
     widget.sections = [
-      FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState, key: floorMapKey,),
-      //FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState),
-      //FloorMap(path: 'assets/images/map_assets/tech_floor2.png', popup: widget.popupState),
+      FloorMap(path: 'assets/images/map_assets/Tech Floor 1.png', popup: widget.popupState, key: floorMapKey,),
+      FloorMap(path: 'assets/images/map_assets/Tech Floor 2.png', popup: widget.popupState, key: floorMapKey,),
+      FloorMap(path: 'assets/images/map_assets/Tech Lower Level.png', popup: widget.popupState, key: floorMapKey,),
+      FloorMap(path: 'assets/images/map_assets/Tech Mezzanine.png', popup: widget.popupState, key: floorMapKey,),
     ];
     
     currentFloor = widget.sections[0];
