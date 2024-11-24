@@ -2,7 +2,6 @@ import 'dart:collection';
 
 // import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 import 'floor_transition_node.dart';
 import 'map_node.dart';
@@ -70,7 +69,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final stackChildren = <Widget>[];
-    stackChildren.add(const Image(image: AssetImage('assets/images/map_assets/tech_floor2.png')));
+    stackChildren.add(Image(image: AssetImage(widget.path)));
 
     for (int i = 0; i < mapNodes.length; i++) {
       final ex = mapNodes[i];
