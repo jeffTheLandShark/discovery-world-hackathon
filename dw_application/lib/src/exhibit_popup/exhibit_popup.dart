@@ -34,6 +34,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   String searchQuery = "";
   late List<Exhibit> filteredExhibits = [];
   bool searchFocused = false;
+  String currentFloorLabel = 'Tech Lower level';
 
   @override
   ExhibitPopupState createState() => ExhibitPopupState();
@@ -76,7 +77,15 @@ class ExhibitPopupState extends State<ExhibitPopup> {
       } else {
         filteredExhibits = widget.exhibits.value
             .where((exhibit) =>
-                exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+                exhibit.getTitle >
+                    exhibit
+                        .getTitle()
+                        .toLowerCase()
+                        .contains(query.toLowerCase()) ||
+                exhibit
+                    .getDescription()
+                    .toLowerCase()
+                    .contains(query.toLowerCase()))
             .toList();
       }
     });
@@ -170,18 +179,6 @@ class ExhibitPopupState extends State<ExhibitPopup> {
             ),
           ),
         ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TextField(
-            controller: descriptionController,
-            readOnly: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Selected Exhibit Description',
-            ),
-          ),
-        ),
         filteredExhibits.isEmpty
             ? SizedBox.shrink()
             : Expanded(
@@ -238,7 +235,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         child: Row(
           children: [
             Image.network(
-              'https://via.placeholder.com/100',
+              exhibit.image,
               width: 60,
               height: 60,
               fit: BoxFit.cover,
@@ -252,15 +249,15 @@ class ExhibitPopupState extends State<ExhibitPopup> {
                     exhibit.getTitle(),
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    exhibit.getDescription(),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  // const SizedBox(height: 8),
+                  // Text(
+                  //   exhibit.getDescription(),
+                  //   style: Theme.of(context).textTheme.bodyMedium,
+                  // ),
                   const SizedBox(height: 8),
                   TextButton.icon(
                     onPressed: () {
-                      zoom(0);
+                      zoom(exhibitIndex);
                     },
                     icon: const Icon(Icons.map),
                     label: const Text('Take me there'),

@@ -10,7 +10,10 @@ Future<String> loadAsset() async {
 }
 
 class MainMap extends StatefulWidget {
-  MainMap({super.key, required this.popupState, required this.exhibits});
+  MainMap(
+      {super.key,
+      required ExhibitPopupState popupState,
+      required this.exhibits});
 
   static MainMapState? of(BuildContext context) {
     return context.findAncestorStateOfType<MainMapState>();
@@ -18,10 +21,10 @@ class MainMap extends StatefulWidget {
 
   static const routeName = '/map';
 
-  final ExhibitPopupState popupState;
   final ValueNotifier<List<ExhibitMapEntry>> exhibits;
   List<FloorMap> sections = [];
   FloorMap? currentFloor;
+  ExhibitPopupState popupState;
 
   @override
   MainMapState createState() => MainMapState();
