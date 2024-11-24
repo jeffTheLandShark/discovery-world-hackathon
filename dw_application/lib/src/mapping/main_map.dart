@@ -118,7 +118,8 @@ class MainMapState extends State<MainMap> with RestorationMixin {
                   floor: widget.sections[exhibit.location.layer],
                   xPos: exhibit.location.x,
                   yPos: exhibit.location.y,
-                  description: "description 1"));
+                  description: "description 1",
+                  id: exhibit.id));
         }
 
         currentFloor = widget.sections[0];
