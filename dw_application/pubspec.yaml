@@ -38,4 +38,3 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/example.json
     - assets/images/
-    - assets/exhibits/
