@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 import 'floor_transition_node.dart';
 import 'map_node.dart';
@@ -50,6 +51,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
       ExhibitNode(floor: widget, xPos: 100, yPos: -20, description: "description 3"),
       ExhibitNode(floor: widget, xPos: -80, yPos: 20, description: "description 4"),
       ExhibitNode(floor: widget, xPos: -40, yPos: -10, description: "description 5"),
+      FloorTransitionNode(floor: widget, xPos: 50, yPos: 50, canGoTo: List<FloorTransitionNode>.empty()),
     ];
 
     _controller.addListener(() {
@@ -76,6 +78,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
         top: MediaQuery.of(context).size.height/2 + ex.yPos,
         left: MediaQuery.of(context).size.width/2 + ex.xPos,
         child: IconUpdater(
+          node: ex,
           iconSize: iconSize,
           scale: _scale,
           isActive: activeIconIndex == i,
@@ -85,6 +88,8 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
                 activeIconIndex = i;
                 if (ex is ExhibitNode) {
                   widget._popup.updateText(ex.description, i);
+                } else if (ex is FloorTransitionNode) {
+                  widget._popup.updateText(ex.type, -1);
                 }
               } else {
                 activeIconIndex = -1;
@@ -199,7 +204,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   }
 
   FloorTransitionNode? getTransitionNode(MapNode node) {
-    if (node.floor == this) {
+    if (node.floor == widget) {
       return null;
     }
     for (var element in mapNodes) {
@@ -239,6 +244,7 @@ class IconUpdater extends StatelessWidget {
   final double scale; // Receive the scale from MainMap
   final bool isActive; // Indicates if the icon is active
   final VoidCallback onIconClick; // Add callback for click
+  final MapNode node;
 
   const IconUpdater({
     super.key,
@@ -246,6 +252,7 @@ class IconUpdater extends StatelessWidget {
     required this.scale,
     required this.isActive, // Accept whether the icon is active
     required this.onIconClick, // Accept the callback
+    required this.node,
   });
 
   @override
@@ -254,7 +261,7 @@ class IconUpdater extends StatelessWidget {
     return Transform.scale(
       scale: 1 / scale, // Use the passed scale to update the icon size
       child: IconButton(
-        icon: Icon(Icons.circle, color: isActive ? Colors.blue : Colors.red),
+        icon: Icon(Icons.circle, color: isActive ? Colors.green : node is FloorTransitionNode ? Colors.blue : Colors.red),
         onPressed: onIconClick, // Call the provided callback
         iconSize: iconSize, // Use the passed iconSize
       ),
