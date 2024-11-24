@@ -1,3 +1,4 @@
+import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
 import 'appTheme.dart';
 import 'settings/settings_controller.dart';
@@ -32,7 +33,9 @@ class DiscoveryAppState extends State<DiscoveryApp> {
 
   final GlobalKey<ExhibitListViewState> _exhibitListViewKey =
       GlobalKey<ExhibitListViewState>();
+  final GlobalKey<MainMapState> _mainMapKey = GlobalKey<MainMapState>();
 
+  List<ExhibitMapEntry> _exhibitMapDetails = [];
   List<Exhibit> _exhibits = [];
 
   @override
@@ -40,7 +43,10 @@ class DiscoveryAppState extends State<DiscoveryApp> {
     super.initState();
     readJson();
     _widgetOptions = <Widget>[
-      MapView(),
+      MapView(
+          exhibits: _exhibits,
+          exhibitMapEntries: _exhibitMapDetails,
+          passedKey: _mainMapKey),
       ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibits),
       const ExhibitScanView(),
       SettingsView(controller: widget.settingsController),
@@ -49,16 +55,25 @@ class DiscoveryAppState extends State<DiscoveryApp> {
 
   // Fetch content from the json file
   Future<void> readJson() async {
-    final String response = await rootBundle.loadString('assets/example.json');
+    final String response =
+        await rootBundle.loadString('assets/exhibits/exhibits.json');
     final data = await json.decode(response);
+
 
     setState(() {
       _exhibits =
           (data["exhibits"] as List).map((e) => Exhibit.fromJson(e)).toList();
+      _exhibitMapDetails = (data["mapPoints"] as List)
+          .map((e) => ExhibitMapEntry.fromJson(e))
+          .toList();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _exhibitListViewKey.currentState?.updateExhibits(_exhibits);
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _mainMapKey.currentState?.updateExhibits(_exhibitMapDetails);
     });
   }
 
