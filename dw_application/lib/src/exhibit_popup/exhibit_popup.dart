@@ -46,15 +46,16 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     filteredExhibits = [];
   }
 
-  void updateText(String newText, int index) {
+  void updateText(String id, int index) {
     panelController.open();
     setState(() {
-      displayText = newText;
+      displayText = widget.exhibits.value[index].getDescription();
+      // displayText = newText;
     });
     panelController.open();
     setState(() {
-      displayText = newText;
-      exhibitIndex = index;
+      displayText = widget.exhibits.value[index].getDescription();;
+      // exhibitIndex = index;
     });
   }
 
