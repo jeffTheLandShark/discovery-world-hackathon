@@ -77,11 +77,10 @@ class ExhibitPopupState extends State<ExhibitPopup> {
       } else {
         filteredExhibits = widget.exhibits.value
             .where((exhibit) =>
-                exhibit.getTitle >
-                    exhibit
-                        .getTitle()
-                        .toLowerCase()
-                        .contains(query.toLowerCase()) ||
+                exhibit
+                    .getTitle()
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
                 exhibit
                     .getDescription()
                     .toLowerCase()

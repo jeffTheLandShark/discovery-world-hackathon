@@ -12,7 +12,7 @@ Future<String> loadAsset() async {
 class MainMap extends StatefulWidget {
   MainMap(
       {super.key,
-      required ExhibitPopupState popupState,
+      required this.popupState,
       required this.exhibits});
 
   static MainMapState? of(BuildContext context) {
