@@ -7,6 +7,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../mapping/floor_map.dart';
 import '../mapping/floor_transition_node.dart';
 import '../mapping/map_node.dart';
+import '../exhibits/exhibit.dart';
 
 class ExhibitPopup extends StatefulWidget {
   const ExhibitPopup({
@@ -24,6 +25,55 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   GlobalKey<MainMapState> mainMapKey = GlobalKey<MainMapState>();
   late String displayText;
   int exhibitIndex = -1;
+  String searchQuery = "";
+  List<Exhibit> filteredExhibits = [
+    Exhibit.fromJson({
+      "id": "exhibit1",
+      "image": "assets/images/flutter_logo.png",
+      "article": {
+        "id": "exhibit1",
+        "titles": {
+          "en1": "Loreme",
+          "en2": "Loreme",
+          "en3": "Loreme",
+          "es1": "Lorems",
+          "Hmong1": "Loremh"
+        },
+        "descriptions": {
+          "en1": "Description in English for level 1",
+          "en2": "Description in English for level 2",
+          "en3": "Description in English for level 3",
+          "es1": "Descripción en español nivel 1",
+          "Hmong1": "Piav qhia Hmong rau qib 1"
+        }
+      },
+      "languageCode": "en",
+      "difficultyLevel": "1"
+    }),
+    Exhibit.fromJson({
+      "id": "exhibit2",
+      "image": "assets/images/flutter_logo.png",
+      "article": {
+        "id": "exhibit2",
+        "titles": {
+          "en1": "Exhibit 2: English 1",
+          "en2": "Exhibit 2: English 2",
+          "en3": "Exhibit 2: English 3",
+          "es1": "Exhibit 2: Español 1",
+          "Hmong1": "Exhibit 2: Hmong 1"
+        },
+        "descriptions": {
+          "en1": "Description in English for level 1",
+          "en2": "Description in English for level 2",
+          "en3": "Description in English for level 3",
+          "es1": "Descripción en español nivel 1",
+          "Hmong1": "Piav qhia Hmong rau qib 1"
+        }
+      },
+      "languageCode": "en",
+      "difficultyLevel": "1"
+    }),
+  ];
 
   @override
   void initState() {
@@ -35,6 +85,15 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     setState(() {
       displayText = newText;
       exhibitIndex = index;
+    });
+  }
+
+  void updateSearchQuery(String query) {
+    setState(() {
+      searchQuery = query;
+      filteredExhibits = filteredExhibits
+          .where((exhibit) => exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -106,80 +165,106 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           ),
         ),
         const SizedBox(height: 10),
-        Card(
-          elevation: 2,
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Image.network(
-                  'https://via.placeholder.com/100',
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'All Aboard',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Explore the wonders of technology and innovation at our exhibit.',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 8),
-                      TextButton.icon(
-                        onPressed: () {
-                          zoom(0);
-                        },
-                        icon: const Icon(Icons.map),
-                        label: const Text('Take me there'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: TextField(
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.search),
+              hintText: 'Search...'
             ),
+            onChanged: updateSearchQuery,
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              isExpanded: true,
-              value: 'Tech Lower level',
-              items: <String>[
-                'Tech Lower level',
-                'Tech level 1',
-                'Tech level 2',
-                'Tech Mezzanine',
-                'Building Side View'
-              ].map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                // Handle change
-              },
-            ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: filteredExhibits.length,
+            itemBuilder: (context, index) {
+              return _buildExhibitCard(context, exhibit: filteredExhibits[index]);
+            },
           ),
         ),
+        const SizedBox(height: 20),
+        _buildDropdown(),
       ],
+    );
+  }
+
+  Widget _buildExhibitCard(BuildContext context, {Exhibit exhibit = const Exhibit.blank()}) {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Image.network(
+              'https://via.placeholder.com/100',
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    exhibit.getTitle(),
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    exhibit.getDescription(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  TextButton.icon(
+                    onPressed: () {
+                      zoom(0);
+                    },
+                    icon: const Icon(Icons.map),
+                    label: const Text('Take me there'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDropdown() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          isExpanded: true,
+          value: 'Tech Lower level',
+          items: <String>[
+            'Tech Lower level',
+            'Tech level 1',
+            'Tech level 2',
+            'Tech Mezzanine',
+            'Building Side View'
+          ].map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            // TODO Handle change
+          },
+        ),
+      ),
     );
   }
 }
