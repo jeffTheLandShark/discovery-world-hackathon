@@ -9,9 +9,9 @@ import 'settings/settings_view.dart';
 
 import 'nfc_reader/exhibit_scan_view.dart';
 
-import 'mapping/main_map.dart';
-import 'mapping/map_node.dart';
-import 'mapping/floor_map.dart';
+// import 'mapping/main_map.dart';
+// import 'mapping/map_node.dart';
+// import 'mapping/floor_map.dart';
 
 import 'exhibit_popup/exhibit_popup.dart';
 

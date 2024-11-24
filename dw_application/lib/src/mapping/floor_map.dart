@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:dw_application/src/mapping/main_map.dart';
+// import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 
@@ -8,9 +8,9 @@ import 'floor_transition_node.dart';
 import 'map_node.dart';
 import 'exhibit_node.dart';
 
-import 'package:dw_application/src/mapping/floor_map.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter/services.dart' show rootBundle;
+// import 'package:dw_application/src/mapping/floor_map.dart';
+// import 'package:flutter/widgets.dart';
+// import 'package:flutter/services.dart' show rootBundle;
 
 import '../exhibit_popup/exhibit_popup.dart';
 
@@ -124,21 +124,24 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   }
 
   void pan(MapNode start, MapNode end){
+    //get the current scale of the map
     double scale = _controller.value.getMaxScaleOnAxis();
+
     // Adjust for the current scale (so the translation is scaled correctly)
     double targetX =  -end.xPos*scale;
     double targetY =  -end.yPos*scale;
 
     // Get the current transformation matrix
     Matrix4 currentMatrix = _controller.value;
-    Matrix4 targetMatrix = Matrix4.identity();
+    // Matrix4 targetMatrix = Matrix4.identity(); - replaced with the following line
+    Matrix4 targetMatrix = currentMatrix.clone();
 
     // Calculate the difference in position between the current view center and the target position
-    double offsetX = targetX - targetMatrix.getTranslation().x*scale;
-    double offsetY = targetY - targetMatrix.getTranslation().y*scale;
+    double offsetX = targetX - targetMatrix.getTranslation().x;//*scale;
+    double offsetY = targetY - targetMatrix.getTranslation().y;//*scale;
 
     // Apply the translation to the current matrix (while preserving scale)
-    targetMatrix.translate(offsetX, offsetY);
+    targetMatrix.setTranslationRaw(targetX, targetY, 0.0);
 
     // Set up animation controller
     final AnimationController animationController = AnimationController(
@@ -162,46 +165,46 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
     animationController.forward();
   }
 
-  void moveToIcon(int index) {
-    final ex = mapNodes[index];
+  // void moveToIcon(int index) {
+  //   final ex = mapNodes[index];
 
-    double scale = _controller.value.getMaxScaleOnAxis();
-    // Adjust for the current scale (so the translation is scaled correctly)
-    double targetX =  -ex.xPos*scale;
-    double targetY =  -ex.yPos*scale;
+  //   double scale = _controller.value.getMaxScaleOnAxis();
+  //   // Adjust for the current scale (so the translation is scaled correctly)
+  //   double targetX =  -ex.xPos*scale;
+  //   double targetY =  -ex.yPos*scale;
 
-    // Get the current transformation matrix
-    Matrix4 currentMatrix = _controller.value;
-    Matrix4 targetMatrix = Matrix4.identity();
+  //   // Get the current transformation matrix
+  //   Matrix4 currentMatrix = _controller.value;
+  //   Matrix4 targetMatrix = Matrix4.identity();
 
-    // Calculate the difference in position between the current view center and the target position
-    double offsetX = targetX - targetMatrix.getTranslation().x*scale;
-    double offsetY = targetY - targetMatrix.getTranslation().y*scale;
+  //   // Calculate the difference in position between the current view center and the target position
+  //   double offsetX = targetX - targetMatrix.getTranslation().x*scale;
+  //   double offsetY = targetY - targetMatrix.getTranslation().y*scale;
 
-    // Apply the translation to the current matrix (while preserving scale)
-    targetMatrix.translate(offsetX, offsetY);
+  //   // Apply the translation to the current matrix (while preserving scale)
+  //   targetMatrix.translate(offsetX, offsetY);
 
-    // Set up animation controller
-    final AnimationController animationController = AnimationController(
-      vsync: this, // Ensure your widget implements TickerProviderStateMixin
-      duration: const Duration(milliseconds: 500), // Animation duration
-    );
+  //   // Set up animation controller
+  //   final AnimationController animationController = AnimationController(
+  //     vsync: this, // Ensure your widget implements TickerProviderStateMixin
+  //     duration: const Duration(milliseconds: 500), // Animation duration
+  //   );
 
-    // Set up tween between current and target matrix
-    final Matrix4Tween tween = Matrix4Tween(
-      begin: currentMatrix,
-      end: targetMatrix,
-    );
+  //   // Set up tween between current and target matrix
+  //   final Matrix4Tween tween = Matrix4Tween(
+  //     begin: currentMatrix,
+  //     end: targetMatrix,
+  //   );
 
-    // Start animation
-    animationController.addListener(() {
-      setState(() {
-        _controller.value = tween.evaluate(animationController);
-      });
-    });
+  //   // Start animation
+  //   animationController.addListener(() {
+  //     setState(() {
+  //       _controller.value = tween.evaluate(animationController);
+  //     });
+  //   });
 
-    animationController.forward();
-  }
+  //   animationController.forward();
+  // }
 
   FloorTransitionNode? getTransitionNode(MapNode node) {
     if (node.floor == widget) {
