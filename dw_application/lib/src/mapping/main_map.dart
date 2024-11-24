@@ -1,4 +1,4 @@
-import 'package:dw_application/src/mapping/exhibit_node.dart';
+// import 'package:dw_application/src/mapping/exhibit_node.dart';
 import 'package:dw_application/src/mapping/floor_map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +20,11 @@ class MainMap extends StatefulWidget {
   MainMap({super.key, required this.popupState, required GlobalKey<MainMapState> mainKey}) {
     _mainKey = mainKey;
   }
-
-  
-
   final ExhibitPopupState popupState;
-
   List<FloorMap> sections = [];
-
   FloorMap? currentFloor;
 
+  @override
   GlobalKey<MainMapState>? get key => _mainKey;
 
   @override
@@ -45,7 +41,7 @@ class MainMapState extends State<MainMap> {
   }
 
   void transitionFloor(FloorTransitionNode start, FloorTransitionNode end){
-
+    //TODO: Implement transitionFloor
   }
 
   void setFloor(int index){
