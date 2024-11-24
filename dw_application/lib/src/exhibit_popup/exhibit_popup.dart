@@ -79,7 +79,9 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         filteredExhibits = List<Exhibit>.from(widget.exhibits);
       } else {
         filteredExhibits = widget.exhibits
-            .where((exhibit) => exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+            .where((exhibit) =>
+          exhibit.getTitle().toLowerCase().contains(query.toLowerCase()) ||
+          exhibit.getDescription().toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
     });
@@ -118,20 +120,6 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     mainMap = MainMap(
         popupState: this, key: mainMapKey, exhibits: widget.exhibitMapEntries);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Exhibit Explorer"),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
       body: SlidingUpPanel(
         controller: panelController,
         borderRadius: const BorderRadius.only(
@@ -186,28 +174,30 @@ class ExhibitPopupState extends State<ExhibitPopup> {
             ),
           ),
         ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TextField(
-            controller: descriptionController,
-            readOnly: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Selected Exhibit Description',
-            ),
-          ),
-        ),
         filteredExhibits.isEmpty
             ? SizedBox.shrink()
             : Expanded(
-                child: ListView.builder(
-                  itemCount: filteredExhibits.length,
-                  itemBuilder: (context, index) {
-                    return _buildExhibitCard(context, exhibit: filteredExhibits[index]);
-                  },
-                ),
+          child: ListView.builder(
+            itemCount: filteredExhibits.length,
+            itemBuilder: (context, index) {
+              return _buildExhibitCard(context, exhibit: filteredExhibits[index]);
+            },
+          ),
               ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextField(
+            controller: descriptionController,
+            readOnly: true,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              labelText: 'Selected Exhibit Translation',
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+            ),
+          ),
+        ),
         const SizedBox(height: 20),
         _buildDropdown(),
       ],
@@ -224,7 +214,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         child: Row(
           children: [
             Image.network(
-              'https://via.placeholder.com/100',
+              exhibit.image,
               width: 60,
               height: 60,
               fit: BoxFit.cover,
@@ -238,15 +228,15 @@ class ExhibitPopupState extends State<ExhibitPopup> {
                     exhibit.getTitle(),
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    exhibit.getDescription(),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  // const SizedBox(height: 8),
+                  // Text(
+                  //   exhibit.getDescription(),
+                  //   style: Theme.of(context).textTheme.bodyMedium,
+                  // ),
                   const SizedBox(height: 8),
                   TextButton.icon(
                     onPressed: () {
-                      zoom(0);
+                      zoom(exhibitIndex);
                     },
                     icon: const Icon(Icons.map),
                     label: const Text('Take me there'),
@@ -311,27 +301,6 @@ class ExhibitPopupState extends State<ExhibitPopup> {
                     mainMap.setFloor(floorIndexFromLabel(newValue));
                   });
                 }
-                // setState(() {
-                //   if (newValue != null) {
-                //     switch (newValue) {
-                //       case 'Tech Lower level':
-                //         mainMap.setFloor(0);
-                //         break;
-                //       case 'Tech level 1':
-                //         mainMap.setFloor(1);
-                //         break;
-                //       case 'Tech level 2':
-                //         mainMap.setFloor(2);
-                //         break;
-                //       case 'Tech Mezzanine':
-                //         mainMap.setFloor(3);
-                //         break;
-                //       case 'Building Side View':
-                //         mainMap.setFloor(4);
-                //         break;
-                //     }
-                //   }
-                // });
               },
             );
           },
