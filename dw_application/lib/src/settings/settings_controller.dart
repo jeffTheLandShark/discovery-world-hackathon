@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'settings_service.dart';
 
@@ -17,37 +16,18 @@ class SettingsController with ChangeNotifier {
   // Make ThemeMode a private variable so it is not updated directly without
   // also persisting the changes with the SettingsService.
   late ThemeMode _themeMode;
-  late int _difficulty;
-  late String _language;
 
   // Allow Widgets to read the user's preferred ThemeMode.
   ThemeMode get themeMode => _themeMode;
-
-  int get difficulty => _difficulty;
-
-  String get language => _language;
 
   /// Load the user's settings from the SettingsService. It may load from a
   /// local database or the internet. The controller only knows it can load the
   /// settings from the service.
   Future<void> loadSettings() async {
     _themeMode = await _settingsService.themeMode();
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-    for (String key in SettingsService.keys) {
-      if (!preferences.containsKey(key)) {
-        initPreferences();
-        break;
-      }
-    }
-    _difficulty = preferences.getInt('Difficulty')!;
-    _language = preferences.getString('Language')!;
+
     // Important! Inform listeners a change has occurred.
     notifyListeners();
-  }
-
-  void initPreferences() {
-    _settingsService.updateDifficlty(1);
-    _settingsService.updateLanguage("English");
   }
 
   /// Update and persist the ThemeMode based on the user's selection.
@@ -67,29 +47,4 @@ class SettingsController with ChangeNotifier {
     // SettingService.
     await _settingsService.updateThemeMode(newThemeMode);
   }
-
-  Future<void> updateDifficulty(int newDifficulty) async {
-    if (newDifficulty == _difficulty) return;
-
-    _difficulty = newDifficulty;
-
-    notifyListeners();
-
-    await _settingsService.updateDifficlty(newDifficulty);
-  }
-
-  Future<void> updateLanguage(String newLanguage) async {    
-    if (newLanguage == _language) return;
-
-    _language = newLanguage;
-
-    notifyListeners();
-
-    await _settingsService.updateLanguage(language);
-  }
-
-  List<String> getLanguages() {
-    return SettingsService.languages;
-  }
-
 }
