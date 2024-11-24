@@ -5,41 +5,65 @@
       "x": -226,
       "y": -31,
       "description": "Flight Simulator",
-      "layer": 0
+      "layer": 1
     },
     {
       "id": "power_on",
       "x": -85,
       "y": -18,
       "description": "Power On",
-      "layer": 0
+      "layer": 1
     },
     {
       "id": "great_lakes_future",
       "x": 173,
       "y": 11,
       "description": "Great Lakes Future",
-      "layer": 0
+      "layer": 1
     },
     {
       "id": "virtual_explorer",
       "x": -75,
       "y": -10,
       "description": "Virtual Explorer",
-      "layer": 1
+      "layer": 2
     },
     {
       "id": "physics_and_you",
       "x": -166,
       "y": -35,
       "description": "Physics & You!",
-      "layer": 1
+      "layer": 2
+    },
+    {
+      "id": "all_aboard",
+      "x": 50,
+      "y": -25,
+      "description": "All Aboard",
+      "layer": 2
     }
   ],
   "exhibits": [
     {
+      "id": "great_lakes_future",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExhibitsGreatLakes-2048x1024.jpg",
+      "article": {
+        "id": "great_lakes_future",
+        "titles": {
+          "en1": "Great Lakes Future",
+          "es1": "Great Lakes Future",
+          "Hmong1": "Great Lakes Future"
+        },
+        "descriptions": {
+          "en1": "# Great Lakes Future\nAround 30 million people make their home around the Great Lakes. Explore one of the largest interactive models of the Great Lakes in the world! Investigate the geology and geography of some of the fish, turtles, snakes, and other creatures that make their homes in the Great Lakes Basin.\nEnjoy a scenic overview from the Weather Cave. Take control of the weather while up in the clouds. Learn about which phenomenon have shaped, and continue to shape, the gorgeous geography of the Great Lakes!",
+          "es1": "# Futuro de los Grandes Lagos\nAlrededor de 30 millones de personas hacen su hogar alrededor de los Grandes Lagos. ¡Explora uno de los modelos interactivos más grandes de los Grandes Lagos en el mundo! Investiga la geología y geografía de algunos de los peces, tortugas, serpientes y otras criaturas que hacen sus hogares en la cuenca de los Grandes Lagos.\nDisfruta de una vista panorámica desde la Cueva del Clima. Toma el control del clima mientras estás en las nubes. ¡Aprende sobre qué fenómenos han dado forma, y continúan dando forma, a la hermosa geografía de los Grandes Lagos!",
+          "Hmong1": "# Great Lakes Yav Tom Ntej\nNyob ib ncig ntawm 30 lab tus tib neeg ua lawv lub tsev nyob ib ncig ntawm lub Great Lakes. Tshawb nrhiav ib qho ntawm cov qauv sib tham sib tham loj tshaj plaws ntawm Cov Pas Dej Loj hauv ntiaj teb! Tshawb xyuas cov geology thiab thaj chaw ntawm qee cov ntses, vaub kib, nab, thiab lwm yam tsiaj uas ua rau lawv lub tsev nyob rau hauv Great Lakes Basin.\nNyob rau hauv lub scenic txheej txheem cej luam ntawm lub qhov tsua Huab cua Thaum nyob hauv huab, Kawm txog cov xwm txheej twg tau zoo li, thiab txuas ntxiv mus, cov geography ntawm Great Lakes!"
+        }
+      }
+    },
+    {
       "id": "all_aboard",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/AllAboard1_1920x960-2048x1024.jpg",
       "article": {
         "id": "all_aboard",
         "titles": {
@@ -246,7 +270,7 @@
       }
     },
     {
-      "id": "exhibit45",
+      "id": "see_sound",
       "image": "assets/images/flutter_logo.png",
       "article": {
         "id": "exhibit45",
@@ -452,8 +476,8 @@
       }
     },
     {
-      "id": "exhibit66",
-      "image": "assets/images/flutter_logo.png",
+      "id": "power_on",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/PowerOn_1920x960-2048x1024.jpg",
       "article": {
         "id": "exhibit66",
         "titles": {

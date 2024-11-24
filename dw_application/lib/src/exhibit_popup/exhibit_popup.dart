@@ -35,6 +35,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   late String displayText;
   PanelController panelController = PanelController();
   int exhibitIndex = -1;
+  String exhibit_id = "";
   String searchQuery = "";
   late List<Exhibit> filteredExhibits = [];
   bool searchFocused = false;
@@ -64,17 +65,17 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   }
 
   void updateSearchQuery(String query) {
-    setState(() {
-      searchQuery = query;
-      if (query.isEmpty && !searchFocused) {
-        filteredExhibits = [];
-      } else {
-        filteredExhibits = widget.exhibits.value
-            .where((exhibit) =>
-                exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
-            .toList();
-      }
-    });
+    // setState(() {
+    //   searchQuery = query;
+    //   if (query.isEmpty && !searchFocused) {
+    //     filteredExhibits = [];
+    //   } else {
+    //     filteredExhibits = widget.exhibits.value
+    //         .where((exhibit) =>
+    //             exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+    //         .toList();
+    //   }
+    // });
     setState(() {
       searchQuery = query;
       if (query.isEmpty) {
@@ -93,25 +94,34 @@ class ExhibitPopupState extends State<ExhibitPopup> {
 
   late MainMap mainMap;
 
-  void zoom(int index) {
-    FloorMapState? floorState = mainMap.currentFloor?.key?.currentState;
-    Queue<MapNode>? transitions = floorState?.getTransitions(
+  void zoom(String id) {
+    FloorMapState? floorState = mainMap.currentFloor?.key.currentState;
+    if (floorState == null ||
+        floorState.activeIconIndex == null ||
+        floorState.activeIconIndex! < 0 ||
+        floorState.activeIconIndex! >= floorState.mapNodes.length) {
+      return;
+    }
+    int index = floorState.mapNodes.indexWhere((element) {
+      if (element is ExhibitNode) {
+        return element.id == id;
+      }
+      return false;
+    });
+    Queue<MapNode>? transitions = floorState.getTransitions(
         floorState.mapNodes[floorState.activeIconIndex!],
         floorState.mapNodes[index]);
-    if (transitions!.isEmpty) {
-      print("panning, no transition");
-      floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!],
+    if (transitions.isEmpty) {
+      floorState.pan(floorState.mapNodes[floorState.activeIconIndex!],
           floorState.mapNodes[index]);
     } else {
       for (var node in transitions) {
         if (node is FloorTransitionNode) {
-          print("panning");
-          floorState?.pan(
+          floorState.pan(
               floorState.mapNodes[floorState.activeIconIndex!], node);
         } else {
-          print("Transitioning to floor");
           mainMapKey.currentState!.transitionFloor(
-              floorState!.mapNodes[floorState.activeIconIndex!]
+              floorState.mapNodes[floorState.activeIconIndex!]
                   as FloorTransitionNode,
               node as FloorTransitionNode);
         }
@@ -122,7 +132,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    mainMap = MainMap(popupState: this, key: mainMapKey, exhibits: widget.exhibitMapEntries);
+    mainMap = MainMap(
+        popupState: this, key: mainMapKey, exhibits: widget.exhibitMapEntries);
     return Scaffold(
       body: SlidingUpPanel(
         controller: panelController,
@@ -196,7 +207,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: TextField(
+          child: TextField(
             controller: descriptionController,
             readOnly: true,
             decoration: const InputDecoration(
@@ -207,81 +218,9 @@ class ExhibitPopupState extends State<ExhibitPopup> {
             ),
           ),
         ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: DropdownButton<int>(
-            // Read the selected floor from map
-            value: mainMapKey.currentState?.currentFloorIndex,
-            // Call the updateThemeMode method any time the user selects a theme.
-            onChanged: (int? newIndex) {
-              mainMapKey.currentState?.changeFloor(newIndex!);
-            },
-            items: const [
-              DropdownMenuItem(
-                value: 0,
-                child: Text('Tech Lower Level'),
-              ),
-              DropdownMenuItem(
-                value: 1,
-                child: Text('Tech Level 1'),
-              ),
-              DropdownMenuItem(
-                value: 2,
-                child: Text('Tech Level 2'),
-              ),
-              DropdownMenuItem(
-                value: 3,
-                child: Text('Tech Mezzanine'),
-              ),
-              DropdownMenuItem(child: Text('Building Side View'), value: 4),
-            ],
-          ),
-        ),
-        const SizedBox(height: 20),
-        // Container(
-        //   margin: const EdgeInsets.symmetric(horizontal: 16),
-        //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        //   decoration: BoxDecoration(
-        //     color: isDarkMode ? (Colors.grey[800] ?? Colors.grey) : Colors.white,
-        //     borderRadius: BorderRadius.circular(10),
-        //     border: Border.all(color: Colors.grey),
-        //   ),
-        // ),
       ],
     );
   }
-
-  // Widget _buildDropdown() {
-  //   return DropdownButton<int>(
-  //     value: mainMapKey.currentState?.currentFloorIndex,
-  //     onChanged: (int? newIndex) {
-  //       mainMapKey.currentState?.changeFloor(newIndex!);
-  //     },
-  //     items: const [
-  //       DropdownMenuItem(
-  //         value: 0,
-  //         child: Text('Tech Lower Level'),
-  //       ),
-  //       DropdownMenuItem(
-  //         value: 1,
-  //         child: Text('Tech Level 1'),
-  //       ),
-  //       DropdownMenuItem(
-  //         value: 2,
-  //         child: Text('Tech Level 2'),
-  //       ),
-  //       DropdownMenuItem(
-  //         value: 3,
-  //         child: Text('Tech Mezzanine'),
-  //       ),
-  //       DropdownMenuItem(
-  //         value: 4,
-  //         child: Text('Building Side View'),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _buildExhibitCard(BuildContext context, {Exhibit? exhibit}) {
     exhibit ??= Exhibit.blank();
@@ -292,12 +231,13 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
+            // check if link if works else icon if not
             Image.network(
-              exhibit.image,
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
-            ),
+                  exhibit.image,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -315,7 +255,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
                   const SizedBox(height: 8),
                   TextButton.icon(
                     onPressed: () {
-                      zoom(exhibitIndex);
+                      zoom(exhibit!.id);
                     },
                     icon: const Icon(Icons.map),
                     label: const Text('Take me there'),
