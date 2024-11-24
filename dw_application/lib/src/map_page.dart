@@ -1,3 +1,4 @@
+import 'package:dw_application/src/exhibit_popup/exhibit_popup.dart';
 import 'package:flutter/material.dart';
 
 class MapView extends StatelessWidget {
@@ -14,7 +15,7 @@ class MapView extends StatelessWidget {
             // put interactive map here
             // get device height
             height: MediaQuery.of(context).size.height * 0.9,
-            color: Colors.grey,
+            child: ExhibitPopup(),
           ),
         ],
       ),
