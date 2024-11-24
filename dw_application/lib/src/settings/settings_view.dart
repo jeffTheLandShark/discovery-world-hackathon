@@ -1,3 +1,4 @@
+import 'package:dw_application/src/appTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'settings_controller.dart';

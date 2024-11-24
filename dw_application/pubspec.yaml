@@ -15,6 +15,8 @@ dependencies:
   nfc_manager: ^3.0.0 
   flutter_localizations:
     sdk: flutter
+  sliding_up_panel: ^2.0.0+1
+  provider: ^6.1.2
   intl: ^0.19.0
   searchable_listview: ^2.15.2
   dio: ^5.4.3+1
@@ -41,3 +43,4 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/example.json
     - assets/images/
+    - assets/images/map_assets/

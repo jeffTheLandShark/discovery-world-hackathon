@@ -1,0 +1,28 @@
+Nodes:
+  - Name: "East_Stairs"
+    Type: "Stairs"
+    Origin_Map: "Map1"
+    Origin_Position: [0, 0]
+    - Destinations:
+      - Destination_Map: "Map2"
+        Destination_Position: [1, 1]
+      - Destination_Map: "Map3"
+        Destination_Position: [2, 2]
+  - Name: "East_Stairs"
+    Type: "Stairs"
+    Origin_Map: "Map2"
+    Origin_Position: [1, 1]
+    - Destinations:
+      - Destination_Map: "Map1"
+        Destination_Position: [0, 0]
+      - Destination_Map: "Map3"
+        Destination_Position: [2, 2]
+  - Name: "East_Stairs"
+    Type: "Stairs"
+    Origin_Map: "Map3"
+    Origin_Position: [2, 2]
+    - Destinations:
+      - Destination_Map: "Map1"
+        Destination_Position: [0, 0]
+      - Destination_Map: "Map2"
+        Destination_Position: [1, 1]

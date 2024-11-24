@@ -91,8 +91,8 @@ class DiscoveryAppState extends State<DiscoveryApp> {
             },
             onGenerateTitle: (BuildContext context) =>
                 AppLocalizations.of(context)!.appTitle,
-            theme: appTheme,
-            darkTheme: ThemeData.dark(),
+            theme: appThemeLight,
+            darkTheme: appThemeDark,
             themeMode: widget.settingsController.themeMode,
             onGenerateRoute: (RouteSettings routeSettings) {
               return MaterialPageRoute<void>(
@@ -184,7 +184,7 @@ class HomeNavigationState extends State<HomeNavigation> {
         ],
         currentIndex: _selectedIndex,
         unselectedItemColor: Theme.of(context).disabledColor,
-        selectedItemColor: Theme.of(context).primaryColor,
+        selectedItemColor: const Color.fromARGB(255, 231, 64, 120),
         onTap: _onItemTapped,
       ),
     );
