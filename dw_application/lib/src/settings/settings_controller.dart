@@ -34,8 +34,8 @@ class SettingsController with ChangeNotifier {
     _themeMode = await _settingsService.themeMode();
     _difficulty = _settingsService.defaultDifficulty();
     _language = _settingsService.defaultLanguage();
-  // Important! Inform listeners a change has occurred.
-  notifyListeners();
+    // Important! Inform listeners a change has occurred.
+    notifyListeners();
   }
 
   // List<Future<void>> initPreferences() {
@@ -65,7 +65,7 @@ class SettingsController with ChangeNotifier {
 
   Future<void> updateDifficulty(int? newDifficulty) async {
     if (newDifficulty == null) return;
-    
+
     if (newDifficulty == _difficulty) return;
 
     _difficulty = newDifficulty;
@@ -75,7 +75,7 @@ class SettingsController with ChangeNotifier {
     await _settingsService.updateDifficlty(newDifficulty);
   }
 
-  Future<void> updateLanguage(String? newLanguage) async {    
+  Future<void> updateLanguage(String? newLanguage) async {
     if (newLanguage == null) return;
 
     if (newLanguage == _language) return;
@@ -87,8 +87,7 @@ class SettingsController with ChangeNotifier {
     await _settingsService.updateLanguage(language);
   }
 
-  List<String> getLanguages() {
+  Map<String, String> getLanguages() {
     return SettingsService.languages;
   }
-
 }

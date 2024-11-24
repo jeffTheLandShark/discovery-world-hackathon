@@ -9,11 +9,15 @@ import 'package:flutter/material.dart';
 class SettingsService {
   /// Loads the User's preferred ThemeMode from local or remote storage.
   Future<ThemeMode> themeMode() async => ThemeMode.system;
-  int defaultDifficulty() => difficulties.elementAt(1);
-  String defaultLanguage() => languages.elementAt(1);
+  int defaultDifficulty() => difficulties.elementAt(0);
+  String defaultLanguage() => languages.entries.first.key;
   static List<String> keys = ["Difficulty", "Language"];
   static List<int> difficulties = [1, 2, 3];
-  static List<String> languages = ["English", "Spanish", "HMoob"];
+  static Map<String, String> languages = {
+    "en": "English",
+    "es": "Spanish",
+    "hmn": "HMoob"
+  };
 
   /// Persists the user's preferred ThemeMode to local or remote storage.
   Future<void> updateThemeMode(ThemeMode theme) async {
