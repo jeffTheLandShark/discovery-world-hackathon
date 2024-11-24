@@ -34,19 +34,6 @@ class SettingsController with ChangeNotifier {
     _themeMode = await _settingsService.themeMode();
     _difficulty = _settingsService.defaultDifficulty();
     _language = _settingsService.defaultLanguage();
-  // SharedPreferences preferences = await SharedPreferences.getInstance();
-  // if (!preferences.containsKey(SettingsService.keys.elementAt(0))) {
-  //   _difficulty = 1;
-  //   _settingsService.updateDifficlty(1);
-  // } else {
-  //   _difficulty = preferences.getInt("Difficulty")!;
-  // }
-  // if (!preferences.containsKey(SettingsService.keys.elementAt(1))) {
-  //   _language = "English";
-  //   _settingsService.updateLanguage("English");
-  // } else {
-  //   _language = preferences.getString('Language')!;
-  // }
   // Important! Inform listeners a change has occurred.
   notifyListeners();
   }
