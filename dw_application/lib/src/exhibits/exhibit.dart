@@ -3,6 +3,15 @@ class ExhibitMapEntry {
   ExhibitMapEntry.withLocation(this.id, x, y, layer, this.description)
       : location = Location(x, y, layer);
 
+  factory ExhibitMapEntry.fromJson(Map<String, dynamic> json) {
+    return ExhibitMapEntry.withLocation(
+        json['id'] as int,
+        json['location']['x'] as double,
+        json['location']['y'] as double,
+        json['location']['layer'] as int,
+        json['description'] as String);
+  }
+
   final int id;
   final Location location;
   final String description;
@@ -46,7 +55,7 @@ class Exhibit {
   final Article article;
 
   String getTitle({language = 'en'}) {
-    return article.getTitle('$language''1');
+    return article.getTitle('$language' '1');
   }
 
   String getDescription({language = 'en', difficultyLevel = '1'}) {
