@@ -60,17 +60,17 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   }
 
   void updateSearchQuery(String query) {
-    setState(() {
-      searchQuery = query;
-      if (query.isEmpty && !searchFocused) {
-        filteredExhibits = [];
-      } else {
-        filteredExhibits = widget.exhibits.value
-            .where((exhibit) =>
-                exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
-            .toList();
-      }
-    });
+    // setState(() {
+    //   searchQuery = query;
+    //   if (query.isEmpty && !searchFocused) {
+    //     filteredExhibits = [];
+    //   } else {
+    //     filteredExhibits = widget.exhibits.value
+    //         .where((exhibit) =>
+    //             exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+    //         .toList();
+    //   }
+    // });
     setState(() {
       searchQuery = query;
       if (query.isEmpty) {
@@ -94,7 +94,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   late MainMap mainMap;
 
   void zoom(int index) {
-    FloorMapState? floorState = mainMap.currentFloor?.key?.currentState;
+    FloorMapState? floorState = mainMap.currentFloor?.key.currentState;
     if (floorState == null ||
         floorState.activeIconIndex == null ||
         floorState.activeIconIndex! < 0 ||
@@ -104,7 +104,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     Queue<MapNode>? transitions = floorState.getTransitions(
         floorState.mapNodes[floorState.activeIconIndex!],
         floorState.mapNodes[index]);
-    if (transitions!.isEmpty) {
+    if (transitions.isEmpty) {
       floorState.pan(floorState.mapNodes[floorState.activeIconIndex!],
           floorState.mapNodes[index]);
     } else {
