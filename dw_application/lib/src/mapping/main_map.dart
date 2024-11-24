@@ -10,13 +10,17 @@ import '../exhibits/exhibit.dart';
 import 'exhibit_node.dart';
 import 'floor_transition_node.dart';
 
-
 Future<String> loadAsset() async {
   return await rootBundle.loadString('assets/config.json');
 }
 
 class MainMap extends StatefulWidget {
-  MainMap({super.key, required this.popupState, required this.exhibits});
+  MainMap(
+      {super.key,
+      required this.popupState,
+      required List<ExhibitMapEntry> exhibits}) {
+    this.exhibits.value = exhibits;
+  }
 
   static MainMapState? of(BuildContext context) {
     return context.findAncestorStateOfType<MainMapState>();

@@ -33,7 +33,7 @@ class DiscoveryAppState extends State<DiscoveryApp> {
 
   final GlobalKey<ExhibitListViewState> _exhibitListViewKey =
       GlobalKey<ExhibitListViewState>();
-      final GlobalKey<MainMapState> _mainMapKey = GlobalKey<MainMapState>();
+  final GlobalKey<MainMapState> _mainMapKey = GlobalKey<MainMapState>();
 
   List<ExhibitMapEntry> _exhibitMapDetails = [];
   List<Exhibit> _exhibits = [];
@@ -43,7 +43,10 @@ class DiscoveryAppState extends State<DiscoveryApp> {
     super.initState();
     readJson();
     _widgetOptions = <Widget>[
-      MapView(key: _mainMapKey, exhibits: _exhibitMapDetails),
+      MapView(
+          exhibits: _exhibits,
+          exhibitMapEntries: _exhibitMapDetails,
+          passedKey: _mainMapKey),
       ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibits),
       const ExhibitScanView(),
       SettingsView(controller: widget.settingsController),
@@ -55,6 +58,7 @@ class DiscoveryAppState extends State<DiscoveryApp> {
     final String response =
         await rootBundle.loadString('assets/exhibits/exhibits.json');
     final data = await json.decode(response);
+
 
     setState(() {
       _exhibits =

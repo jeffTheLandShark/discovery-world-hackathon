@@ -12,8 +12,17 @@ import '../exhibits/exhibit.dart';
 class ExhibitPopup extends StatefulWidget {
   const ExhibitPopup({
     Key? key,
-    this.initialText = "Click an exhibit to view information", // Initial text value
+    required this.mainKey,
+    required this.exhibits,
+    required this.exhibitMapEntries,
+    this.initialText =
+        "Click an exhibit to view information", // Initial text value
   }) : super(key: key);
+
+  final GlobalKey<MainMapState> mainKey;
+
+  final List<Exhibit> exhibits;
+  final List<ExhibitMapEntry> exhibitMapEntries;
 
   final String initialText;
 
@@ -26,54 +35,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   late String displayText;
   int exhibitIndex = -1;
   String searchQuery = "";
-  List<Exhibit> filteredExhibits = [
-    Exhibit.fromJson({
-      "id": "exhibit1",
-      "image": "assets/images/flutter_logo.png",
-      "article": {
-        "id": "exhibit1",
-        "titles": {
-          "en1": "Loreme",
-          "en2": "Loreme",
-          "en3": "Loreme",
-          "es1": "Lorems",
-          "Hmong1": "Loremh"
-        },
-        "descriptions": {
-          "en1": "Description in English for level 1",
-          "en2": "Description in English for level 2",
-          "en3": "Description in English for level 3",
-          "es1": "Descripción en español nivel 1",
-          "Hmong1": "Piav qhia Hmong rau qib 1"
-        }
-      },
-      "languageCode": "en",
-      "difficultyLevel": "1"
-    }),
-    Exhibit.fromJson({
-      "id": "exhibit2",
-      "image": "assets/images/flutter_logo.png",
-      "article": {
-        "id": "exhibit2",
-        "titles": {
-          "en1": "Exhibit 2: English 1",
-          "en2": "Exhibit 2: English 2",
-          "en3": "Exhibit 2: English 3",
-          "es1": "Exhibit 2: Español 1",
-          "Hmong1": "Exhibit 2: Hmong 1"
-        },
-        "descriptions": {
-          "en1": "Description in English for level 1",
-          "en2": "Description in English for level 2",
-          "en3": "Description in English for level 3",
-          "es1": "Descripción en español nivel 1",
-          "Hmong1": "Piav qhia Hmong rau qib 1"
-        }
-      },
-      "languageCode": "en",
-      "difficultyLevel": "1"
-    }),
-  ];
+  List<Exhibit> filteredExhibits = [];
 
   @override
   void initState() {
@@ -92,28 +54,35 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     setState(() {
       searchQuery = query;
       filteredExhibits = filteredExhibits
-          .where((exhibit) => exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+          .where((exhibit) =>
+              exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
 
   late MainMap mainMap;
 
-  void zoom(int index){
+  void zoom(int index) {
     FloorMapState? floorState = mainMap.currentFloor?.key?.currentState;
-    MainMapState? mapState = mainMap.key?.currentState;
-    Queue<MapNode>? transitions = floorState?.getTransitions(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
+    Queue<MapNode>? transitions = floorState?.getTransitions(
+        floorState.mapNodes[floorState.activeIconIndex!],
+        floorState.mapNodes[index]);
     if (transitions!.isEmpty) {
       print("panning, no transition");
-      floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
+      floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!],
+          floorState.mapNodes[index]);
     } else {
-      for (var node in transitions){
+      for (var node in transitions) {
         if (node is FloorTransitionNode) {
           print("panning");
-          floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], node);
+          floorState?.pan(
+              floorState.mapNodes[floorState.activeIconIndex!], node);
         } else {
           print("Transitioning to floor");
-          mapState!.transitionFloor(floorState!.mapNodes[floorState.activeIconIndex!] as FloorTransitionNode, node as FloorTransitionNode);
+          mainMapKey.currentState!.transitionFloor(
+              floorState!.mapNodes[floorState.activeIconIndex!]
+                  as FloorTransitionNode,
+              node as FloorTransitionNode);
         }
       }
     }
@@ -121,7 +90,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
 
   @override
   Widget build(BuildContext context) {
-    mainMap = MainMap(popupState: this, mainKey: mainMapKey);
+    mainMap = MainMap(
+        popupState: this, key: mainMapKey, exhibits: widget.exhibitMapEntries);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Exhibit Explorer"),
@@ -169,9 +139,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: TextField(
             decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Search...'
-            ),
+                prefixIcon: Icon(Icons.search), hintText: 'Search...'),
             onChanged: updateSearchQuery,
           ),
         ),
@@ -180,7 +148,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           child: ListView.builder(
             itemCount: filteredExhibits.length,
             itemBuilder: (context, index) {
-              return _buildExhibitCard(context, exhibit: filteredExhibits[index]);
+              return _buildExhibitCard(context,
+                  exhibit: filteredExhibits[index]);
             },
           ),
         ),
@@ -190,7 +159,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     );
   }
 
-  Widget _buildExhibitCard(BuildContext context, {Exhibit exhibit = const Exhibit.blank()}) {
+  Widget _buildExhibitCard(BuildContext context, {Exhibit? exhibit}) {
+    exhibit ??= Exhibit.blank();
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -268,10 +238,6 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     );
   }
 }
-
-
-
-
 
 // import 'dart:collection';
 
