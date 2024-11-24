@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:dw_application/src/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../mapping/floor_map.dart';
@@ -59,7 +60,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     });
     panelController.open();
     setState(() {
-      displayText = widget.exhibits.value[index].getDescription();;
+      displayText = widget.exhibits.value[index].getDescription();
+      ;
       // exhibitIndex = index;
     });
   }
@@ -83,10 +85,17 @@ class ExhibitPopupState extends State<ExhibitPopup> {
       } else {
         filteredExhibits = widget.exhibits.value
             .where((exhibit) =>
-          exhibit.getTitle().toLowerCase().contains(query.toLowerCase()) ||
-          exhibit.getDescription(
-            language: widget.settingsController.language, difficultyLevel: widget.settingsController.difficulty.toString()
-          ).toLowerCase().contains(query.toLowerCase()))
+                exhibit
+                    .getTitle()
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                exhibit
+                    .getDescription(
+                        language: widget.settingsController.language,
+                        difficultyLevel:
+                            widget.settingsController.difficulty.toString())
+                    .toLowerCase()
+                    .contains(query.toLowerCase()))
             .toList();
       }
     });
@@ -129,6 +138,42 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     }
   }
 
+  void _startNfcSession(BuildContext context) {
+    NfcManager.instance.startSession(
+      onDiscovered: (NfcTag tag) async {
+        NfcManager.instance.stopSession();
+        final ndef = Ndef.from(tag);
+        if (ndef == null || !ndef.isWritable) {
+          // Handle the case where the tag is not NDEF formatted
+          _startNfcSession(context);
+          return;
+        }
+        final ndefMessage = ndef.cachedMessage;
+        if (ndefMessage == null) {
+          // Handle the case where there is no NDEF message
+          _startNfcSession(context);
+          return;
+        }
+        for (var record in ndefMessage.records) {
+          if (record.typeNameFormat == NdefTypeNameFormat.nfcWellknown &&
+              record.payload.isNotEmpty) {
+            final payload = record.payload;
+            // drop first character and extract URL from params
+            final payloadString = String.fromCharCodes(payload.sublist(1));
+            final uri = Uri.parse(payloadString);
+            final routingInfo = uri.queryParameters['id'] ?? '';
+            // call the icon selected fuction in floor map for this id
+            mainMapKey.currentState!.iconSelected(routingInfo);
+
+            break;
+          }
+        }
+        // Restart the NFC session after processing the tag
+        _startNfcSession(context);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -159,6 +204,18 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     // TextEditingController descriptionController = TextEditingController(text: displayText);
     return Column(
       children: [
+        FutureBuilder<bool>(
+            future: NfcManager.instance.isAvailable(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError || !snapshot.data!) {
+                return const Text('NFC is not available');
+              } else {
+                _startNfcSession(context);
+                return const Text('Listening for NFC tags...');
+              }
+            }),
         const SizedBox(height: 10),
         Container(
           height: 4,
@@ -233,11 +290,11 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           children: [
             // check if link if works else icon if not
             Image.network(
-                  exhibit.image,
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                ),
+              exhibit.image,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
