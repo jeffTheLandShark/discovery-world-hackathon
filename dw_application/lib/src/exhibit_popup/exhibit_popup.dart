@@ -10,7 +10,7 @@ import '../mapping/map_node.dart';
 import '../exhibits/exhibit.dart';
 
 class ExhibitPopup extends StatefulWidget {
-  const ExhibitPopup({
+  ExhibitPopup({
     Key? key,
     required this.mainKey,
     required this.exhibits,
@@ -33,17 +33,28 @@ class ExhibitPopup extends StatefulWidget {
 class ExhibitPopupState extends State<ExhibitPopup> {
   GlobalKey<MainMapState> mainMapKey = GlobalKey<MainMapState>();
   late String displayText;
+  PanelController panelController = PanelController();
   int exhibitIndex = -1;
   String searchQuery = "";
-  List<Exhibit> filteredExhibits = [];
+  late List<Exhibit> filteredExhibits = [];
+  bool searchFocused = false;
+
+  @override
+  ExhibitPopupState createState() => ExhibitPopupState();
 
   @override
   void initState() {
     super.initState();
     displayText = widget.initialText;
+    filteredExhibits = [];
   }
 
   void updateText(String newText, int index) {
+    panelController.open();
+    setState(() {
+      displayText = newText;
+    });
+    panelController.open();
     setState(() {
       displayText = newText;
       exhibitIndex = index;
@@ -53,10 +64,23 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   void updateSearchQuery(String query) {
     setState(() {
       searchQuery = query;
-      filteredExhibits = filteredExhibits
-          .where((exhibit) =>
-              exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      if (query.isEmpty && !searchFocused) {
+        filteredExhibits = [];
+      } else {
+        filteredExhibits = widget.exhibits
+            .where((exhibit) => exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
+    setState(() {
+      searchQuery = query;
+      if (query.isEmpty) {
+        filteredExhibits = List<Exhibit>.from(widget.exhibits);
+      } else {
+        filteredExhibits = widget.exhibits
+            .where((exhibit) => exhibit.getTitle().toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
     });
   }
 
@@ -87,7 +111,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
       }
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     mainMap = MainMap(
@@ -108,12 +132,13 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         ],
       ),
       body: SlidingUpPanel(
+        controller: panelController,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
         maxHeight: 400,
-        minHeight: 100,
+        minHeight: 0,
         panel: _buildPanel(context),
         body: Center(
           child: mainMap,
@@ -123,6 +148,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   }
 
   Widget _buildPanel(BuildContext context) {
+    TextEditingController descriptionController = TextEditingController(text: displayText);
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -137,22 +163,50 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TextField(
-            decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search), hintText: 'Search...'),
-            onChanged: updateSearchQuery,
+          child: FocusScope(
+            child: Focus(
+              onFocusChange: (focus) {
+                setState(() {
+                  searchFocused = focus;
+                  if (focus) {
+                    filteredExhibits = List<Exhibit>.from(widget.exhibits);
+                  } else if (searchQuery.isEmpty) {
+                    filteredExhibits = [];
+                  }
+                });
+              },
+              child: TextField(
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  hintText: 'Search...',
+                ),
+                onChanged: updateSearchQuery,
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 20),
-        Expanded(
-          child: ListView.builder(
-            itemCount: filteredExhibits.length,
-            itemBuilder: (context, index) {
-              return _buildExhibitCard(context,
-                  exhibit: filteredExhibits[index]);
-            },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: TextField(
+            controller: descriptionController,
+            readOnly: true,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Selected Exhibit Description',
+            ),
           ),
         ),
+        filteredExhibits.isEmpty
+            ? SizedBox.shrink()
+            : Expanded(
+                child: ListView.builder(
+                  itemCount: filteredExhibits.length,
+                  itemBuilder: (context, index) {
+                    return _buildExhibitCard(context, exhibit: filteredExhibits[index]);
+                  },
+                ),
+              ),
         const SizedBox(height: 20),
         _buildDropdown(),
       ],
@@ -238,98 +292,3 @@ class ExhibitPopupState extends State<ExhibitPopup> {
     );
   }
 }
-
-// import 'dart:collection';
-
-// import 'package:dw_application/src/mapping/main_map.dart';
-// import 'package:flutter/material.dart';
-// import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-// import '../mapping/floor_map.dart';
-// import '../mapping/floor_transition_node.dart';
-// import '../mapping/map_node.dart';
-
-// class ExhibitPopup extends StatefulWidget {
-//   const ExhibitPopup({
-//     Key? key,
-//     this.initialText = "Click an exhibit to view information", // Initial text value
-//   }) : super(key: key);
-
-//   final String initialText;
-
-//   @override
-//   ExhibitPopupState createState() => ExhibitPopupState();
-// }
-
-// class ExhibitPopupState extends State<ExhibitPopup> {
-//   GlobalKey<MainMapState> mainMapKey = GlobalKey<MainMapState>();
-//   late String displayText;
-//   int exhibitIndex = -1;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     displayText = widget.initialText;
-//   }
-
-//   void updateText(String newText, int index) {
-//     setState(() {
-//       displayText = newText;
-//       exhibitIndex = index;
-//     });
-//   }
-
-//   late MainMap mainMap;
-
-//   void zoom(int index){
-//     FloorMapState? floorState = mainMap.currentFloor?.key?.currentState;
-//     MainMapState? mapState = mainMap.key?.currentState;
-//     Queue<MapNode>? transitions = floorState?.getTransitions(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
-//     if (transitions!.isEmpty) {
-//       print("panning, no transition");
-//       floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], floorState.mapNodes[index]);
-//     } else {
-//       for (var node in transitions){
-//         if (node is FloorTransitionNode) {
-//           print("panning");
-//           floorState?.pan(floorState.mapNodes[floorState.activeIconIndex!], node);
-//         } else {
-//           print("Transitioning to floor");
-//           mapState!.transitionFloor(floorState!.mapNodes[floorState.activeIconIndex!] as FloorTransitionNode, node as FloorTransitionNode);
-//         }
-//       }
-//     }
-// }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     mainMap = MainMap(popupState: this, mainKey: mainMapKey);
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Test"),
-//       ),
-//       body: SlidingUpPanel(
-//         borderRadius: BorderRadius.circular(20),
-//         panel: Column(
-//           children: [
-//             const SizedBox(height: 5),
-//             Column(
-//               children: [
-//                 Text(
-//                   displayText,
-//                   style: const TextStyle(color: Colors.black),
-//                 ),
-//                 TextButton(
-//                   onPressed: (){zoom(0);},
-//                   child: const Text("Go to point"))
-//               ],
-//             ),
-//           ],
-//         ),
-//         body: Center(
-//           child: mainMap,
-//         ),
-//       ),
-//     );
-//   }
-// }
