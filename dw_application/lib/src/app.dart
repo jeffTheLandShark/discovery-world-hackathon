@@ -1,21 +1,22 @@
-import 'dart:convert';
-
-import 'package:dw_application/src/exhibits/exhibit_details_view.dart';
-import 'package:dw_application/src/exhibits/exhibit_list_view.dart';
 import 'package:flutter/material.dart';
+import 'appTheme.dart';
+import 'settings/settings_controller.dart';
+import 'settings/settings_view.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'settings/settings_controller.dart';
-import 'settings/settings_view.dart';
-
-import 'nfc_reader/exhibit_scan_view.dart';
 import 'exhibits/exhibit.dart';
+import 'package:dw_application/src/exhibits/exhibit_details_view.dart';
+import 'package:dw_application/src/exhibits/exhibit_list_view.dart';
+import 'nfc_reader/exhibit_scan_view.dart';
+import 'dart:convert';
 
-/// The Widget that configures your application.
-class MyApp extends StatefulWidget {
-  const MyApp({
+import 'map_page.dart';
+
+class DiscoveryApp extends StatefulWidget {
+  const DiscoveryApp({
     super.key,
     required this.settingsController,
   });
@@ -23,13 +24,12 @@ class MyApp extends StatefulWidget {
   final SettingsController settingsController;
 
   @override
-  MyAppState createState() => MyAppState();
+  DiscoveryAppState createState() => DiscoveryAppState();
 }
 
-class MyAppState extends State<MyApp> {
-  int _selectedIndex = 0;
-
+class DiscoveryAppState extends State<DiscoveryApp> {
   late List<Widget> _widgetOptions;
+
   final GlobalKey<ExhibitListViewState> _exhibitListViewKey =
       GlobalKey<ExhibitListViewState>();
 
@@ -40,6 +40,7 @@ class MyAppState extends State<MyApp> {
     super.initState();
     readJson();
     _widgetOptions = <Widget>[
+      MapView(),
       ExhibitListView(key: _exhibitListViewKey, exhibits: _exhibits),
       const ExhibitScanView(),
       SettingsView(controller: widget.settingsController),
@@ -61,6 +62,83 @@ class MyAppState extends State<MyApp> {
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: widget.settingsController,
+      builder: (BuildContext context, Widget? child) {
+        return MaterialApp(
+            restorationScopeId: 'app',
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''),
+              Locale('es', ''),
+              Locale('hmn', ''),
+            ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              for (var supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale?.languageCode &&
+                    supportedLocale.countryCode == locale?.countryCode) {
+                  return supportedLocale;
+                }
+              }
+              return supportedLocales.first;
+            },
+            onGenerateTitle: (BuildContext context) =>
+                AppLocalizations.of(context)!.appTitle,
+            theme: appTheme,
+            darkTheme: ThemeData.dark(),
+            themeMode: widget.settingsController.themeMode,
+            onGenerateRoute: (RouteSettings routeSettings) {
+              return MaterialPageRoute<void>(
+                settings: routeSettings,
+                builder: (BuildContext context) {
+                  switch (routeSettings.name) {
+                    case SettingsView.routeName:
+                      return SettingsView(
+                          controller: widget.settingsController);
+                    case ExhibitDetailsView.routeName:
+                      final id = routeSettings.arguments as String;
+                      final exhibit = _exhibits.firstWhere((e) => e.id == id);
+                      return ExhibitDetailsView(exhibit: exhibit);
+                    case ExhibitListView.routeName:
+                      return ExhibitListView(
+                          key: _exhibitListViewKey, exhibits: _exhibits);
+                    case ExhibitScanView.routeName:
+                      return const ExhibitScanView();
+                    default:
+                      return const Scaffold(
+                        body: Center(
+                          child: Text('Not Found'),
+                        ),
+                      );
+                  }
+                },
+              );
+            },
+            home: HomeNavigation(widgetOptions: _widgetOptions));
+      },
+    );
+  }
+}
+
+class HomeNavigation extends StatefulWidget {
+  const HomeNavigation({Key? key, required List<Widget> widgetOptions})
+      : _widgetOptions = widgetOptions,
+        super(key: key);
+
+  final List<Widget> _widgetOptions;
+  HomeNavigationState createState() => HomeNavigationState();
+}
+
+class HomeNavigationState extends State<HomeNavigation> {
+  int _selectedIndex = 0;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -69,108 +147,45 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Glue the SettingsController to the MaterialApp.
-    //
-    // The ListenableBuilder Widget listens to the SettingsController for changes.
-    // Whenever the user updates their settings, the MaterialApp is rebuilt.
-
-    return ListenableBuilder(
-      listenable: widget.settingsController,
-      builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
-          // Providing a restorationScopeId allows the Navigator built by the
-          // MaterialApp to restore the navigation stack when a user leaves and
-          // returns to the app after it has been killed while running in the
-          // background.
-          restorationScopeId: 'app',
-
-          // Provide the generated AppLocalizations to the MaterialApp. This
-          // allows descendant Widgets to display the correct translations
-          // depending on the user's locale.
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en', ''), // English, no country code
-          ],
-
-          // Use AppLocalizations to configure the correct application title
-          // depending on the user's locale.
-          //
-          // The appTitle is defined in .arb files found in the localization
-          // directory.
-          onGenerateTitle: (BuildContext context) =>
-              AppLocalizations.of(context)!.appTitle,
-
-          // Define a light and dark color theme. Then, read the user's
-          // preferred ThemeMode (light, dark, or system default) from the
-          // SettingsController to display the correct theme.
-          theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
-          themeMode: widget.settingsController.themeMode,
-
-          // Define a function to handle named routes in order to support
-          // Flutter web url navigation and deep linking.
-          onGenerateRoute: (RouteSettings routeSettings) {
-            return MaterialPageRoute<void>(
-              settings: routeSettings,
-              builder: (BuildContext context) {
-                switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: widget.settingsController);
-                  case ExhibitDetailsView.routeName:
-                    final id = routeSettings.arguments as String;
-                    final exhibit = _exhibits.firstWhere((e) => e.id == id);
-                    return ExhibitDetailsView(exhibit: exhibit);
-                  case ExhibitListView.routeName:
-                    return ExhibitListView(
-                        key: _exhibitListViewKey, exhibits: _exhibits);
-                  case ExhibitScanView.routeName:
-                    return const ExhibitScanView();
-                  default:
-                    return const Scaffold(
-                      body: Center(
-                        child: Text('Not Found'),
-                      ),
-                    );
-                }
-              },
-            );
-          },
-          home: Scaffold(
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context)?.appTitle ??
-                  "Explore Discovery World"),
-            ),
-            body: IndexedStack(
-              index: _selectedIndex,
-              children: _widgetOptions,
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.list),
-                  label: 'Exhibits',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.nfc),
-                  label: 'Scan NFC',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                )
-              ],
-              currentIndex: _selectedIndex,
-              selectedItemColor: Colors.amber[800],
-              onTap: _onItemTapped,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/images/Discovery-World.png',
+          fit: BoxFit.cover,
+          width: MediaQuery.of(context).size.width * 0.25,
+        ),
+      ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: widget._widgetOptions,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            // map
+            icon: const Icon(Icons.map),
+            label: AppLocalizations.of(context)!.map,
           ),
-        );
-      },
+          BottomNavigationBarItem(
+            // exhibits
+            icon: const Icon(Icons.list),
+            label: AppLocalizations.of(context)!.exhibits,
+          ),
+          BottomNavigationBarItem(
+            // scan to see
+            icon: const Icon(Icons.tap_and_play),
+            label: AppLocalizations.of(context)!.scanNfc,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context)!.settingsTitle,
+          )
+        ],
+        currentIndex: _selectedIndex,
+        unselectedItemColor: Theme.of(context).disabledColor,
+        selectedItemColor: Theme.of(context).primaryColor,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

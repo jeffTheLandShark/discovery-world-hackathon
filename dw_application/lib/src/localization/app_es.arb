@@ -1,0 +1,58 @@
+{
+  "appTitle": "Aplicación Discovery World",
+  "@appTitle": {
+    "description": "El título de la aplicación"
+  },
+  "loginButton": "Iniciar sesión",
+  "@loginButton": {
+    "description": "Texto para el botón de iniciar sesión"
+  },
+  "signupButton": "Registrarse",
+  "@signupButton": {
+    "description": "Texto para el botón de registro"
+  },
+  "logoutButton": "Cerrar sesión",
+  "@logoutButton": {
+    "description": "Texto para el botón de cerrar sesión"
+  },
+  "profileTitle": "Perfil de usuario",
+  "@profileTitle": {
+    "description": "Título para la pantalla de perfil de usuario"
+  },
+  "settingsTitle": "Configuración",
+  "@settingsTitle": {
+    "description": "Título para la pantalla de configuración"
+  },
+  "languageOption": "Idioma",
+  "@languageOption": {
+    "description": "Opción para cambiar el idioma"
+  },
+  "themeOption": "Tema",
+  "@themeOption": {
+    "description": "Opción para cambiar el tema"
+  },
+  "map": "Mapa",
+  "@map": {
+    "description": "Texto para el botón de mapa"
+  },
+  "searchPlaceholder": "Buscar...",
+  "@searchPlaceholder": {
+    "description": "Texto del marcador de posición para la entrada de búsqueda"
+  },
+  "noResultsFound": "No se encontraron resultados",
+  "@noResultsFound": {
+    "description": "Mensaje mostrado cuando no se encuentran resultados de búsqueda"
+  },
+  "retryButton": "Reintentar",
+  "@retryButton": {
+    "description": "Texto para el botón de reintentar"
+  },
+  "exhibits": "Exhibiciones",
+  "@exhibits": {
+    "description": "Título para la sección de exhibiciones"
+  },
+  "scanNfc": "Escanear NFC",
+  "@scanNfc": {
+    "description": "Texto para el botón de escanear NFC"
+  }
+}

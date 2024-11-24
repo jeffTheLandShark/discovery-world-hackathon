@@ -15,6 +15,7 @@ dependencies:
   nfc_manager: ^3.0.0 
   flutter_localizations:
     sdk: flutter
+  intl: ^0.19.0
   searchable_listview: ^2.15.2
   dio: ^5.4.3+1
 
@@ -23,6 +24,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^4.0.0
+  intl_translation: ^0.20.1
 
 flutter:
   uses-material-design: true

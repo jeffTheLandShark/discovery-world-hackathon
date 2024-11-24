@@ -8,25 +8,29 @@ class ExhibitScanView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scan NFC Tag'),
-      ),
-      body: Center(
-        child: FutureBuilder<bool>(
-          future: NfcManager.instance.isAvailable(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasError || !snapshot.data!) {
-              return const Text('NFC is not available');
-            } else {
-              _startNfcSession(context);
-              return const Text('Listening for NFC tags...');
-            }
-          },
+        appBar: AppBar(
+          title: const Text('Scan NFC Tag'),
         ),
-      ),
-    );
+        body: ListView(children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.4),
+          Center(
+              child: FutureBuilder<bool>(
+                  future: NfcManager.instance.isAvailable(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError || !snapshot.data!) {
+                      return const Text('NFC is not available');
+                    } else {
+                      _startNfcSession(context);
+                      return const Text('Listening for NFC tags...');
+                    }
+                  })),
+          // spacing
+          SizedBox(height: MediaQuery.of(context).size.height * 0.5),
+          Image.asset("assets/images/beep_search.png",
+              height: MediaQuery.of(context).size.height * 0.2),
+        ]));
   }
 
   void _startNfcSession(BuildContext context) {

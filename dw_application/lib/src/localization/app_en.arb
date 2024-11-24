@@ -1,6 +1,60 @@
 {
-  "appTitle": "dw_application",
+  "appTitle": "Discovery World App",
   "@appTitle": {
     "description": "The title of the application"
+  },
+  "loginButton": "Login",
+  "@loginButton": {
+    "description": "Text for the login button"
+  },
+  "signupButton": "Sign Up",
+  "@signupButton": {
+    "description": "Text for the sign-up button"
+  },
+  "logoutButton": "Logout",
+  "@logoutButton": {
+    "description": "Text for the logout button"
+  },
+  "profileTitle": "User Profile",
+  "@profileTitle": {
+    "description": "Title for the user profile screen"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Title for the settings screen"
+  },
+  "languageOption": "Language",
+  "@languageOption": {
+    "description": "Option to change the language"
+  },
+  "themeOption": "Theme",
+  "@themeOption": {
+    "description": "Option to change the theme"
+  },
+  "map" : "Map",
+  "@map": {
+    "description": "Text for the map button"
+  },
+  "searchPlaceholder": "Search...",
+  "@searchPlaceholder": {
+  "description": "Placeholder text for the search input"
+  },
+  "noResultsFound": "No results found",
+  "@noResultsFound": {
+  "description": "Message displayed when no search results are found"
+  },
+  "retryButton": "Retry",
+  "@retryButton": {
+  "description": "Text for the retry button"
+  },
+  "exhibits": "Exhibits",
+  "@exhibits": {
+    "description": "Title for the exhibits section"
+  },
+  "scanNfc": "Scan NFC",
+  "@scanNfc": {
+    "description": "Text for the scan NFC button"
   }
+
+
 }
