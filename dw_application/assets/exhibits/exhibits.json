@@ -80,13 +80,13 @@
     },
     {
       "id": "gary_the_robot",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "gary_the_robot",
         "titles": {
-          "es1": "Connect Four",
-          "Hmong1": "Connect Four",
-          "en1": "Connect Four"
+          "es1": "Connect Four - Gary the Robot",
+          "Hmong1": "Connect Four - Gary the Robot",
+          "en1": "Connect Four - Gary the Robot"
         },
         "descriptions": {
           "es1": "**Conoce a Gary, el robot**\nGary es un robot especial que clasifica objetos de forma rápida y precisa. Utiliza un potente programa informático para reconocer y recoger objetos. ¡Gary es muy bueno en su trabajo!\n\nLos robots como Gary se utilizan en muchas industrias diferentes, como:\n* Medicina\n* Procesamiento de alimentos\n* Electrónica\n* ¡Muchas más!",
@@ -100,13 +100,13 @@
     },
     {
       "id": "exhibit6",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit6",
         "titles": {
-          "Hmong1": "Dream Machine",
-          "es1": "Dream Machine",
-          "en1": "Dream Machine"
+          "Hmong1": "Dream Machine: Sensor",
+          "es1": "Dream Machine: Sensor",
+          "en1": "Dream Machine: Sensor"
         },
         "descriptions": {
           "Hmong1": "### Sensor\n\n#### 1. Me me Lub teeb Sensors\nCov no yog cov sensors me me uas tuaj yeem ntes lub teeb thiab xa cov teeb liab.\n\n#### 2. Beam Breakers\nCov sensors ci ib lub teeb ci. Thaum ib yam dab tsi nkag mus rau hauv txoj kev, zoo li koj daim ntawv ua npuas ncauj, lub sensor xa lus mus rau Dream Machine lub computer hlwb. Lub hlwb lub computer no paub txhua yam nyob qhov twg, yog li nws paub qhov khoom nyob qhov twg thiab.\n\n#### 3. Hlau Ntes\nCov sensors no ua haujlwm zoo li hlau ntes. Lawv tshawb xyuas cov khoom hlau nyob ze. Yog tias cov khoom nyob ze, lub sensor xa cov teeb liab muaj zog. Yog tias nws nyob deb, lub teeb liab tsis muaj zog. Qhov no yuav pab lub tshuab paub yog tias lub qhov rooj qhib lossis kaw.\n\n#### 4. Teeb Liab\nLub tshuab nrhiav koj li cas? Cov sensors xa tawm lub teeb liab tsis muaj teeb meem. Thaum ib yam dab tsi thaiv cov nqaj, lub sensor hais tias, \"Hav, ib yam dab tsi nyob ntawm no!\" Lub tshuab hlwb hlau paub qhov sensor nyob qhov twg, yog li nws paub tseeb tias qhov khoom nyob qhov twg.\n\n#### Safety Sensors\nTej zaum koj yuav tau pom cov phab ntsa acrylic nyob ib ncig ntawm qhov khoom pov thawj no. Lawv nyob ntawm no rau koj kev nyab xeeb. Cov tshuab no yog programmed los ua lawv txoj haujlwm, tab sis lawv tsis paub tias koj nyob ntawm no. Lawv yuav tsis nres kom txog thaum lawv tau txais lub teeb liab kom nres. Txhawm rau kom tib neeg muaj kev nyab xeeb, cov chaw tsim khoom siv cov khoom siv ntawm lub qhov rooj uas tuaj yeem ntes tau yog tias lawv qhib lossis kaw. Cov sensors no siv cov xov tooj cua tshwj xeeb thiab cov khoom siv hlau los qhia lub tshuab yog tias lub qhov rooj qhib lossis kaw. Yog tias lub qhov rooj kaw, lub tshuab ua haujlwm zoo. Yog tias lawv qhib, lub tshuab nres.",
@@ -120,7 +120,7 @@
     },
     {
       "id": "exhibit7",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit7",
         "titles": {
@@ -140,7 +140,7 @@
     },
     {
       "id": "exhibit10",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit10",
         "titles": {
@@ -157,7 +157,7 @@
     },
     {
       "id": "exhibit21",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit21",
         "titles": {
@@ -180,7 +180,7 @@
     },
     {
       "id": "exhibit26",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit26",
         "titles": {
@@ -197,7 +197,7 @@
     },
     {
       "id": "exhibit29",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit29",
         "titles": {
@@ -220,7 +220,7 @@
     },
     {
       "id": "exhibit30",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit30",
         "titles": {
@@ -237,7 +237,7 @@
     },
     {
       "id": "exhibit35",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit35",
         "titles": {
@@ -254,7 +254,7 @@
     },
     {
       "id": "exhibit36",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit36",
         "titles": {
@@ -271,7 +271,7 @@
     },
     {
       "id": "see_sound",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit45",
         "titles": {
@@ -294,7 +294,7 @@
     },
     {
       "id": "exhibit50",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit50",
         "titles": {
@@ -311,7 +311,7 @@
     },
     {
       "id": "exhibit51",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit51",
         "titles": {
@@ -334,7 +334,7 @@
     },
     {
       "id": "exhibit52",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit52",
         "titles": {
@@ -357,7 +357,7 @@
     },
     {
       "id": "exhibit53",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit53",
         "titles": {
@@ -377,7 +377,7 @@
     },
     {
       "id": "exhibit57",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit57",
         "titles": {
@@ -397,7 +397,7 @@
     },
     {
       "id": "exhibit59",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit59",
         "titles": {
@@ -414,7 +414,7 @@
     },
     {
       "id": "exhibit60",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit60",
         "titles": {
@@ -431,7 +431,7 @@
     },
     {
       "id": "exhibit63",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit63",
         "titles": {
@@ -454,7 +454,7 @@
     },
     {
       "id": "exhibit65",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit65",
         "titles": {
@@ -494,7 +494,7 @@
     },
     {
       "id": "exhibit67",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit67",
         "titles": {
@@ -511,7 +511,7 @@
     },
     {
       "id": "gravity_ball_wall",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "gravity_ball_wall",
         "titles": {
@@ -534,7 +534,7 @@
     },
     {
       "id": "exhibit72",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit72",
         "titles": {
@@ -551,7 +551,7 @@
     },
     {
       "id": "exhibit73",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit73",
         "titles": {
@@ -574,7 +574,7 @@
     },
     {
       "id": "exhibit74",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit74",
         "titles": {
@@ -597,7 +597,7 @@
     },
     {
       "id": "exhibit75",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit75",
         "titles": {
@@ -620,7 +620,7 @@
     },
     {
       "id": "exhibit76",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit76",
         "titles": {
@@ -643,7 +643,7 @@
     },
     {
       "id": "exhibit77",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit77",
         "titles": {
@@ -666,7 +666,7 @@
     },
     {
       "id": "exhibit84",
-      "image": "assets/images/flutter_logo.png",
+      "image": "https://discoveryworld.org/wp-content/uploads/2022/08/ExperiencesWindLeaves-2048x1024.jpg",
       "article": {
         "id": "exhibit84",
         "titles": {

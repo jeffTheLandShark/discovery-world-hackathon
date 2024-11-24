@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'exhibit.dart';
 
@@ -13,8 +14,11 @@ class ExhibitDetailsView extends StatelessWidget {
       appBar: AppBar(
         title: Text(exhibit?.getTitle() ?? ''),
       ),
-      body: Center(
-        child: Text(exhibit?.getDescription() ?? ''),
+      body: Column(
+        children: [
+          Image.network(exhibit?.image ?? ''),
+          Expanded(child: Markdown(data: exhibit?.getDescription() ?? ''))
+        ],
       ),
     );
   }
