@@ -26,6 +26,7 @@ class FloorMap extends StatefulWidget {
         super(key: key);
 
   String get path => _path;
+  @override
   GlobalKey<FloorMapState>? get key => _key;
 
   @override
@@ -45,11 +46,11 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
     super.initState();
 
     mapNodes = [
-      ExhibitNode(floor: widget, xPos: 0, yPos: 0, description: "description 1"),
-      ExhibitNode(floor: widget, xPos: 10, yPos: 10, description: "description 2"),
-      ExhibitNode(floor: widget, xPos: 100, yPos: -20, description: "description 3"),
-      ExhibitNode(floor: widget, xPos: -80, yPos: 20, description: "description 4"),
-      ExhibitNode(floor: widget, xPos: -40, yPos: -10, description: "description 5"),
+      ExhibitNode(floor: widget, xPos: 0, yPos: 0, description: "description 1", id: "Temp"),
+      ExhibitNode(floor: widget, xPos: 10, yPos: 10, description: "description 2", id: "Temp"),
+      ExhibitNode(floor: widget, xPos: 100, yPos: -20, description: "description 3", id: "Temp"),
+      ExhibitNode(floor: widget, xPos: -80, yPos: 20, description: "description 4", id: "Temp"),
+      ExhibitNode(floor: widget, xPos: -40, yPos: -10, description: "description 5", id: "Temp"),
       FloorTransitionNode(floor: widget, xPos: 50, yPos: 50, canGoTo: List<FloorTransitionNode>.empty()),
     ];
 
@@ -63,6 +64,12 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
           _scale = scale;
         });
       }
+    });
+  }
+
+  void addExhibitNode(ExhibitNode node) {
+    setState(() {
+      mapNodes.add(node);
     });
   }
 
