@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 import 'settings_controller.dart';
 
@@ -25,26 +26,46 @@ class SettingsView extends StatelessWidget {
         //
         // When a user selects a theme from the dropdown list, the
         // SettingsController is updated, which rebuilds the MaterialApp.
-        child: DropdownButton<ThemeMode>(
-          // Read the selected themeMode from the controller
-          value: controller.themeMode,
-          // Call the updateThemeMode method any time the user selects a theme.
-          onChanged: controller.updateThemeMode,
-          items: const [
-            DropdownMenuItem(
-              value: ThemeMode.system,
-              child: Text('System Theme'),
-            ),
-            DropdownMenuItem(
-              value: ThemeMode.light,
-              child: Text('Light Theme'),
-            ),
-            DropdownMenuItem(
-              value: ThemeMode.dark,
-              child: Text('Dark Theme'),
+        child:  
+          SettingsList(sections: [
+            SettingsSection(
+            title: Text('Settings'),
+            tiles: [
+              SettingsTile.switchTile(
+              title: Text('Dark Mode'),
+              leading: Icon(Icons.dark_mode),
+              onToggle: (bool value) {
+                if (value) {
+                  controller.updateThemeMode(ThemeMode.dark);
+                } else {
+                  controller.updateThemeMode(ThemeMode.light);
+                }
+                },
+              initialValue: controller.themeMode == ThemeMode.dark,
+              )
+            ]
             )
-          ],
-        ),
+          ])
+      //     DropdownButton<ThemeMode>(
+      //     // Read the selected themeMode from the controller
+      //     value: controller.themeMode,
+      //     // Call the updateThemeMode method any time the user selects a theme.
+      //     onChanged: controller.updateThemeMode,
+      //     items: const [
+      //       DropdownMenuItem(
+      //         value: ThemeMode.system,
+      //         child: Text('System Theme'),
+      //       ),
+      //       DropdownMenuItem(
+      //         value: ThemeMode.light,
+      //         child: Text('Light Theme'),
+      //       ),
+      //       DropdownMenuItem(
+      //         value: ThemeMode.dark,
+      //         child: Text('Dark Theme'),
+      //       )
+      //     ],
+      //   ),
       ),
     );
   }

@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 class SettingsService {
   /// Loads the User's preferred ThemeMode from local or remote storage.
   Future<ThemeMode> themeMode() async => ThemeMode.system;
+  static List<String> keys = ["Difficulty", "Language"];
+  static List<int> difficulties = [1, 2, 3];
+  static List<String> languages = ["English", "Spanish", "HMoob"];
 
   /// Persists the user's preferred ThemeMode to local or remote storage.
   Future<void> updateThemeMode(ThemeMode theme) async {
