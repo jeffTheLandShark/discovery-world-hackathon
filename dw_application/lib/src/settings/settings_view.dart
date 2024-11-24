@@ -1,3 +1,4 @@
+import 'package:dw_application/src/appTheme.dart';
 import 'package:flutter/material.dart';
 
 import 'settings_controller.dart';
@@ -31,7 +32,7 @@ class SettingsView extends StatelessWidget {
             value: controller.themeMode,
             // Call the updateThemeMode method any time the user selects a theme.
             onChanged: controller.updateThemeMode,
-            items: const [
+            items: [
               DropdownMenuItem(
                 value: ThemeMode.system,
                 child: Text('System Theme'),

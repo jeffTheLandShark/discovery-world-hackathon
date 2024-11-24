@@ -120,8 +120,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
 
   @override
   Widget build(BuildContext context) {
-    mainMap = MainMap(
-        popupState: this, key: mainMapKey, exhibits: widget.exhibitMapEntries);
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    mainMap = MainMap(popupState: this, key: mainMapKey, exhibits: widget.exhibitMapEntries);
     return Scaffold(
       body: SlidingUpPanel(
         controller: panelController,
@@ -129,7 +129,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
-        minHeight: MediaQuery.of(context).size.height * 0.05,
+        color: isDarkMode ? (Colors.grey[800] ?? Colors.grey) : Colors.white,
+        maxHeight: 400,
         panel: _buildPanel(context),
         body: Center(
           heightFactor: MediaQuery.of(context).size.height * 0.9,
@@ -142,6 +143,8 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   Widget _buildPanel(BuildContext context) {
     TextEditingController descriptionController =
         TextEditingController(text: displayText);
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    // TextEditingController descriptionController = TextEditingController(text: displayText);
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -192,6 +195,20 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextField(
+            controller: descriptionController,
+            readOnly: true,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              labelText: 'Selected Exhibit Translation',
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: DropdownButton<int>(
             // Read the selected floor from map
             value: mainMapKey.currentState?.currentFloorIndex,
@@ -219,10 +236,51 @@ class ExhibitPopupState extends State<ExhibitPopup> {
               DropdownMenuItem(child: Text('Building Side View'), value: 4),
             ],
           ),
-        )
+        ),
+        const SizedBox(height: 20),
+        // Container(
+        //   margin: const EdgeInsets.symmetric(horizontal: 16),
+        //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        //   decoration: BoxDecoration(
+        //     color: isDarkMode ? (Colors.grey[800] ?? Colors.grey) : Colors.white,
+        //     borderRadius: BorderRadius.circular(10),
+        //     border: Border.all(color: Colors.grey),
+        //   ),
+        // ),
       ],
     );
   }
+
+  // Widget _buildDropdown() {
+  //   return DropdownButton<int>(
+  //     value: mainMapKey.currentState?.currentFloorIndex,
+  //     onChanged: (int? newIndex) {
+  //       mainMapKey.currentState?.changeFloor(newIndex!);
+  //     },
+  //     items: const [
+  //       DropdownMenuItem(
+  //         value: 0,
+  //         child: Text('Tech Lower Level'),
+  //       ),
+  //       DropdownMenuItem(
+  //         value: 1,
+  //         child: Text('Tech Level 1'),
+  //       ),
+  //       DropdownMenuItem(
+  //         value: 2,
+  //         child: Text('Tech Level 2'),
+  //       ),
+  //       DropdownMenuItem(
+  //         value: 3,
+  //         child: Text('Tech Mezzanine'),
+  //       ),
+  //       DropdownMenuItem(
+  //         value: 4,
+  //         child: Text('Building Side View'),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildExhibitCard(BuildContext context, {Exhibit? exhibit}) {
     exhibit ??= Exhibit.blank();
