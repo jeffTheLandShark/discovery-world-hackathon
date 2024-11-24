@@ -38,6 +38,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   String searchQuery = "";
   late List<Exhibit> filteredExhibits = [];
   bool searchFocused = false;
+  String currentFloorLabel = 'Tech Lower level';
 
   @override
   ExhibitPopupState createState() => ExhibitPopupState();
@@ -260,6 +261,23 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   }
 
   Widget _buildDropdown() {
+    int floorIndexFromLabel(String label) {
+      switch (label) {
+        case 'Tech Lower level':
+          return 0;
+        case 'Tech level 1':
+          return 1;
+        case 'Tech level 2':
+          return 2;
+        case 'Tech Mezzanine':
+          return 3;
+        case 'Building Side View':
+          return 4;
+        default:
+          return 0;
+      }
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -269,46 +287,57 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         border: Border.all(color: Colors.grey),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          isExpanded: true,
-          value: 'Tech Lower level',
-          items: <String>[
-            'Tech Lower level',
-            'Tech level 1',
-            'Tech level 2',
-            'Tech Mezzanine',
-            'Building Side View'
-          ].map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              if (newValue != null) {
-                switch (newValue) {
-                  case 'Tech Lower level':
-                    mainMap.changeFloor(0);
-                    break;
-                  case 'Tech level 1':
-                    mainMap.changeFloor(1);
-                    break;
-                  case 'Tech level 2':
-                    mainMap.changeFloor(2);
-                    break;
-                  case 'Tech Mezzanine':
-                    mainMap.changeFloor(3);
-                    break;
-                  case 'Building Side View':
-                    mainMap.changeFloor(4);
-                    break;
+        child: StatefulBuilder(
+          builder: (context, setState) {
+            return DropdownButton<String>(
+              isExpanded: true,
+              value: currentFloorLabel,
+              items: <String>[
+                'Tech Lower level',
+                'Tech level 1',
+                'Tech level 2',
+                'Tech Mezzanine',
+                'Building Side View'
+              ].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    currentFloorLabel = newValue;
+                    mainMap.setFloor(floorIndexFromLabel(newValue));
+                  });
                 }
-              }
-            });
+                // setState(() {
+                //   if (newValue != null) {
+                //     switch (newValue) {
+                //       case 'Tech Lower level':
+                //         mainMap.setFloor(0);
+                //         break;
+                //       case 'Tech level 1':
+                //         mainMap.setFloor(1);
+                //         break;
+                //       case 'Tech level 2':
+                //         mainMap.setFloor(2);
+                //         break;
+                //       case 'Tech Mezzanine':
+                //         mainMap.setFloor(3);
+                //         break;
+                //       case 'Building Side View':
+                //         mainMap.setFloor(4);
+                //         break;
+                //     }
+                //   }
+                // });
+              },
+            );
           },
         ),
       ),
     );
   }
+
 }

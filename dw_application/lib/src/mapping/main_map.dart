@@ -17,7 +17,7 @@ Future<String> loadAsset() async {
 class MainMap extends StatefulWidget {
   final GlobalKey<MainMapState> _mainKey = GlobalKey<MainMapState>();
 
-  void changeFloor(int index) {
+  void setFloor(int index) {
     _mainKey.currentState?.changeFloor(index);
   }
 
@@ -108,6 +108,7 @@ class MainMapState extends State<MainMap> with RestorationMixin {
         key: floorMapKey,
       ),
     ];
+    currentFloor = widget.sections[0];
 
     return ValueListenableBuilder<List<ExhibitMapEntry>>(
       valueListenable: widget.exhibits,
@@ -122,7 +123,6 @@ class MainMapState extends State<MainMap> with RestorationMixin {
                   id: exhibit.id));
         }
 
-        currentFloor = widget.sections[0];
         widget.currentFloor = currentFloor;
 
         return currentFloor;
