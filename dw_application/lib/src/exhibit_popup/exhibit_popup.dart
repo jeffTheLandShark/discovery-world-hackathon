@@ -54,13 +54,22 @@ class ExhibitPopupState extends State<ExhibitPopup> {
   void updateText(String id, int index) {
     panelController.open();
     setState(() {
-      displayText = widget.exhibits.value[index].getDescription();
+      for (var exhibit in widget.exhibits.value) {
+        if (exhibit.id == id) {
+          displayText = exhibit.getDescription();
+        }
+      }
       // displayText = newText;
     });
     panelController.open();
     setState(() {
-      displayText = widget.exhibits.value[index].getDescription();;
+      // displayText = widget.exhibits.value[index].getDescription();
       // exhibitIndex = index;
+      for (var exhibit in widget.exhibits.value) {
+        if (exhibit.id == id) {
+          displayText = exhibit.getDescription();
+        }
+      }
     });
   }
 
@@ -102,12 +111,16 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         floorState.activeIconIndex! >= floorState.mapNodes.length) {
       return;
     }
+
+
     int index = floorState.mapNodes.indexWhere((element) {
       if (element is ExhibitNode) {
         return element.id == id;
       }
       return false;
     });
+
+
     Queue<MapNode>? transitions = floorState.getTransitions(
         floorState.mapNodes[floorState.activeIconIndex!],
         floorState.mapNodes[index]);
@@ -207,14 +220,23 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TextField(
-            controller: descriptionController,
-            readOnly: true,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              labelText: 'Selected Exhibit Translation',
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: 50.0,
+              maxHeight: MediaQuery.of(context).size.height * 0.4,
+            ),
+            child: SingleChildScrollView(
+              child: TextField(
+                controller: descriptionController,
+                readOnly: true,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Selected Exhibit Translation',
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
             ),
           ),
         ),
