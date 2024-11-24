@@ -55,6 +55,7 @@ class DiscoveryAppState extends State<DiscoveryApp> {
     setState(() {
       _exhibits =
           (data["exhibits"] as List).map((e) => Exhibit.fromJson(e)).toList();
+      // add map items here
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
