@@ -5,42 +5,42 @@
       "x": -226,
       "y": -31,
       "description": "Flight Simulator",
-      "layer": 0
+      "layer": 1
     },
     {
       "id": "power_on",
       "x": -85,
       "y": -18,
       "description": "Power On",
-      "layer": 0
+      "layer": 1
     },
     {
       "id": "great_lakes_future",
       "x": 173,
       "y": 11,
       "description": "Great Lakes Future",
-      "layer": 0
+      "layer": 1
     },
     {
       "id": "virtual_explorer",
       "x": -75,
       "y": -10,
       "description": "Virtual Explorer",
-      "layer": 1
+      "layer": 2
     },
     {
       "id": "physics_and_you",
       "x": -166,
       "y": -35,
       "description": "Physics & You!",
-      "layer": 1
+      "layer": 2
     },
     {
       "id": "all_aboard",
       "x": 50,
       "y": -25,
       "description": "All Aboard",
-      "layer": 1
+      "layer": 2
     }
   ],
   "exhibits": [
