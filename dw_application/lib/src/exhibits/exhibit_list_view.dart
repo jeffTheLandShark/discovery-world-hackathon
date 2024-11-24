@@ -84,7 +84,7 @@ class ExhibitListViewState extends State<ExhibitListView>
                 key: Key(item.id),
                 title: Text(item.getTitle()),
                 leading: CircleAvatar(
-                  foregroundImage: AssetImage(item.image),
+                  foregroundImage: NetworkImage(item.image),
                 ),
                 onTap: () {
                   Navigator.pushNamed(
