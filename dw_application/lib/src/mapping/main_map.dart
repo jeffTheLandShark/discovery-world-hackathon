@@ -31,7 +31,7 @@ class MainMapState extends State<MainMap> with RestorationMixin {
   @override
   String get restorationId => 'main_map';
 
-  int currentFloorIndex = 0;
+  int currentFloorIndex = 1;
 
   final RestorableInt _mainMapKey = RestorableInt(0);
   final GlobalKey<FloorMapState> floorMapKey = GlobalKey<FloorMapState>();
@@ -46,15 +46,15 @@ class MainMapState extends State<MainMap> with RestorationMixin {
     super.initState();
     widget.sections = [
       FloorMap(
+          path: 'assets/images/map_assets/Tech Lower Level.png',
+          popup: widget.popupState,
+          key: GlobalKey<FloorMapState>()),
+      FloorMap(
           path: 'assets/images/map_assets/Tech Floor 1.png',
           popup: widget.popupState,
           key: GlobalKey<FloorMapState>()),
       FloorMap(
           path: 'assets/images/map_assets/Tech Floor 2.png',
-          popup: widget.popupState,
-          key: GlobalKey<FloorMapState>()),
-      FloorMap(
-          path: 'assets/images/map_assets/Tech Lower Level.png',
           popup: widget.popupState,
           key: GlobalKey<FloorMapState>()),
       FloorMap(
