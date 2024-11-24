@@ -69,6 +69,7 @@ class MainMapState extends State<MainMap> with RestorationMixin {
   }
 
   void updateExhibitNodes() {
+    if (!mounted) return;
     for (var section in widget.sections) {
       section.key.currentState?.clearNodes();
     }
@@ -92,11 +93,14 @@ class MainMapState extends State<MainMap> with RestorationMixin {
   }
 
   void changeFloor(int index) {
-    setFloor(index);
-    Future.delayed(Duration(milliseconds: 100), () {
-      updateExhibitNodes();
-    });
+    if (index >= 0 && index < widget.sections.length) {
+      setFloor(index);
+      Future.delayed(Duration(milliseconds: 100), () {
+        updateExhibitNodes();
+      });
+    }
   }
+    
 
   void setFloor(int index) {
     if (index >= 0 && index < widget.sections.length) {
@@ -141,6 +145,9 @@ class MainMapState extends State<MainMap> with RestorationMixin {
       body: ValueListenableBuilder<List<ExhibitMapEntry>>(
           valueListenable: widget.exhibits,
           builder: (context, exhibits, child) {
+            if (currentFloorIndex >= widget.sections.length) {
+              return const Center(child: Text('Floor not available'));
+            }
             updateExhibitNodes();
             return widget.sections[currentFloorIndex];
           }),

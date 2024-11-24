@@ -93,7 +93,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
 
   late MainMap mainMap;
 
-  void zoom(int index) {
+  void zoom(String id) {
     FloorMapState? floorState = mainMap.currentFloor?.key.currentState;
     if (floorState == null ||
         floorState.activeIconIndex == null ||
@@ -101,6 +101,12 @@ class ExhibitPopupState extends State<ExhibitPopup> {
         floorState.activeIconIndex! >= floorState.mapNodes.length) {
       return;
     }
+    int index = floorState.mapNodes.indexWhere((element) {
+      if (element is ExhibitNode) {
+        return element.id == id;
+      }
+      return false;
+    });
     Queue<MapNode>? transitions = floorState.getTransitions(
         floorState.mapNodes[floorState.activeIconIndex!],
         floorState.mapNodes[index]);
@@ -248,7 +254,7 @@ class ExhibitPopupState extends State<ExhibitPopup> {
                   const SizedBox(height: 8),
                   TextButton.icon(
                     onPressed: () {
-                      zoom(exhibitIndex);
+                      zoom(exhibit!.id);
                     },
                     icon: const Icon(Icons.map),
                     label: const Text('Take me there'),
