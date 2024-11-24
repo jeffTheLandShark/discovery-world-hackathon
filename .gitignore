@@ -25,6 +25,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+/dw_application/linux/flutter
 
 /env
-dw_application/linux/flutter/generated_plugin_registrant.cc
+dw_base_data/discoveryworldhackathon-b7a6e90af0b7.json

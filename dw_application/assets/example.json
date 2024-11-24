@@ -1,0 +1,83 @@
+{
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "image": "assets/images/flutter_logo.png",
+      "article": {
+        "id": "exhibit1",
+        "titles": {
+          "en1": "Loreme",
+          "en2": "Loreme",
+          "en3": "Loreme",
+          "es1": "Lorems",
+          "Hmong1": "Loremh"
+        },
+        "descriptions": {
+          "en1": "Description in English for level 1",
+          "en2": "Description in English for level 2",
+          "en3": "Description in English for level 3",
+          "es1": "Descripción en español nivel 1",
+          "Hmong1": "Piav qhia Hmong rau qib 1"
+        }
+      },
+      "languageCode": "en",
+      "difficultyLevel": "1"
+    },
+    {
+      "id": "exhibit2",
+      "image": "assets/images/flutter_logo.png",
+      "article": {
+        "id": "exhibit2",
+        "titles": {
+          "en1": "Exhibit 2: English 1",
+          "en2": "Exhibit 2: English 2",
+          "en3": "Exhibit 2: English 3",
+          "es1": "Exhibit 2: Español 1",
+          "Hmong1": "Exhibit 2: Hmong 1"
+        },
+        "descriptions": {
+          "en1": "Description in English for level 1",
+          "en2": "Description in English for level 2",
+          "en3": "Description in English for level 3",
+          "es1": "Descripción en español nivel 1",
+          "Hmong1": "Piav qhia Hmong rau qib 1"
+        }
+      },
+      "languageCode": "en",
+      "difficultyLevel": "1"
+    },
+    {
+      "id": "exhibit3",
+      "image": "assets/images/flutter_logo.png",
+      "article": {
+        "id": "exhibit3",
+        "titles": {
+          "en1": "Exhibit 3: English 1",
+          "en2": "Exhibit 3: English 2",
+          "en3": "Exhibit 3: English 3",
+          "es1": "Exhibit 3: Español 1",
+          "Hmong1": "Exhibit 3: Hmong 1"
+        },
+        "descriptions": {
+          "en1": "Description in English for level 1",
+          "en2": "Description in English for level 2",
+          "en3": "Description in English for level 3",
+          "es1": "Descripción en español nivel 1",
+          "Hmong1": "Piav qhia Hmong rau qib 1"
+        }
+      },
+      "languageCode": "en",
+      "difficultyLevel": "1"
+    }
+  ],
+  "mapEntries": [
+    {
+      "id": "exhibit1",
+      "location": {
+        "x": 12.5,
+        "y": 15.0,
+        "layer": 1
+      }
+    }
+  ]
+}

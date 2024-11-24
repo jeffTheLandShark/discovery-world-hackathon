@@ -1,0 +1,521 @@
+,Exhibit_Group,Exhibit_Name,Exhibit_Popularity,Exhibit_Copy,Language,Complexity
+0,All-Aboard,All-Aboard,1,"# All Aboard!
+Trains and railways have been a 'model' of innovation for hundreds of years, leading to advances in industry, agriculture, and transportation. Powered by steam, diesel fuel, or electricity, trains represent one of the most important ways that people and goods travel. Trains have also been a staple of pop culture and have been featured in some of our favorite movies. From Thomas the Tank Engine to The Hogwarts Express, these favorites take us on adventures and spark our imaginations. What is YOUR favorite? Today, trains and railways embody the technological advancements we've seen accelerate around the globe. From smart sensors and automated inspection equipment to computer programs that maximize fuel use, trains continue to carry us into the future.
+
+### Train Time
+Before trains, every town across the country set their own clocks based on solar noon, the moment when the sun is at its highest point in the sky. In Milwaukee, solar noon happens about a minute before it happens in Waukesha and about 14 minutes before it happens in Eau Claire. Clocks were different everywhere you went, but no one could get anywhere fast enough for it to matter. Then trains happened. Trains need schedules, not just for passengers, but also for safety. If your local clock is 14 minutes faster or slower than someone else's local clock, how can you coordinate? Railway companies were the first to set standard times. Trains ran on standardized timetables set by the companies. To a railway company, it was the same time in Chicago and Eau Claire as it was in Milwaukee and Minneapolis. Eventually, the railroad companies convinced governments to divide North America into five time zones. Today, the United States has nine different time zones.
+
+### Staying on Track
+How do trains stay on the tracks? Trains are massive and they have a lot of momentum. Newton's 1st Law of Motion says that objects that are moving want to keep moving in a straight line. But train routes aren't perfectly straight lines. When something with wheels goes around a curve, the outside wheels have farther to go and need to turn faster. The wheels on a car turn at different speeds thanks to something called a differential. Trains don't have a differential. Their wheels turn at the same speed. What's the solution? Train wheels aren't cylinders, they're cone-shaped and wider on the inside. If the track curves to the right, the train shifts to the left. Because the wheels have a slight cone shape, and are wider on the inside, the left wheels are now just a little bigger than the wheels on the right. This means that the left wheels travel a little bit farther than the ones on the right, all while turning at the same speed. Self-correcting wheels keep trains on the tracks.",English,Simplified
+5,Automation Everywhere,Connect Four,3,"**Meet Gary the Robot**
+Gary is a special robot that sorts objects quickly and accurately. He uses a powerful computer program to recognize and pick up items. Gary is very good at his job!
+
+Robots like Gary are used in many different industries, such as:
+* Medicine
+* Food processing
+* Electronics
+* Many more!",English,Simplified
+5,Automation Everywhere,Connect Four,3,"**Fanuc Robot-M-11a**
+
+Gary is a sorting robot built by FANUC and controlled by a Rockwell Automation Programmable Automation Controller (PAC). Gary is very good at sorting. He's fast, accurate, and he's got excellent vision. Gary can recognize objects, track moving objects, and select parts from a bin.
+
+Robots like the FANUC M-11a assemble electronics and work on assembly lines. They are used in the pharmaceutical industry, the health care industry, the food industry, and many other industries.",English,Standard
+6,Automation Everywhere,Dream Machine,1,"### Sensor
+
+#### 1. Tiny Light Sensors
+These are small sensors that can detect light and send a signal.
+
+#### 2. Beam Breakers
+These sensors shine a light beam. When something gets in the way, like your foam sheet, the sensor sends a message to the Dream Machine's computer brain. This computer brain knows where everything is, so it knows where the object is too.
+
+#### 3. Metal Detectors
+These sensors work like metal detectors. They check for metal objects nearby. If the object is close, the sensor sends a strong signal. If it's far away, the signal is weak. This helps the machine know if a gate is open or closed.
+
+#### 4. Light Beams
+How does the machine find your order? These sensors send out a harmless red light beam. When something blocks the beam, the sensor says, ""Hey, something's here!"" The computer brain knows where the sensor is, so it knows exactly where the object is.
+
+#### Safety Sensors
+You might have noticed the acrylic walls around this exhibit. They're here for your safety. These machines are programmed to do their job, but they don't know you're here. They won't stop until they get a signal to stop. To keep people safe, factories use sensors on doors that can detect if they're open or closed. These sensors use special radio signals and metal detectors to tell the machine if the doors are open or closed. If the doors are closed, the machine works just fine. If they're open, the machine stops.",English,Standard
+6,Automation Everywhere,Dream Machine,1,"### Sensor
+
+#### 1. 42KD Miniature Photoelectric Sensors
+A very tiny version of the Rockwell Automation photoelectric sensor.
+
+#### 2. Rightsight Photoelectric Sensors
+These sensors emit a beam of light. When an object like your foam sheet interrupts the beam, the sensor sends a signal to the Programmable Automation Controller or PAC. The PAC is the computer brain of the Dream Machine. It knows where each sensor is, so it knows where the object is.
+
+#### 3. 871P Versacube Inductive Proximity Sensors
+Inductive Proximity Sensors work just like a metal detector. They generate an electromagnetic (EM) field to detect metal objects. The EM field induces a second EM field in a nearby metal object. The strength of the second EM field depends on the distance from the sensor to the object being sensed. Here,
+Inductive Proximity Sensors indicate if the Infeed Gate is open or closed.
+If the EM field is weak, that means the gate is open. If the EM field is strong, the gate is closed.
+Inductive proximity sensors are used in food processing and manufacturing, robotic welding, and for packaging/ materials handling.
+
+#### 4. Visisight Sensors Photoelectric Sensors
+How does the machine ""know"" where your order is? These sensors emit an eye-safe beam of red light. When something interrupts the beam, the sensor communicates that an object was detected. The ControlLogix Programmable Automation Controller (PAC), the computer brain of the Dream Machine, knows where each sensor is, so it knows where the object is the instant it interrupts the beam. VisiSight Photoelectric Sensors are used in packaging, materials handling, and sortation.
+
+#### Sensaguard RFID
+You may have noticed that this exhibit is enclosed with acrylic panels. That's for your safety. These machines are smart, but they don't know you're here. They are programmed to do a specific thing and won't stop until they receive a signal to stop. Safety is incredibly important in factories and on assembly lines. Of course, people need to access these machines to perform troubleshooting and maintenance. That's why there are doors with SensaGuard sensors on them. SensaGuard sensors use a combination of RFID technology (radio signals that read a chip) and inductive proximity sensors (to detect metal) to let the machines know whether the panel doors are open or closed. If closed, everything runs just fine. If open, the machine stops.",English,Technical
+7,Automation Everywhere,Dream Machine: Control Cabinet,3,"### Control Cabinet
+This cabinet is the brain of the Dream Machine. It helps control all the machines and sensors that work together to make the Dream Machine run.
+
+### Precise Motors
+The Dream Machine uses special motors called servos that can be controlled very precisely. They can move to exact positions and speeds. The brain of the Dream Machine sends signals to these motors, telling them what to do.
+
+### Sensors and Controls
+The Dream Machine has many sensors that watch what's happening and send information to the brain. The brain then decides what needs to happen next.
+
+### Connected Control
+The Dream Machine uses a special network that lets all the parts talk to each other. This makes it easier to control the whole system and makes it cheaper to set up and fix. It even lets people control the Dream Machine from far away.",English,Standard
+7,Automation Everywhere,Dream Machine: Control Cabinet,3,"### Control Cabinet
+This cabinet houses the electronic brain of the Dream Machine. All the sensors, the AC motors, the laser cutters, and everything else are controlled by the ControlLogix Programmable Automation Controller or PAC.
+
+### Kinetix Servo Drives
+Servos are a very precise and accurate electric motor. You can control their position, how fast they move, and how quickly they accelerate. Servo motors are controlled by servo drives. The Programmable Automation Controller or PAC (the computer brain of the Dream Machine) sends control signals to the Kinetix Servo Drives. The drives amplify these signals and send them to the servos. Here in the Dream Machine, Kinetix Servo Drives provide the motion control for the servo motors that move the laser cutters.
+
+### Armorblock I/O
+The Rockwell Automation ArmorBlock I/O gathers information from the sensors and sends it to the Programmable Automation Controller (the computer brain), which determines what needs to be done.
+
+### Ethernet Control
+One feature of Rockwell Automation systems is the Ethernet network, which allows all the systems to process information and communicate over a single network. Ethernet control gives operators a lot more control over the entire system. It also saves money on wiring and troubleshooting. And you can monitor and operate your factory from anywhere in the world.",English,Technical
+10,Automation Everywhere,Sensor Challenge,2,"Can You Beat The Machine?
+==========================
+
+Take the Sensor Challenge!
+-------------------------
+
+### Steps to Complete the Challenge
+
+1. **Press the Start Button**
+2. **Choose a Speed**: Slow, Medium, or Fast
+3. **Press Go**
+4. **Sort!**",English,Simplified
+21,Drive Sim,Drive Sim,1,"**Turning**
+Racecars are designed to handle the effects of friction, gravity, and air resistance.
+
+**Gaining Speed**
+Aerodynamics is how easily air slips over the car. Traction is the grip that tires have on the ground, transferring engine power into forward motion and keeping the car on the racetrack.
+
+**Special Maneuvers**
+When an object is moving in a circle, centripetal force pulls it towards the center, while centrifugal force pulls it away.
+
+**Crashing**
+Modern racecars are designed to protect the driver using impact-absorbing materials, high-tech multi-point seatbelts, and breakaway pieces.",English,Standard
+21,Drive Sim,Drive Sim,1,"**Turning**
+Cars are designed to handle the forces that can affect them while racing.
+**Gaining Speed**
+A car's shape helps air flow smoothly over it, and special tires grip the ground to help the car move faster and stay on the track.
+**Special Maneuvers**
+When cars turn, two forces act on them: one pulls them towards the center and the other pulls them away.
+**Crashing**
+Today's cars are designed to keep drivers safe with special materials and protection systems that absorb impacts and help the driver stay safe in case of a crash.",English,Simplified
+26,Innovation Station,Pneumatic Dinosaur,2,"**Pneumatic Dinosaur**
+
+Once upon a time, in a land before time, pneumatic dinosaurs roamed the land. As these giants strode upon the earth and swam in the primordial seas, levers forced compressed air into their mighty pistons transforming this force into movement.
+
+These gigantic creatures are gone (except for this one, the last of its kind), but their inspiration remains in pneumatic drills and bicycle pumps, HVAC control systems, giant pneumatic clocks, compressed air vehicles, pipe organs, exercise equipment, and anywhere else humans turn compressed air into work.
+
+**Move the Levers. Control the Mighty Beast. Behold the Power of Compressed Air.**",English,Simplified
+29,Innovation Station,Spark Gap Telegraph,3,"Wireless Telegraph
+=====================
+
+In the late 1800s, the telegraph was the only way to send an instant message to someone. The telegraph transformed the world and made communication much easier across distances. The problem was wires. You can't run wires from the shore to a ship, and ships were incredibly important to the global economy. People needed instant communication everywhere, and they needed to get rid of the wires.
+
+Warren Johnson's initial transmitter set-up consisted of:
+- A battery
+- A capacitor
+- An induction coil
+- A spark gap
+
+When you complete the circuit, the induction coil transforms low-voltage electricity from the battery into a high-voltage impulse, which jumps across the gap. This generates a pulse of radio waves that flies off in every direction. A coherer (radio-wave receiver) located somewhere else picks up this pulse of radio waves as a burst of static. A short burst of static became a Morse Code dot. A longer burst became a dash.
+
+Eventually, Johnson and his engineer Charles Fortier demonstrated their wireless telegraph system at the 1900 Paris Exposition with luminaries like Nikola Tesla, Guglielmo Marconi, and Thomas Edison.",English,Standard
+29,Innovation Station,Spark Gap Telegraph,3,"Spark Gap Telegraph
+=====================
+
+Imagine sending a message to someone on the other side of the ocean in just a second. Before phones and internet, people used a machine called the telegraph to send instant messages. But telegraphs needed wires, and that was a problem for ships at sea. Ships were very important for trade, and people needed a way to talk to them quickly.
+
+A man named Warren Johnson found a way to send messages without wires. He used a special setup that included:
+- a battery
+- a special coil
+- a gap that sparks when electricity jumps across it
+
+When you turn it on, the coil makes a burst of energy that sends a signal through the air. Someone else can pick up this signal with a special receiver and hear a ""click"" or a "" Static"". This was like a secret code that only they could understand.
+
+Johnson showed off his invention to some very famous people, like Nikola Tesla and Thomas Edison. It was a big deal!",English,Simplified
+30,Innovation Station,Telegraph with Key,3,"### Morse Code
+
+It's 1836. Your name is Samuel Morse. You're a portrait painter and inventor originally from Charlestown, Massachusetts. Your job is to figure out a way to send instant messages across the country. You have a transmitter that allows you to send electrical impulses. You have a receiver that receives electrical impulses. You have electricity. You have wire. What do you do?
+
+### I Could Create a Code!
+
+You could create a code. Each letter might be combination of short and long bursts of electricity. Dots and dashes (and empty space). Tiny bits of empty space between letters. Longer bits of empty space between words. You want your code to be as efficient as possible, so you assign the shortest series of dots and dashes to the letters we use most frequently. 'E' would be a single dot. 'T' would be a dash. 'I' would be two dots. 'M' would be two dashes. And so on. Congratulations. You've invented Morse Code.",English,Simplified
+35,Les Paul's House of Sound,Hometown Tour,3,"Here is the text with its formatting recovered in markdown:
+### Take The Tour
+Join Sue Baker, The Program Director at the Les Paul Foundation on a tour of Les Paul's Home Town, Waukesha, WI. See where Les lived, learned, performed and invented.",English,Simplified
+36,Les Paul's House of Sound,How Many Discs?,3,"How Many Discs Does it Take to Create a New Sound?
+
+Five hundred, give or take a few.
+
+Computers have made it easy to record multiple tracks, overdub, and add effects. But the combination of these effects had never been done before Les Paul released ""Lover"" in 1948. He called his effects ""The New Sound."" It was a huge hit.
+
+It was a complicated process. If he didn't like a particular take, he couldn't record over it. He had to start over with another disc.",English,Simplified
+45,Les Paul's House of Sound,Seeing Sound,2,"**Seeing Sound**
+
+How would you measure the speed of sound?
+
+In 1886, August Kundt generated a single frequency of sound - a pure tone inside a tube. Dust inside the tube began to vibrate and dance, forming the outline of the soundwave. Kundt then figured out that the distance between the dancing piles of dust is the wavelength of the sound wave. Since he knew the frequency of the sound wave, he could multiply that number by the wavelength and find the speed of sound in air.",English,Standard
+45,Les Paul's House of Sound,Seeing Sound,2,"Seeing Sound
+==========
+
+How Fast is Sound?
+
+Have you ever wondered how we measure the speed of sound?
+
+A scientist named August Kundt figured it out in 1886. He created a special kind of sound, a pure tone, inside a tube. The sound made tiny particles of dust inside the tube vibrate and form a pattern. By looking at the pattern, Kundt could see the sound wave! He used this discovery to calculate the speed of sound in the air. Isn't that cool?",English,Simplified
+50,Les Paul's House of Sound,Theremin,2,"Here is the text with its formatting recovered in markdown:
+
+
+### Theremin
+
+This instrument is ""hands-off""! The Theremin makes sound without being touched. It works by detecting how close you are to its two antennas. The tube antenna controls pitch (how high or low the sound is), and the flat antenna controls volume (how loud or soft the sound is). Moving your hands closer or farther away from the antennas changes the electric charge, which the theremin translates into sound.",English,Simplified
+51,MKE Muscle,Bernoulli Table,2,"### Bernoulli's Principle & Flight
+Have you ever wondered how airplanes fly? It's actually pretty cool! Fluids, like air or water, push harder when they're moving slowly. The shape of an airplane wing helps it lift off the ground. The curved top of the wing makes the air move faster, which means it pushes less hard. The flat bottom of the wing makes the air move slower, which means it pushes harder. This helps the airplane lift up into the air!",English,Simplified
+51,MKE Muscle,Bernoulli Table,2,"Here is the text with its formatting recovered in markdown:
+### Bernoulli's Principle & Flight
+Slower moving fluids (liquid or gas) exert more pressure than faster moving fluids. An aircraft's wing is curved on top and flat on the bottom. Air traveling over the top of the wing moves faster than under the wing. This generates higher pressure on the bottom of the wing, causing lift.",English,Standard
+52,MKE Muscle,Energy Into Motion,3,"#### Energy Into Motion
+
+This engine uses a big burst of energy to get moving. It's kind of like when you jump up and down - you use your energy to get started. The engine's energy makes a big part called a piston move down. This makes another part move, and another, until the wheels start turning around in a circle.",English,Standard
+52,MKE Muscle,Energy Into Motion,3,"Here is the text with its formatting recovered in markdown:
+### Energy Into Motion
+
+The force of the explosion drives a piston downward. The piston drives a connector rod. The connector rod drives the crankshaft. The crankshaft turns the up and down motion of the engine into a circular motion that drives the wheels.",English,Technical
+53,MKE Muscle,Excavator,2,"**Make a Big Impact**
+
+Imagine you need to move a really heavy rock. You can use a special machine called a lever to help lift it. But what if you need to move something even heavier? That's where our excavator comes in. It uses special parts called hydraulic cylinders to move heavy things. These cylinders help make the machine stronger by multiplying the force it uses.
+
+**How it Works**
+
+Our excavator uses a special system called a hydraulic circuit. It's like a tiny highway for liquid that helps the machine move. The circuit has a pump that pushes the liquid through hoses, kind of like how electricity flows through wires. The liquid helps the machine's parts move, like the arm and bucket.
+
+**Why is this Machine so Cool?**
+
+* It's simple: it doesn't need lots of complicated parts.
+* It's efficient: it gets the job done with less effort.
+* It's powerful: it can move really heavy things with ease.
+* It's easy to control: you can make big things happen with just a small action.
+* It's flexible: it can reach into tight spaces to get the job done.
+
+**Force**
+
+A force is a push or a pull that makes something move.
+
+**Pressure**
+
+Pressure is when you use force on a small area, making it stronger.",English,Standard
+53,MKE Muscle,Excavator,2,"### Multiplying the Multiplier
+
+A lever can help you lift a boulder. A lever and a hydraulic cylinder can help you move a mountain. On this excavator, each hydraulic cylinder is attached to a moving part of the excavator. The pressure from the hydraulic pump is multiplied by the cylinder and again by the boom, arm, and bucket, which act like levers.
+
+### The Hydraulic Circuit
+
+A hydraulic circuit is kind of like an electrical circuit.
+
+There are hoses instead of wires and fluid instead of electricity. Instead of the electromotive force (Volts) pushing electrons along, a pump pushes fluid through the circuit. In a hydraulic circuit, the engine turns the hydraulic pump. The pump pushes fluid through a hose to the control valve. Valves choose the route the fluid takes. For instance, the valve can route the fluid to extend or retract the cylinder's piston. The pistons inside the cylinders extend and contract the arm, and the bucket.
+
+### Why Hydraulic Power?
+
+*   **Simplicity!** Eliminate the gears, cams, chain drives, and pulleys.
+*   **Efficiency!** Fewer moving parts means a more efficient machine!
+*   **Power!** Transform small forces into incredibly large forces!
+*   **Control!** Manage large forces with small forces!
+*   **Flexibility!** Transmit force into difficult spaces!
+
+#### FORCE
+
+/FRS/
+
+A push. A pull. A force is an interaction that changes the motion of an object.
+
+#### PRESSURE
+
+/PRESHER/
+
+Force exerted over a given area.",English,Technical
+57,MKE Muscle,Helicopter Sim,3,"### Collective Pitch Control
+
+The Collective Control is the up and down control. If the helicopter is level, this will make it to go up or down, but if the helicopter is tilted forward, it will increase the speed.
+
+### Tail Rotor Pedals
+
+The Tail Rotor Pedals, or Anti-Torque Pedals, are used to turn the helicopter to the left or to the right. The pilot pushes the left pedal to increase the pitch of the tail rotor and turn to the left. Pushing the right pedal decreases the pitch of the tail rotor and turns the helicopter to the right.
+
+### Cyclic Control Stick
+
+The Cyclic Control Stick (Joystick) moves the helicopter forward and backward. Moving the stick forward and back will point the nose of the helicopter up or down. This is accomplished by changing the angle of the rotor blades.",English,Technical
+57,MKE Muscle,Helicopter Sim,3,"**Flying a Helicopter**
+
+**Up and Down Control**
+In a helicopter, the collective control helps it move up or down. If the helicopter is flying straight, this control makes it go higher or lower. If it's moving forward, it helps the helicopter go faster or slower.
+
+**Turn Left or Right**
+The tail rotor pedals help the helicopter turn. Pushing the left pedal makes the helicopter turn left, and pushing the right pedal makes it turn right.
+
+**Move Forward and Backward**
+The cyclic control stick helps the helicopter move forward and backward. Moving the stick makes the helicopter's nose point up or down.",English,Standard
+59,Physics & You,Air Cars,2,"### Where Does Energy Come From?
+
+Your little race car runs on the energy stored in compressed air. You pumped the air into the car using the compressor. The energy you used to pump air into your car comes from the food you eat. The energy stored in the food you eat comes, directly or indirectly, from the sun.
+
+### Did You Know?
+
+For every action there is an equal (in size) and opposite (in direction) reaction. Air rushes out of the car in one direction pushing the car in the other direction.
+
+#### TRY OUT DIFFERENT CARS TO SEE HOW THEY COMPARE",English,Simplified
+60,Physics & You,Air Rockets,2,"Here is the text with its formatting recovered in markdown:
+
+
+### Blast Off
+
+A rocket's engine is also called a reaction engine after Newton's Third Law. Incredibly hot exhaust gas rushes downward pushing the rocket upward into space.
+
+### Did You Know?
+
+It took nearly 300 years from the time Sir Isaac Newton mathematically described Gravity and Motion to the time Neil Armstrong took his historic first step on the moon.",English,Simplified
+63,Physics & You,Ring Launcher,2,"### Launch the Ring!
+#### How It Works
+Flipping the switch creates a magnetic field that gives the ring a gentle push. This magnetic force lifts the ring into the air.
+
+#### Fun Fact
+Some machines can do two jobs. They can turn movement into electricity, or turn electricity into motion. It's like having two tools in one!
+
+#### Try This
+Which ring goes higher? The small one or the big one? Give it a try and see what happens!",English,Simplified
+63,Physics & You,Ring Launcher,2,"**Crank the generator to charge the capacitors. Flip the switch, and launch the aluminum ring into the air.**
+
+### How It Works
+Current flows to the electromagnet. The electromagnet generates a magnetic field and induces magnetic field in the aluminum ring. The magnetic fields repel each other, forcing the ring upward.
+
+### Did You Know?
+A generator and a motor are essentially the same thing. A generator turns motion into electricity. A motor turns electricity into work. A generator can be a motor, and a motor can be a generator.
+
+### Something Curious
+Which ring sails higher? The smaller, lighter ring? Or the larger, heavier ring? Do you know why?",English,Standard
+65,Physics & You,Vertical Flyer,2,"### Balanced Forces
+An upward force from the column of air meets the downward force of gravity. Can you make the two forces balance each other out?
+
+#### Customize a Flyer!
+Experiment with different cuts on a paper cone to see how it flies.",English,Simplified
+66,Power On,Cycle to Power,2,"**The Power of You**
+
+Imagine pedaling a bike to make toast! A group of students wanted to see how much power a person could generate compared to a regular toaster. They asked a former world champion track cyclist, Robert Frstemann, to help. He pedaled a stationary bike hooked up to a toaster and managed to make toast after a lot of hard work. But he was really tired! That's because it's not easy to generate power like electricity does.
+
+**Pedaling Power**
+
+### What's Happening?
+
+* You pedal a bike for 30 seconds.
+* We measure how much power you make.
+* We multiply that power by minutes to see how long you'd have to pedal to make a gadget work for a little while.
+* As you pedal, a gadget will work while a counter shows how much power you've made.",English,Simplified
+66,Power On,Cycle to Power,2,"# The Power of You
+
+Students from the Stockholm Academy of Dramatic Arts asked Robert Frstemann to make them some toast. They weren't hungry - they wanted to demonstrate how much power we use compared to how much we could possibly generate ourselves. Robert Frstemann is not a chef - he is a former world champion track cyclist and Olympic medalist from Germany. And the toaster wasn't plugged into the wall. It was plugged into a stationary bike with a generator. Frstemann hopped on the bike and began to pedal. He fought and strained and gave it everything he had. It wasn't easy. Using only muscle power, he generated around 700 watts for about two minutes - a massive effort for a human. Frstemann was completely exhausted, but he managed to make toast. Your toaster is not exhausted after it makes toast. Electricity does a tremendous amount of work for us.
+
+## Cycling to Power
+
+### What's Going On?
+
+* You pedal for 30 seconds.
+* Your effort is measured in kilowatt hours.
+* We multiply your effort by minutes.
+* That's how long you'd have to pedal to make one of the gadgets run for X amount of time.
+* A gadget runs for X amount of time as the kilowatt hours count down.",English,Standard
+67,Power On,Energy Jeopardy,3,"### Your Electric Brain
+
+Your brain is astonishingly efficient considering it's the most complex thing in the universe. It runs on roughly 20 watts, enough to power two LED bulbs. A computer with the same abilities would probably need around a billion watts of power. The billions of neurons in your brain form trillions of connections. Electrical impulses zip along, hopping from neuron to neuron, carrying all kinds of information. Your senses, thoughts, and emotions are electric.",English,Simplified
+71,Power On,Gravity Ball Wall,2,"Gravity Ball Wall
+================
+
+Water Power in Wisconsin
+--------------------
+
+Did you know that Wisconsin has special power plants that use water to make electricity? Two of these plants are on the Brule and Pine rivers. They use moving water to create electricity, just like how you might use a bike pedal to make a light shine!
+
+What is Solar Energy?
+---------------------
+
+The sun is like a superhero that helps lift water up into the air. This water then falls back down to the earth as rain or snow.
+
+How Does it Work?
+------------------
+
+Water falls from the sky and flows across the land into rivers. This moving water can be used to make special machines spin around. These machines then turn the energy of the moving water into electricity!",English,Simplified
+71,Power On,Gravity Ball Wall,2,"**Water Power in Wisconsin**
+We Energies operates 13 hydroelectric power plants, two of which are in Wisconsin. The first is on the Brule River near Florence. It was constructed in 1919 and can generate up to 5,300 kilowatts. That's enough to power 4,416 toasters. The other is on the Pine River, also near Florence. It was constructed in 1922 and can generate up to 3,600 kilowatts, which is enough to power 3,000 toasters.
+
+**Solar Energy**
+Each day, the Sun does a tremendous amount of work lifting billions of tons of water into the atmosphere. The Sun's energy is stored in this water vapor as gravitational potential energy.
+
+**Kinetic Energy**
+Eventually, the water vapor condenses. Clouds form. The water falls as rain or snow then flows downhill into rivers and eventually back to the ocean.
+
+**Electrical Energy**
+Flowing water can be used to make turbines spin, which causes generators to spin. Generators transform this kinetic energy into electrical energy.",English,Standard
+72,Power On,Run the City,2,"### A Balance of Power
+
+How does We Energies generate and send electricity to Milwaukee right when it's needed? By using multiple types of power plants, each with different strengths. To determine which plants to operate when, We Energies considers the amount of electricity the city needs at various times alongside conditions (like weather) that impact the availability of different power sources.
+
+### Work together to make all the buildings light up.
+
+#### Build power plants fast & early.
+
+* Some plants require more work to build than others.
+
+#### Watch the weather.
+
+* Storms, wind, the temperature, and the sun can affect how much power is needed and how much you can generate.
+
+#### Choose the most efficient plant.
+
+* Some plants require less work to generate the same amount of energy.
+
+#### Meet high demand.
+
+* Run fastest at dawn and dusk when most people are at home using power.",English,Simplified
+73,Power On,Seeing Heat,2,"**Invisible Light**
+All objects emit infrared light. Some more than others.
+You emit more infrared light than an ice cube. Some animals like pit vipers and mosquitos can see infrared light. We feel it as heat.
+
+**Visible Light**
+Most light energy is invisible to us. The energy that our eyes can detect is a mere sliver of the electromagnetic spectrum, Infrared cameras translate invisible energy into images we can see.
+
+**Invisible Light Into Information**
+Infrared cameras are used by firefighters to find people trapped in burning buildings. They are used by electrical workers to find failing equipment. Some astronomers use infrared telescopes. Some cars have infrared cameras that help drivers see at night. Humans use the entire electromagnetic spectrum to explore, discover, and communicate.",English,Standard
+73,Power On,Seeing Heat,2,"**Warmth Around Us**
+Everything gives off a special kind of light that we can't see, called infrared light. You give off more of this light than an ice cube. Some animals, like certain snakes and mosquitoes, can see this light. We feel it as heat.
+
+**Light That's Hidden**
+Most of the light around us is invisible. Our eyes can only see a tiny part of it. Special cameras can turn invisible light into pictures we can see.
+
+**Turning Invisible Light into Pictures**
+These special cameras help firefighters find people trapped in burning buildings. They help workers find broken equipment. Some scientists use them to study the universe. Some cars even have them to help us see at night.",English,Simplified
+74,Power On,Sun as the Source,2,"The Sun, The Source
+================================
+
+A seething, roiling sphere of incandescent plasma. A massive fusion reactor sustained by its own gravitational collapse. It is mind-bogglingly huge and ridiculously hot. Please don't stare at it. Each year, the Earth receives around **3,800,000 exajoules** of energy from the Sun - the ultimate source of energy. It's a staggering amount of energy yet only a tiny fraction of the Sun's total output. This energy drives weather and life. Energy cannot be created on earth - it can only be transformed from solar energy into different types of energy. Plants transform about **3,000 exajoules** of this solar energy through photosynthesis. Humans transform and use around **500 exajoules** of energy each year. Our energy comes from different sources, including coal, oil, natural gas, water and wind, and directly from the Sun itself. Our planet receives more energy from the Sun in **90 minutes** than people use in a year. If we are clever enough, we will never run out of energy. If we are incredibly clever, we might build an entirely new energy future.
+
+The Fusion Engine
+------------------
+
+The Sun produces energy through the process of thermonuclear fusion. In the Sun's core, the extreme pressure fuses hydrogen atoms together, producing helium atoms. This fusion releases a monstrous amount of energy in the form of high-energy gamma rays. As these gamma rays bounce their way from the center of the Sun to its surface, they lose some energy and become mostly ultraviolet, visible, and infrared light. Energy from the Sun's core can take anywhere from **10,000** to **170,000 years** to reach its surface. From there, it takes about **eight minutes** to reach the Earth. It takes **5.5 hours** for light from the Sun to reach Pluto.
+
+Transforming the Sun
+----------------------
+
+The energy stored in oil, coal, and natural gas comes from the Sun. The energy stored in the wind and flowing water comes from the Sun. Even the energy stored in the food you eat comes from the Sun. We transform this stored energy. Wood into heat. Wind into the movement of ships. Water into the motion of millstones. Food into muscle, work, ideas, and technology. Coal into heat into steam into spinning turbines and generators into electricity. Electricity into light, heat, work, information, computation, and machine intelligence.
+
+**The Sun Powers Life. The Sun Powers Civilization. The Sun Powers You.**",English,Standard
+74,Power On,Sun as the Source,2,"The Sun, The Source
+================================
+
+The Sun is a really big ball of hot, glowing gas. It's the reason we have life on Earth and it gives us the energy we need to survive. Every year, the Earth gets a huge amount of energy from the Sun - about 400 times more than we use. This energy makes the weather and helps plants grow. We can't make energy on Earth, but we can change the energy from the Sun into different types. Plants turn some of the Sun's energy into food, and we use energy from different sources like coal, oil, and wind.
+
+The Sun's Energy
+-----------------
+
+The Sun makes energy by squishing together tiny particles called atoms. This makes a lot of energy that travels to the Earth in just 8 minutes. The energy from the Sun is what makes things move, grow, and work. We use the Sun's energy to power our homes, schools, and computers.
+
+You and the Sun
+----------------
+
+The Sun's energy is all around us. It's in the food we eat, the wind that blows, and the water that flows. We use the Sun's energy to do all sorts of things like cook food, sail ships, and light our homes. The Sun is what makes life on Earth possible. **The Sun Powers Life. The Sun Powers You.**",English,Simplified
+75,Power On,Tornado,3,"Here is the text with recovered formatting in markdown:
+
+# Destruction
+Tornadoes can toss cars and trucks around like toys, rip trees out of the ground, and tear buildings apart. Pound for pound, tornadoes are the most energetic and destructive storms on the planet.
+
+# Wisconsin Tornadoes
+Wisconsin averages 23 tornadoes each year. We had 62 back in 2005. We only had four in 2012. Wisconsin tornadoes, on average, last for under 10 minutes and touch ground for three to five miles. The Chetek tornado in May 2017 was on the ground for about two hours and cut an 83-mile path through Wisconsin. Chetek is 40 miles north of Eau Claire.
+
+# Heat Energy
+Warm, moist air lifts upward as cooler air sinks downward causing rotation within a thunderstorm.
+
+# Kinetic Energy
+A funnel of swirling air snakes downward from the storm to the ground with winds that can reach speeds of over 300 miles per hour.",English,Standard
+75,Power On,Tornado,3,"### Destruction
+
+Tornadoes are really powerful storms that can throw cars and trucks around, uproot trees, and tear down buildings. They are the strongest storms on Earth.
+
+#### Wisconsin Tornadoes
+
+Wisconsin gets around 23 tornadoes every year. Some years we get a lot more, like in 2005 when we had 62. Other years, like 2012, we only get a few. Most tornadoes in Wisconsin don't last very long - usually around 10 minutes - and don't travel very far. But sometimes, like with the Chetek tornado in 2017, they can be on the ground for a long time and travel a long way.
+
+#### What Makes a Tornado
+
+When warm air rises and cooler air sinks, it makes the air around it start to spin. This spinning air is the start of a tornado.
+
+#### Tornado Wind
+
+As the spinning air touches the ground, it forms a funnel that can make really strong winds - sometimes over 300 miles per hour!",English,Simplified
+76,Power On,Touch Lightning,1,"**Could we Harness Lightning Energy?**
+We could, but it probably wouldn't be worth it. Lightning produces a huge amount of energy within a short amount of time. Capturing it is possible, but storing that energy would be difficult and expensive. Lightning is also wildly unpredictable and thunderstorms are somewhat rare, so it would be an unreliable source of power. And even if we could capture and store a significant percentage of lightning energy, it would amount to an insignificant fraction of the world's energy needs.
+
+**Kinetic Energy**
+Rain, hail, and frozen water collide inside a storm cloud.
+The kinetic energy of these collisions is transformed.
+
+**Electrical Energy**
+The top of the cloud becomes positively charged and the base of the cloud becomes negatively charged. Because like charges repel, everything on the ground underneath the cloud becomes positively charged as electrons scramble to get out of the way.
+
+Fingers of electrical energy called ""stepped leaders"" reach down from the cloud to the ground, searching for the path of least resistance. The ground sends up a bolt of energy called a ""streamer"" to meet them. The leader and streamer connect, creating a conductive pathway.
+
+**Heat, Light, Electrical, and Sound Energy**
+That connection creates a ferocious blast of light, heat, sound, and electrical energy - lightning and thunder!",English,Standard
+76,Power On,Touch Lightning,1,"**Harnessing Lightning Energy**
+Imagine capturing the power of a lightning bolt! While it's possible, it wouldn't be very practical. Lightning has a lot of energy, but it's hard to store and use. Plus, thunderstorms are unpredictable and don't happen often enough to be a good source of power.
+
+**What Creates Lightning?**
+ Inside a storm cloud, water and ice bump into each other, creating energy. This energy builds up and eventually turns into electricity.
+
+**The Power of Lightning**
+The cloud gets electrically charged, and the ground below it gets charged too. This creates a pathway for the electricity to follow. When the pathway is complete, a huge burst of energy shoots out - that's lightning!
+
+**Lightning's Big Impact**
+Lightning is incredibly hot and bright, creating thunder and shaking the air around it. It's an amazing display of nature's power!",English,Simplified
+77,Power On,Van de Graaff,1,"### Kinetic Energy Into Electric Potential
+
+Inside the Van de Graaff generator, a drive belt spins over rollers made of different materials, which separates positive and negative charges. A metal brush at the base of the generator conducts negative charge to the ground. Another metal brush at the top of the generator conducts excess positive charge to the metal collector dome. The dome becomes positively charged.
+
+#### Why do you get Shocked?
+
+There's a big difference in electrical charge between you and the Van de Graaff generator. That electrical charge is looking for the path of least resistance. When you reach out to touch the metal dome, you become the path of least resistance. The charge jumps from the dome to you.
+
+#### When you hold your hand on the dome, you become positively charged.
+
+#### Share this Excess Positive Charge with your Friends!
+
+This shock is harmless. An electrical outlet or a power line charge is much more powerful and can be deadly. Do not play with electrical outlets or power lines.",English,Standard
+77,Power On,Van de Graaff,1,"# Fun with Electricity!
+ Inside the Van de Graaff generator, a special belt spins around and helps create static electricity. This makes the dome on top become super charged!
+
+## Why Do You Get a Shock?
+When you touch the dome, you help the electricity find a new path. This means the electricity jumps from the dome to you!
+
+## You Become a Human Conductor!
+When you hold your hand on the dome, you become charged too!
+
+### Share the Shock with Your Friends!
+Don't worry, this shock is safe and harmless. But remember, electricity from outlets or power lines is much stronger and can hurt you. Always be careful around those!",English,Simplified
+84,Virtual Explorer,Virtual Explorer,1,"**How Does the VR System Know Where I Am?**
+
+*Lighthouse Sensors* are active, infrared sensors that emit a burst of invisible light 60 times per second. They also send a beam of invisible laser light sweeping across the room. 
+
+The *Vive headset* is covered in **photosensors** that start counting the millisecond they detect these bursts of infrared light. They stop counting when they're hit by the laser. 
+
+The *Lighthouses* use this information to determine the position of the headset. Since you are wearing the headset, the *Lighthouse Sensors* know exactly where you are. 
+
+The *Vive controllers* also 'talk' to the *Lighthouse Sensors*, helping track your actions.",English,Technical
+84,Virtual Explorer,Virtual Explorer,1,"**How Does the VR System Know Where I Am?**
+
+This exhibit uses special sensors to track where you are. There are two sensors that send out invisible light beams, which help figure out where the VR headset is. These sensors talk to the headset and controllers, so the system knows exactly what you're doing and where you are. It's like having your own personal navigation system!",English,Standard

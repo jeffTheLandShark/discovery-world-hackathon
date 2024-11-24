@@ -12,20 +12,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  nfc_manager: ^3.0.0  # Check for the latest version
+  nfc_manager: ^3.0.0 
   flutter_localizations:
     sdk: flutter
-  flutter_map: ^7.0.2
-  latlong2: ^0.9.1
-  flutter_map_cancellable_tile_provider: ^3.0.2
   sliding_up_panel: ^2.0.0+1
   provider: ^6.1.2
+  intl: ^0.19.0
+  searchable_listview: ^2.15.2
+  dio: ^5.4.3+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^4.0.0
+  intl_translation: ^0.20.1
 
 flutter:
   uses-material-design: true
@@ -35,5 +36,6 @@ flutter:
 
   assets:
     # Add assets from the images directory to the application.
+    - assets/example.json
     - assets/images/
     - assets/images/map_assets/

@@ -1,0 +1,22 @@
+{
+    "Exhibit1": {
+        "Exhibit_ID": "1",
+        "Exhibit_Display_Name": "Lorem",
+        "Exhibit_Image_Path": "img/example",
+        "Map_Location": "S123",
+        "Article": [
+            {
+                "Language": "English",
+                "Body": "Loreme"
+            },
+            {
+                "Language": "Spanish",
+                "Body": "Lorems"
+            },
+            {
+                "Language": "Hmong",
+                "Body": "Loremh"
+            }
+        ]
+    }
+}
