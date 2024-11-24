@@ -19,7 +19,24 @@ class MainMap extends StatefulWidget {
   static const routeName = '/map';
 
   final ValueNotifier<List<ExhibitMapEntry>> exhibits;
-  List<FloorMap> sections = [];
+  late List<FloorMap> sections = [
+      FloorMap(
+          path: 'assets/images/map_assets/Tech Lower Level.png',
+          popup: popupState,
+          key: GlobalKey<FloorMapState>()),
+      FloorMap(
+          path: 'assets/images/map_assets/Tech Floor 1.png',
+          popup: popupState,
+          key: GlobalKey<FloorMapState>()),
+      FloorMap(
+          path: 'assets/images/map_assets/Tech Floor 2.png',
+          popup: popupState,
+          key: GlobalKey<FloorMapState>()),
+      FloorMap(
+          path: 'assets/images/map_assets/Tech Mezzanine.png',
+          popup: popupState,
+          key: GlobalKey<FloorMapState>()),
+    ];
   FloorMap? currentFloor;
   ExhibitPopupState popupState;
 
