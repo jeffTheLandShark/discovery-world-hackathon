@@ -19,7 +19,10 @@ class FloorMap extends StatefulWidget {
 
   GlobalKey<FloorMapState>? _key;
 
-  FloorMap({required String path, required ExhibitPopupState popup, required GlobalKey<FloorMapState> key})
+  FloorMap(
+      {required String path,
+      required ExhibitPopupState popup,
+      required GlobalKey<FloorMapState> key})
       : _path = path,
         _popup = popup,
         _key = key,
@@ -37,7 +40,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   final TransformationController _controller = TransformationController();
   double _scale = 1.0;
 
-  List<MapNode> mapNodes = [];
+  ValueNotifier<List<ExhibitNode>> mapNodes = ValueNotifier([]);
   static const double iconSize = 20;
   int? activeIconIndex;
 
@@ -45,13 +48,13 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    mapNodes = [
-      ExhibitNode(floor: widget, xPos: 0, yPos: 0, description: "description 1", id: "Temp"),
-      ExhibitNode(floor: widget, xPos: 10, yPos: 10, description: "description 2", id: "Temp"),
-      ExhibitNode(floor: widget, xPos: 100, yPos: -20, description: "description 3", id: "Temp"),
-      ExhibitNode(floor: widget, xPos: -80, yPos: 20, description: "description 4", id: "Temp"),
-      ExhibitNode(floor: widget, xPos: -40, yPos: -10, description: "description 5", id: "Temp"),
-      FloorTransitionNode(floor: widget, xPos: 50, yPos: 50, canGoTo: List<FloorTransitionNode>.empty()),
+    mapNodes.value = [
+      ExhibitNode(
+          floor: widget,
+          xPos: 0,
+          yPos: 0,
+          description: "description 1",
+          id: "Temp"),
     ];
 
     _controller.addListener(() {
@@ -69,7 +72,7 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
 
   void addExhibitNode(ExhibitNode node) {
     setState(() {
-      mapNodes.add(node);
+      mapNodes.value.add(node);
     });
   }
 
@@ -77,65 +80,64 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final stackChildren = <Widget>[];
     stackChildren.add(Image(image: AssetImage(widget.path)));
-
-    for (int i = 0; i < mapNodes.length; i++) {
-      final ex = mapNodes[i];
-      Positioned p = Positioned(
-        top: MediaQuery.of(context).size.height/2 + ex.yPos,
-        left: MediaQuery.of(context).size.width/2 + ex.xPos,
-        child: IconUpdater(
-          node: ex,
-          iconSize: iconSize,
-          scale: _scale,
-          isActive: activeIconIndex == i,
-          onIconClick: () {
-            setState(() {
-              if (activeIconIndex != i) {
-                activeIconIndex = i;
-                if (ex is ExhibitNode) {
-                  widget._popup.updateText(ex.description, i);
-                } else if (ex is FloorTransitionNode) {
-                  widget._popup.updateText(ex.type, -1);
-                }
-              } else {
-                activeIconIndex = -1;
-                widget._popup.updateText("Click an exhibit to view information", -1);
-              }
-            });
-          },
-        ),
-      );
-      stackChildren.add(p);
-    }
-
-    return Center(
-      heightFactor: MediaQuery.sizeOf(context).height,
-      child: InteractiveViewer(
-        constrained: false,
-        boundaryMargin: const EdgeInsets.all(100),
-        minScale: 1,
-        maxScale: 10,
-        transformationController: _controller,
-        child: Container(
-          color: Colors.white,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            alignment: Alignment.center,
-            children: stackChildren,
-          ),
-        ),
-      ),
-    );
+    return ValueListenableBuilder<List<ExhibitNode>>(
+        valueListenable: mapNodes,
+        builder: (context, mapNodes, child) {
+          for (int i = 0; i < mapNodes.length; i++) {
+            final ex = mapNodes[i];
+            Positioned p = Positioned(
+              top: MediaQuery.of(context).size.height / 2 + ex.yPos,
+              left: MediaQuery.of(context).size.width / 2 + ex.xPos,
+              child: IconUpdater(
+                node: ex,
+                iconSize: iconSize,
+                scale: _scale,
+                isActive: activeIconIndex == i,
+                onIconClick: () {
+                  setState(() {
+                    if (activeIconIndex != i) {
+                      activeIconIndex = i;
+                      widget._popup.updateText(ex.description, i);
+                    } else {
+                      activeIconIndex = -1;
+                      widget._popup.updateText(
+                          "Click an exhibit to view information", -1);
+                    }
+                  });
+                },
+              ),
+            );
+            stackChildren.add(p);
+          }
+          return Center(
+            heightFactor: MediaQuery.sizeOf(context).height,
+            child: InteractiveViewer(
+              constrained: false,
+              boundaryMargin: const EdgeInsets.all(100),
+              minScale: 1,
+              maxScale: 10,
+              transformationController: _controller,
+              child: Container(
+                color: Colors.white,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: stackChildren,
+                ),
+              ),
+            ),
+          );
+        });
   }
 
-  void pan(MapNode start, MapNode end){
+  void pan(MapNode start, MapNode end) {
     //get the current scale of the map
     double scale = _controller.value.getMaxScaleOnAxis();
 
     // Adjust for the current scale (so the translation is scaled correctly)
-    double targetX =  -end.xPos*scale;
-    double targetY =  -end.yPos*scale;
+    double targetX = -end.xPos * scale;
+    double targetY = -end.yPos * scale;
 
     // Get the current transformation matrix
     Matrix4 currentMatrix = _controller.value;
@@ -143,8 +145,8 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
     Matrix4 targetMatrix = currentMatrix.clone();
 
     // Calculate the difference in position between the current view center and the target position
-    double offsetX = targetX - targetMatrix.getTranslation().x;//*scale;
-    double offsetY = targetY - targetMatrix.getTranslation().y;//*scale;
+    double offsetX = targetX - targetMatrix.getTranslation().x; //*scale;
+    double offsetY = targetY - targetMatrix.getTranslation().y; //*scale;
 
     // Apply the translation to the current matrix (while preserving scale)
     targetMatrix.setTranslationRaw(targetX, targetY, 0.0);
@@ -242,11 +244,10 @@ class FloorMapState extends State<FloorMap> with TickerProviderStateMixin {
         return transitions;
       }
     }
-  
+
     return transitions;
   }
 }
-
 
 class IconUpdater extends StatelessWidget {
   final double iconSize;
@@ -270,7 +271,12 @@ class IconUpdater extends StatelessWidget {
     return Transform.scale(
       scale: 1 / scale, // Use the passed scale to update the icon size
       child: IconButton(
-        icon: Icon(Icons.circle, color: isActive ? Colors.green : node is FloorTransitionNode ? Colors.blue : Colors.red),
+        icon: Icon(Icons.circle,
+            color: isActive
+                ? Colors.green
+                : node is FloorTransitionNode
+                    ? Colors.blue
+                    : Colors.red),
         onPressed: onIconClick, // Call the provided callback
         iconSize: iconSize, // Use the passed iconSize
       ),

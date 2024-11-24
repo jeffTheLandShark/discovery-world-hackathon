@@ -11,7 +11,7 @@ import 'exhibit_node.dart';
 import 'floor_transition_node.dart';
 
 Future<String> loadAsset() async {
-  return await rootBundle.loadString('assets/config.json');
+  return await rootBundle.loadString('assets/exhibits/exhibits.json');
 }
 
 class MainMap extends StatefulWidget {
@@ -112,6 +112,9 @@ class MainMapState extends State<MainMap> with RestorationMixin {
     return ValueListenableBuilder<List<ExhibitMapEntry>>(
       valueListenable: widget.exhibits,
       builder: (context, exhibits, child) {
+        exhibits = [ExhibitMapEntry("flight_sim", Location(-226, -31, 0), "Flight Simulator"),
+                    ExhibitMapEntry("power_on", Location(-85, -18, 0), "Power On"),
+                    ];
         for (var exhibit in exhibits) {
           widget.sections[exhibit.location.layer].key!.currentState!
               .addExhibitNode(ExhibitNode(
