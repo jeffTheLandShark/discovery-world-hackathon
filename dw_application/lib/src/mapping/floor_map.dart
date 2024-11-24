@@ -2,7 +2,6 @@ import 'dart:collection';
 
 // import 'package:dw_application/src/mapping/main_map.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 import 'floor_transition_node.dart';
 import 'map_node.dart';
